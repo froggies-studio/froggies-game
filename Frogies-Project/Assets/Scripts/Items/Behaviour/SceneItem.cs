@@ -50,14 +50,10 @@ namespace Items.Behaviour
             TextEnabled = false;
         }
 
-        public void PlayDrop(Vector2 position)
+        public void DropItem(Vector2 position)
         {
             transform.position = position;
-            Vector2 movePosition = position + new Vector2(Random.Range(-_dropRadius, _dropRadius), 0);
-            _sequence = DOTween.Sequence();
-            _sequence.Join(transform.DOMove(movePosition, _dropAnimDuration));
-            _sequence.Append(transform.DORotate(new Vector3(0,0,Random.Range(-_dropRotation, _dropRotation)), _dropAnimDuration));
-            _sequence.OnComplete(()=>TextEnabled = true);
+            TextEnabled = true;
         }
     }
 }

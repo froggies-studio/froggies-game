@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemDescriptor:
     <ItemId>k__BackingField: 10
-    <Material>k__BackingField: 4
+    <Material>k__BackingField: 3
     <Type>k__BackingField: 6
-    <ItemSprite>k__BackingField: {fileID: 21300000, guid: 394899dbf2938874ca7d1025f7598406, type: 3}
-    <ItemRarity>k__BackingField: 4
-    <Price>k__BackingField: 100
+    <ItemSprite>k__BackingField: {fileID: 21300000, guid: 83f2beb3e2ba2e347b4b0d5d63d0373b, type: 3}
+    <ItemRarity>k__BackingField: 2
+    <Price>k__BackingField: 10

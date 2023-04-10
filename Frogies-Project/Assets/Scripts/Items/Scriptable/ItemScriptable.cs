@@ -9,10 +9,5 @@ namespace Items.Scriptable
         [SerializeField] private ItemDescriptor _itemDescriptor;
         public override ItemDescriptor ItemDescriptor => _itemDescriptor;
         
-        public ItemScriptable(ItemDescriptor descriptor)
-        {
-            _itemDescriptor = descriptor;
-        }
-
     }
 }

@@ -2,23 +2,23 @@
 {
     public enum ItemId
     {
-        None = 0,
+        None,
         // Weapons
-        WoodenSword = 1,
-        WoodenShield = 2,
+        Sword,
+        Shield,
         // Armor
-        LeatherHelmet = 3,
-        LeatherChestplate = 4,
-        LeatherLeggings = 5,
-        LeatherBoots = 6,
+        Helmet,
+        Breastplate,
+        Boots,
         // Consumables
-        HealthPotion = 7,
-        ManaPotion = 8,
+        HealthPotion,
+        ManaPotion,
         // Quest
-        QuestItem = 9,
+        QuestItem,
         // Key
-        Key = 10,
+        Key,
         // Misc
-        Coin = 11
+        Coin,
+        Food
     }
 }

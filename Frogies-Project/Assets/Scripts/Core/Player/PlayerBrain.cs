@@ -1,11 +1,17 @@
+using System.Linq;
 using Animation;
 using Fighting;
 using Movement;
+using StatsSystem;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Core.Player
 {
     public class PlayerBrain
     {
+        private StatsController _statsController;
+        
         private MovementData _movementData;
         private AttacksData _attacksData;
         
@@ -24,6 +30,9 @@ namespace Core.Player
             _mover = mover;
             _attacker = attacker;
             _animation = animation;
+            var statStorage = Resources.Load<StatsStorage>($"Player/{nameof(StatsStorage)}");
+            var stats = statStorage.Stats.Select(stat => stat.GetCopy()).ToList();
+            _statsController = new StatsController(stats);
         }
 
         public void FixedUpdate()

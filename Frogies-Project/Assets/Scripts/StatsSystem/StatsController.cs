@@ -2,29 +2,29 @@
 using System.Linq;
 using StatsSystem.Enum;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace StatsSystem
 {
     public class StatsController : IStatValueGiver
     {
-        private readonly List<Stat> _currentStats;
+        private readonly Dictionary<Stat, Stat> _currentStats;
         private readonly List<StatModificator> _activeModificators;
 
-        public StatsController(List<Stat> currentStats)
+        public StatsController(Dictionary<Stat, Stat> currentStats)
         {
             _currentStats = currentStats;
             _activeModificators = new List<StatModificator>();
         }
 
-        public float GetStatsValue(StatType statType) => _currentStats.Find(stat => stat.Type == statType);
+        public float GetStatsValue(StatType statType) =>
+            _currentStats.FirstOrDefault(stat => stat.Key.Type == statType).Key;
+        
 
         public void ProcessModificator(StatModificator statModificator)
         {
-            var statToChange = _currentStats.Find(stat => stat.Type == statModificator.Stat.Type);
-            if (statToChange==null)
-            {
-                return;
-            }
+            var statToChange = _currentStats.FirstOrDefault(stat => stat.Key.Type == statModificator.Stat.Type).Key;
+            Debug.Assert(statToChange!=null);
 
             var addedValue = statModificator.Type == StatModificatorType.Additive
                 ? statToChange + statModificator.Stat
@@ -43,8 +43,8 @@ namespace StatsSystem
             }
             else
             {
-                var addedStat = new Stat(statModificator.Stat.Type, -addedValue);
-                var tempModificator = new StatModificator(addedStat, StatModificatorType.Additive,
+                var addedStat = new Stat(statModificator.Stat.Type, addedValue);
+                var tempModificator = new StatModificator(addedStat, statModificator.Type,
                     statModificator.Duration, Time.time);
                 _activeModificators.Add(tempModificator);
             }

@@ -21,7 +21,7 @@ namespace Core.Player
         private BasicAttacker _attacker;
         private PlayerAnimationController _animation;
 
-        public PlayerBrain(MovementData movementData, AttacksData attacksData, IMovementInputProvider inputMoveProvider, IFightingInputProvider inputFightingInputProvider, DirectionalMover mover, BasicAttacker attacker, PlayerAnimationController animation)
+        public PlayerBrain(MovementData movementData, AttacksData attacksData, IMovementInputProvider inputMoveProvider, IFightingInputProvider inputFightingInputProvider, DirectionalMover mover, BasicAttacker attacker, PlayerAnimationController animation, StatsStorage statsStorage)
         {
             _movementData = movementData;
             _attacksData = attacksData;
@@ -30,8 +30,7 @@ namespace Core.Player
             _mover = mover;
             _attacker = attacker;
             _animation = animation;
-            var statStorage = Resources.Load<StatsStorage>($"Player/{nameof(StatsStorage)}");
-            var stats = statStorage.Stats.Select(stat => stat.GetCopy()).ToList();
+            var stats = statsStorage.Stats.Select(stat => stat.GetCopy()).ToDictionary(stat => stat);
             _statsController = new StatsController(stats);
         }
 

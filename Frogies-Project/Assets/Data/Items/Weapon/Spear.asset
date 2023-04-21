@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Spear
   m_EditorClassIdentifier: 
   _itemDescriptor:
-    <ItemId>k__BackingField: 0
+    <ItemId>k__BackingField: 3
     <Material>k__BackingField: 1
     <Type>k__BackingField: 1
     <ItemSprite>k__BackingField: {fileID: 21300164, guid: 7810966f0f690954c87305933cabf2b0, type: 3}

@@ -46,7 +46,7 @@ namespace Core
 
         private bool isPaused = false;
 
-        public StatsStorage statsStorage;
+        private StatsStorage statsStorage;
         
         private void Awake()
         {

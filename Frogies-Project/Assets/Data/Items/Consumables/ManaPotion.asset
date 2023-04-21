@@ -15,7 +15,7 @@ MonoBehaviour:
   _itemDescriptor:
     <ItemId>k__BackingField: 8
     <Material>k__BackingField: 0
-    <Type>k__BackingField: 6
+    <Type>k__BackingField: 3
     <ItemSprite>k__BackingField: {fileID: 21300204, guid: 7810966f0f690954c87305933cabf2b0, type: 3}
     <ItemRarity>k__BackingField: 1
     <Price>k__BackingField: 100

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CopperCoin
   m_EditorClassIdentifier: 
   _itemDescriptor:
-    <ItemId>k__BackingField: 10
+    <ItemId>k__BackingField: 11
     <Material>k__BackingField: 2
     <Type>k__BackingField: 6
     <ItemSprite>k__BackingField: {fileID: 21300000, guid: 4605338a5a51383478a6b8eb3707e90c, type: 3}

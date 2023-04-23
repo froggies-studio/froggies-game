@@ -9,60 +9,60 @@ namespace StatsSystem
     public class StatsController : IStatValueGiver
     {
         private readonly Dictionary<Stat, Stat> _currentStats;
-        private readonly List<StatModificator> _activeModificators;
+        private readonly List<StatModifier> _activeModifiers;
 
         public StatsController(Dictionary<Stat, Stat> currentStats)
         {
             _currentStats = currentStats;
-            _activeModificators = new List<StatModificator>();
+            _activeModifiers = new List<StatModifier>();
         }
 
         public float GetStatsValue(StatType statType) =>
             _currentStats.FirstOrDefault(stat => stat.Key.Type == statType).Key;
         
 
-        public void ProcessModificator(StatModificator statModificator)
+        public void ProcessModifier(StatModifier statModifier)
         {
-            var statToChange = _currentStats.FirstOrDefault(stat => stat.Key.Type == statModificator.Stat.Type).Key;
+            var statToChange = _currentStats.FirstOrDefault(stat => stat.Key.Type == statModifier.Stat.Type).Key;
             Debug.Assert(statToChange!=null);
 
-            var addedValue = statModificator.Type == StatModificatorType.Additive
-                ? statToChange + statModificator.Stat
-                : statToChange * statModificator.Stat;
+            var addedValue = statModifier.Type == StatModificatorType.Additive
+                ? statToChange + statModifier.Stat
+                : statToChange * statModifier.Stat;
             
             statToChange.SetStatValue(addedValue);
 
-            if (statModificator.Duration<0)
+            if (statModifier.Duration<0)
             {
                 return;
             }
 
-            if (_activeModificators.Contains(statModificator))
+            if (_activeModifiers.Contains(statModifier))
             {
-                _activeModificators.Remove(statModificator);
+                _activeModifiers.Remove(statModifier);
             }
             else
             {
-                var addedStat = new Stat(statModificator.Stat.Type, addedValue);
-                var tempModificator = new StatModificator(addedStat, statModificator.Type,
-                    statModificator.Duration, Time.time);
-                _activeModificators.Add(tempModificator);
+                var addedStat = new Stat(statModifier.Stat.Type, addedValue);
+                var tempModificator = new StatModifier(addedStat, statModifier.Type,
+                    statModifier.Duration, Time.time);
+                _activeModifiers.Add(tempModificator);
             }
         }
 
         private void OnUpdate()
         {
-            if (_activeModificators.Count == 0 )
+            if (_activeModifiers.Count == 0 )
             {
                 return;
             }
 
-            var expiredModificators =
-                _activeModificators.Where(modificator => modificator.StartTime + modificator.Duration >= Time.time);
+            var expiredModifiers =
+                _activeModifiers.Where(modificator => modificator.StartTime + modificator.Duration >= Time.time);
 
-            foreach (var modificator in expiredModificators)
+            foreach (var modificator in expiredModifiers)
             {
-                ProcessModificator(modificator);
+                ProcessModifier(modificator);
             }
         }
     }

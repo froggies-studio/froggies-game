@@ -5,8 +5,10 @@ using Core.Player;
 using Fighting;
 using Items;
 using Items.Behaviour;
+using Items.Enum;
 using Items.Rarity;
 using Items.Scriptable;
+using Items.Storage;
 using JetBrains.Annotations;
 using Movement;
 using StatsSystem;
@@ -26,6 +28,8 @@ namespace Core
         [SerializeField] private DirectionalMover player;
         [SerializeField] private AnimationStateManager animationStateManager;
         [SerializeField] private Transform spriteFlipper;
+        
+        [SerializeField] private ItemsStorage itemsStorage;
         [SerializeField] private BasePrefabsStorage prefabsStorage;
         [SerializeField] private ItemRarityDescriptorStorage itemRarityDescriptor;
         
@@ -38,10 +42,11 @@ namespace Core
 
         private PlayerBrain _playerBrain;
         private ItemSystem _sceneItemStorage;
+        private DropGenerator _dropGenerator;
 
         private bool isPaused = false;
 
-        public StatsStorage statsStorage;
+        private StatsStorage statsStorage;
         
         private void Awake()
         {
@@ -65,15 +70,24 @@ namespace Core
                 itemRarityDescriptor.RarityDescriptor.Cast<IItemRarityColor>().ToArray(), 
                 factory);
             
-
+            var descriptors = itemsStorage.ItemScriptables.Select(scriptable => scriptable.ItemDescriptor).ToList();
+            _dropGenerator = new DropGenerator(player, _sceneItemStorage, descriptors);
         }
 
+        private void Update()
+        {
+            if(isPaused)
+                return;
+            
+            _dropGenerator.Update();
+        }
+        
         private void FixedUpdate()
         {
             if(isPaused)
                 return;
             
-            _playerBrain.FixedUpdate();   
+            _playerBrain.FixedUpdate();
         }
     }
 }

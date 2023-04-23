@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Apple
   m_EditorClassIdentifier: 
   _itemDescriptor:
-    <ItemId>k__BackingField: 0
+    <ItemId>k__BackingField: 12
     <Material>k__BackingField: 0
-    <Type>k__BackingField: 0
+    <Type>k__BackingField: 6
     <ItemSprite>k__BackingField: {fileID: 0}
     <ItemRarity>k__BackingField: 0
     <Price>k__BackingField: 0

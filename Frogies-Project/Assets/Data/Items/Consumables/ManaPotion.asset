@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c61f1e2797a644ef9c8e910f9709df19, type: 3}
-  m_Name: WoodenArmor
+  m_Name: ManaPotion
   m_EditorClassIdentifier: 
   _itemDescriptor:
-    <ItemId>k__BackingField: 5
-    <Material>k__BackingField: 1
-    <Type>k__BackingField: 2
-    <ItemSprite>k__BackingField: {fileID: 21300000, guid: 541ae020fad5efc48a89a38c6218a601, type: 3}
-    <ItemRarity>k__BackingField: 2
-    <Price>k__BackingField: 500
+    <ItemId>k__BackingField: 8
+    <Material>k__BackingField: 0
+    <Type>k__BackingField: 3
+    <ItemSprite>k__BackingField: {fileID: 21300204, guid: 7810966f0f690954c87305933cabf2b0, type: 3}
+    <ItemRarity>k__BackingField: 1
+    <Price>k__BackingField: 100

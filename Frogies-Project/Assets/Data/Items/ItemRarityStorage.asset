@@ -22,12 +22,12 @@ MonoBehaviour:
   - <Rarity>k__BackingField: 2
     <Sprite>k__BackingField: {fileID: 0}
     <Color>k__BackingField: {r: 0.37545386, g: 0.6463329, b: 0.8396226, a: 1}
-  - <Rarity>k__BackingField: 0
-    <Sprite>k__BackingField: {fileID: 0}
-    <Color>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
   - <Rarity>k__BackingField: 3
     <Sprite>k__BackingField: {fileID: 0}
     <Color>k__BackingField: {r: 0.7924528, g: 0.22763465, b: 0.077750064, a: 1}
+  - <Rarity>k__BackingField: 4
+    <Sprite>k__BackingField: {fileID: 0}
+    <Color>k__BackingField: {r: 0.9056604, g: 0.2853684, b: 0.8083168, a: 1}
   - <Rarity>k__BackingField: 5
     <Sprite>k__BackingField: {fileID: 0}
-    <Color>k__BackingField: {r: 0.9624436, g: 1, b: 0.135849, a: 1}
+    <Color>k__BackingField: {r: 0.9449434, g: 1, b: 0.51320755, a: 1}

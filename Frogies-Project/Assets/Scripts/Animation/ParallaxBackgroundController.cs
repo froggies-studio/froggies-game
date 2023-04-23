@@ -21,7 +21,7 @@ namespace Animation
             _lastCameraPosition = GlobalSceneManager.Instance.GlobalCamera.transform.position;
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             Vector3 cameraPosition = GlobalSceneManager.Instance.GlobalCamera.transform.position;
             Vector3 delta = cameraPosition - _lastCameraPosition;

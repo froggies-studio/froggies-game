@@ -6,6 +6,7 @@
         // Weapons
         Sword,
         Shield,
+        Spear,
         // Armor
         Helmet,
         Breastplate,

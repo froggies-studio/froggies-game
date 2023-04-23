@@ -13,10 +13,7 @@ namespace Items.Behaviour
         [SerializeField] private Button _button;
         [SerializeField] private Canvas _canvas;
 
-        [Header("DropAnimation")]
-        [SerializeField] private float _dropRadius;
-        [SerializeField] private float _dropRotation;
-        [SerializeField] private float _dropAnimDuration;
+        [SerializeField] private float _interactionDistance = 2;
 
         public event Action<SceneItem> ItemClicked;
         public bool TextEnabled {
@@ -28,6 +25,9 @@ namespace Items.Behaviour
                 _canvas.enabled = value;
             }
         }
+
+        public float InteractionDistance => _interactionDistance;
+
         private bool _textEnabled = true;
 
         private Sequence _sequence;
@@ -39,6 +39,12 @@ namespace Items.Behaviour
         private void OnMouseDown()
         {
             ItemClicked?.Invoke(this);
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, _interactionDistance);
         }
 
         public void SetItem(Sprite sprite, string itemName, Color textColor)

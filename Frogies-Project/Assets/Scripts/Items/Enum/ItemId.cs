@@ -12,8 +12,8 @@
         Breastplate,
         Boots,
         // Consumables
-        HealthPotion,
-        ManaPotion,
+        PowerPotion,
+        DepowerPotion,
         // Quest
         QuestItem,
         // Key

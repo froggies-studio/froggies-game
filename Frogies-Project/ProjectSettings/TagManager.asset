@@ -8,11 +8,11 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
+  - Ground
+  - Loot
   - 
   - 
   - 
@@ -38,6 +38,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: ParalaxBg
+    uniqueID: 837515739
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: ParalaxFg
+    uniqueID: 3478511029
     locked: 0

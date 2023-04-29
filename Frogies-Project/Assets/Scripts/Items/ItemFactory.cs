@@ -14,8 +14,8 @@ namespace Items
                 case ItemType.Consumable:
                     switch (descriptor.ItemId)
                     {
-                        case ItemId.HealthPotion:
-                        case ItemId.ManaPotion:
+                        case ItemId.DepowerPotion:
+                        case ItemId.PowerPotion:
                             return new Potion(descriptor);
                         default:
                             throw new NullReferenceException($"Item ID: '{descriptor.ItemId}' is not supported");

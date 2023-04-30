@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using StatsSystem.Enum;
 using UnityEngine;
@@ -8,6 +9,8 @@ namespace StatsSystem
 {
     public class StatsController : IStatValueGiver
     {
+        public event Action<Stat> OnStatChanged;
+        
         private readonly Dictionary<Stat, Stat> _currentStats;
         private readonly List<StatModifier> _activeModifiers;
 
@@ -48,6 +51,8 @@ namespace StatsSystem
                     statModifier.Duration, Time.time);
                 _activeModifiers.Add(tempModificator);
             }
+            
+            if (OnStatChanged != null) OnStatChanged.Invoke(statToChange);
         }
 
         private void OnUpdate()

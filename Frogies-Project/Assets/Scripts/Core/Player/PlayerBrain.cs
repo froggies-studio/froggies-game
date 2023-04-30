@@ -3,7 +3,9 @@ using Animation;
 using Fighting;
 using Movement;
 using StatsSystem;
+using StatsSystem.Health;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Core.Player
@@ -11,6 +13,7 @@ namespace Core.Player
     public class PlayerBrain
     {
         private StatsController _statsController;
+        private HealthSystem _healthSystem;
         
         private MovementData _movementData;
         private AttacksData _attacksData;
@@ -20,6 +23,8 @@ namespace Core.Player
         private DirectionalMover _mover;
         private BasicAttacker _attacker;
         private PlayerAnimationController _animation;
+
+        public StatsController StatsController => _statsController;
 
         public PlayerBrain(MovementData movementData, AttacksData attacksData, IMovementInputProvider inputMoveProvider, IFightingInputProvider inputFightingInputProvider, DirectionalMover mover, BasicAttacker attacker, PlayerAnimationController animation, StatsStorage statsStorage)
         {
@@ -32,6 +37,7 @@ namespace Core.Player
             _animation = animation;
             var stats = statsStorage.Stats.Select(stat => stat.GetCopy()).ToDictionary(stat => stat);
             _statsController = new StatsController(stats);
+            _healthSystem = new HealthSystem(_statsController);
         }
 
         public void FixedUpdate()

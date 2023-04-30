@@ -12,6 +12,7 @@ using Items.Storage;
 using JetBrains.Annotations;
 using Movement;
 using StatsSystem;
+using StatsSystem.Health;
 using UnityEngine;
 
 namespace Core
@@ -32,6 +33,8 @@ namespace Core
         [SerializeField] private ItemsStorage itemsStorage;
         [SerializeField] private BasePrefabsStorage prefabsStorage;
         [SerializeField] private ItemRarityDescriptorStorage itemRarityDescriptor;
+
+        [SerializeField] private HealthBar playerHealthBar;
         
         public PlayerInputActions Input { get; private set; }
         [CanBeNull] public Camera GlobalCamera { get; set; }
@@ -63,6 +66,7 @@ namespace Core
             BasicAttacker attacker = new BasicAttacker();
             statsStorage = Resources.Load<StatsStorage>($"Player/{nameof(StatsStorage)}");
             _playerBrain = new PlayerBrain(_movementData, _attacksData, moveInputReader, fightInputReader, player, attacker, playerAnimation, statsStorage);
+            playerHealthBar.Setup(_playerBrain.StatsController);
 
             ItemFactory factory = new ItemFactory();
             _sceneItemStorage = new ItemSystem(

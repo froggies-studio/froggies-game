@@ -15,6 +15,7 @@ namespace StatsSystem.Health
         {
             _statsController = statsController;
             _statsController.OnStatChanged += StatsController_OnStatChanged;
+            currentHealthText.text = _statsController.GetStatsValue(StatType.MaxHealth).ToString();
         }
 
         private void StatsController_OnStatChanged(Stat stat)

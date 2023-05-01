@@ -10,16 +10,14 @@ namespace StatsSystem.Health
         public event EventHandler OnDead;
         
         private StatsController _statsController;
-        private float _maxHealth;
 
         public HealthSystem(StatsController statsController)
         {
             _statsController = statsController;
-            _maxHealth = _statsController.GetStatsValue(StatType.MaxHealth);
         }
 
         public float GetHealth() => _statsController.GetStatsValue(StatType.Health);
-        public float GetHealthPercent() =>  GetHealth() / _maxHealth;
+        public float GetHealthPercent() =>  GetHealth() / _statsController.GetStatsValue(StatType.MaxHealth);
         public bool IsDead => GetHealth() <= 0;
         
         public void TakeDamage(float damage)
@@ -31,12 +29,12 @@ namespace StatsSystem.Health
                 new Stat(StatType.Health, -damage), StatModificatorType.Additive, -1, Time.time));
             
             if(OnHealthChanged != null) OnHealthChanged(this, EventArgs.Empty);
-            if (IsDead && OnDead != null) OnDead(this, EventArgs.Empty);
+            if (damage >= maxDamage && OnDead != null) OnDead(this, EventArgs.Empty);
         }
 
         public void Heal(float healAmount)
         {
-            float maxHealAmount = _maxHealth - GetHealth();
+            float maxHealAmount = _statsController.GetStatsValue(StatType.MaxHealth) - GetHealth();
             healAmount = maxHealAmount > healAmount ? healAmount : maxHealAmount;
             
             _statsController.ProcessModifier(new StatModifier(
@@ -47,8 +45,6 @@ namespace StatsSystem.Health
 
         public void Scale(float scale)
         {
-            _maxHealth *= scale;
-            
             _statsController.ProcessModifier(new StatModifier(
                 new Stat(StatType.MaxHealth, scale), StatModificatorType.Multiplier, -1, Time.time));
             

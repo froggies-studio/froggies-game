@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Animation;
 using Core.Player;
 using Fighting;
 using Items;
 using Items.Behaviour;
+using Items.Data;
 using Items.Enum;
 using Items.Rarity;
 using Items.Scriptable;
@@ -64,11 +66,11 @@ namespace Core
             PlayerFightInputReader fightInputReader = new PlayerFightInputReader(Input, _attacksData);
             PlayerAnimationController playerAnimation = new PlayerAnimationController(animationStateManager, spriteFlipper);
             BasicAttacker attacker = new BasicAttacker();
-            statsStorage = Resources.Load<StatsStorage>($"Player/{nameof(StatsStorage)}");
+            statsStorage = prefabsStorage.StatsStorage;
             _playerBrain = new PlayerBrain(_movementData, _attacksData, moveInputReader, fightInputReader, player, attacker, playerAnimation, statsStorage);
             playerHealthBar.Setup(_playerBrain.StatsController);
 
-            ItemFactory factory = new ItemFactory();
+            ItemFactory factory = new ItemFactory(_playerBrain.StatsController);
             _sceneItemStorage = new ItemSystem(
                 PrefabsStorage.SceneItemPrefab.GetComponent<SceneItem>(), 
                 itemRarityDescriptor.RarityDescriptor.Cast<IItemRarityColor>().ToArray(), 

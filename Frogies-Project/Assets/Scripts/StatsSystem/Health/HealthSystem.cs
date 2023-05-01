@@ -7,6 +7,7 @@ namespace StatsSystem.Health
     public class HealthSystem
     {
         public event EventHandler OnHealthChanged;
+        public event EventHandler OnDead;
         
         private StatsController _statsController;
         private float _maxHealth;
@@ -30,6 +31,7 @@ namespace StatsSystem.Health
                 new Stat(StatType.Health, -damage), StatModificatorType.Additive, -1, Time.time));
             
             if(OnHealthChanged != null) OnHealthChanged(this, EventArgs.Empty);
+            if (IsDead && OnDead != null) OnDead(this, EventArgs.Empty);
         }
 
         public void Heal(float healAmount)

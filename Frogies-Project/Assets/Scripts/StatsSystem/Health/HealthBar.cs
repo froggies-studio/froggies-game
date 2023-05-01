@@ -2,11 +2,13 @@
 using Core;
 using StatsSystem.Enum;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace StatsSystem.Health
 {
     public class HealthBar : MonoBehaviour
     {
+        [SerializeField] private Transform scale;
         private StatsController _statsController;
         
         public void Setup(StatsController statsController)
@@ -20,8 +22,8 @@ namespace StatsSystem.Health
             if (stat.Type == StatType.Health)
             {
                 float percent = stat.Value / _statsController.GetStatsValue(StatType.MaxHealth);
-                transform.Find("Scale").localScale = new Vector3(percent, 1);
-
+                scale.localScale = new Vector3(percent, 1);
+                Debug.Log("Health changed!");
             }
         }
     }

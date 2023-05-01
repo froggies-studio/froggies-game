@@ -1,3 +1,4 @@
+using StatsSystem;
 using UnityEngine;
 
 namespace Core
@@ -6,7 +7,9 @@ namespace Core
     public class BasePrefabsStorage : ScriptableObject
     {
         [SerializeField] private GameObject _sceneItemPrefab;
+        [SerializeField] private StatsStorage _statsStorage;
         
         public GameObject SceneItemPrefab => _sceneItemPrefab;
+        public StatsStorage StatsStorage => _statsStorage;
     }
 }

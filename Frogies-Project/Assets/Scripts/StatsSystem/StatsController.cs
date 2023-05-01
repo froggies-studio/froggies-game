@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using StatsSystem.Enum;
 using UnityEngine;
-using UnityEngine.Assertions;
 
 namespace StatsSystem
 {
@@ -34,6 +33,7 @@ namespace StatsSystem
                 : statToChange * statModifier.Stat;
             
             statToChange.SetStatValue(addedValue);
+            if (OnStatChanged != null) OnStatChanged.Invoke(statToChange);
 
             if (statModifier.Duration<0)
             {
@@ -51,8 +51,6 @@ namespace StatsSystem
                     statModifier.Duration, Time.time);
                 _activeModifiers.Add(tempModificator);
             }
-            
-            if (OnStatChanged != null) OnStatChanged.Invoke(statToChange);
         }
 
         private void OnUpdate()

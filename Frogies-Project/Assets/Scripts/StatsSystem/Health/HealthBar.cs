@@ -1,14 +1,14 @@
 ﻿using System;
-using Core;
 using StatsSystem.Enum;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace StatsSystem.Health
 {
     public class HealthBar : MonoBehaviour
     {
         [SerializeField] private Transform scale;
+        [SerializeField] private TMP_Text currentHealthText;
         private StatsController _statsController;
         
         public void Setup(StatsController statsController)
@@ -23,7 +23,7 @@ namespace StatsSystem.Health
             {
                 float percent = stat.Value / _statsController.GetStatsValue(StatType.MaxHealth);
                 scale.localScale = new Vector3(percent, 1);
-                Debug.Log("Health changed!");
+                currentHealthText.text = Math.Round(stat.Value).ToString();
             }
         }
     }

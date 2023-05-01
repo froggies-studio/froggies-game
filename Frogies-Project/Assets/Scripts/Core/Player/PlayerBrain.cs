@@ -3,6 +3,7 @@ using Animation;
 using Fighting;
 using Movement;
 using StatsSystem;
+using StatsSystem.Endurance;
 using StatsSystem.Health;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,6 +15,7 @@ namespace Core.Player
     {
         private StatsController _statsController;
         private HealthSystem _healthSystem;
+        private EnduranceSystem _enduranceSystem;
         
         private MovementData _movementData;
         private AttacksData _attacksData;
@@ -38,6 +40,7 @@ namespace Core.Player
             var stats = statsStorage.Stats.Select(stat => stat.GetCopy()).ToDictionary(stat => stat);
             _statsController = new StatsController(stats);
             _healthSystem = new HealthSystem(_statsController);
+            _enduranceSystem = new EnduranceSystem(_statsController);
         }
 
         public void FixedUpdate()
@@ -46,13 +49,13 @@ namespace Core.Player
             
             _mover.RunGroundCheck();
             _mover.CalculateHorizontalSpeed(_inputMoveProvider.Input, _movementData);
-            _mover.CalculateJump(_inputMoveProvider.Input, _movementData);
+            _mover.CalculateJump(_inputMoveProvider.Input, _movementData, _enduranceSystem);
 
             AttackInfo? info = null;
             _attacker.UpdateRechargeTimer(_attacksData);
             if(_attacker.IsAbleToAttack && _inputFightingInputProvider.ActiveAttackIndex != -1)
             {
-                _attacker.Attack(_inputFightingInputProvider.ActiveAttackIndex, _attacksData);
+                _attacker.Attack(_inputFightingInputProvider.ActiveAttackIndex, _attacksData, _enduranceSystem);
                 info = _attacksData.Attacks[_inputFightingInputProvider.ActiveAttackIndex];
             }
 
@@ -60,6 +63,12 @@ namespace Core.Player
             
             _inputMoveProvider.ResetOneTimeActions();
             _inputFightingInputProvider.ResetAttackIndex(_inputFightingInputProvider.ActiveAttackIndex);
+        }
+
+        public void Update()
+        {
+            _enduranceSystem.RestoreEndurance();
+            _enduranceSystem.SetCurrentEndurance();
         }
     }
 }

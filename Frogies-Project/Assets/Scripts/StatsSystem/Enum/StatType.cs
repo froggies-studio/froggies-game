@@ -8,6 +8,7 @@
         Damage,
         Endurance,
         MaxEndurance,
+        EnduranceRechargeRate,
         MovementSpeed,
         AttackSpeed,
         JumpForce

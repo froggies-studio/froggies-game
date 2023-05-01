@@ -14,9 +14,11 @@ namespace StatsSystem.Health
         public HealthSystem(StatsController statsController)
         {
             _statsController = statsController;
+            _statsController.OnStatChanged += StatsController_OnStatChanged;
         }
 
         public float GetHealth() => _statsController.GetStatsValue(StatType.Health);
+        public float GetMaxHealth() => _statsController.GetStatsValue(StatType.MaxHealth);
         public float GetHealthPercent() =>  GetHealth() / _statsController.GetStatsValue(StatType.MaxHealth);
         public bool IsDead => GetHealth() <= 0;
         
@@ -34,7 +36,7 @@ namespace StatsSystem.Health
 
         public void Heal(float healAmount)
         {
-            float maxHealAmount = _statsController.GetStatsValue(StatType.MaxHealth) - GetHealth();
+            float maxHealAmount = GetMaxHealth() - GetHealth();
             healAmount = maxHealAmount > healAmount ? healAmount : maxHealAmount;
             
             _statsController.ProcessModifier(new StatModifier(
@@ -52,6 +54,27 @@ namespace StatsSystem.Health
                 new Stat(StatType.Health, scale), StatModificatorType.Multiplier, -1, Time.time));
             
             if(OnHealthChanged != null) OnHealthChanged(this, EventArgs.Empty);
+        }
+        
+        private void StatsController_OnStatChanged(Stat stat)
+        {
+            if (stat.Type == StatType.Health)
+            {
+                float maxHealth = GetMaxHealth();
+                if (stat.Value > maxHealth)
+                {
+                    _statsController.ProcessModifier(new StatModifier(
+                        new Stat(StatType.Health, maxHealth-stat.Value), StatModificatorType.Additive, -1, Time.time));
+                    return;
+                }
+
+                if (stat.Value <=0 )
+                {
+                    _statsController.ProcessModifier(new StatModifier(
+                        new Stat(StatType.Health, 0), StatModificatorType.Multiplier, -1, Time.time));
+                    if (OnDead != null) OnDead(this, EventArgs.Empty);
+                }
+            }
         }
     }
 }

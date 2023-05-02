@@ -2,11 +2,19 @@ using System;
 using Items.Core;
 using Items.Data;
 using Items.Enum;
+using StatsSystem;
 
 namespace Items
 {
     public class ItemFactory
     {
+        private StatsController _statsController;
+        
+        public ItemFactory(StatsController statsController)
+        {
+            _statsController = statsController;
+        }
+        
         public Item CreateItem(ItemDescriptor descriptor)
         {
             switch (descriptor.Type)
@@ -16,7 +24,7 @@ namespace Items
                     {
                         case ItemId.DepowerPotion:
                         case ItemId.PowerPotion:
-                            return new Potion(descriptor);
+                            return new Potion((StatChangingItemDescriptor)descriptor, _statsController);
                         default:
                             throw new NullReferenceException($"Item ID: '{descriptor.ItemId}' is not supported");
                     }

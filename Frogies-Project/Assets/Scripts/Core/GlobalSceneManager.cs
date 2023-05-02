@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Animation;
 using Core.Player;
 using Fighting;
 using Items;
 using Items.Behaviour;
+using Items.Data;
 using Items.Enum;
 using Items.Rarity;
 using Items.Scriptable;
@@ -12,6 +14,8 @@ using Items.Storage;
 using JetBrains.Annotations;
 using Movement;
 using StatsSystem;
+using StatsSystem.Endurance;
+using StatsSystem.Health;
 using UnityEngine;
 
 namespace Core
@@ -32,6 +36,9 @@ namespace Core
         [SerializeField] private ItemsStorage itemsStorage;
         [SerializeField] private BasePrefabsStorage prefabsStorage;
         [SerializeField] private ItemRarityDescriptorStorage itemRarityDescriptor;
+
+        [SerializeField] private HealthBar playerHealthBar;
+        [SerializeField] private EnduranceControlBar _enduranceControlBar;
         
         public PlayerInputActions Input { get; private set; }
         [CanBeNull] public Camera GlobalCamera { get; set; }
@@ -61,10 +68,12 @@ namespace Core
             PlayerFightInputReader fightInputReader = new PlayerFightInputReader(Input, _attacksData);
             PlayerAnimationController playerAnimation = new PlayerAnimationController(animationStateManager, spriteFlipper);
             BasicAttacker attacker = new BasicAttacker();
-            statsStorage = Resources.Load<StatsStorage>($"Player/{nameof(StatsStorage)}");
+            statsStorage = prefabsStorage.StatsStorage;
             _playerBrain = new PlayerBrain(_movementData, _attacksData, moveInputReader, fightInputReader, player, attacker, playerAnimation, statsStorage);
+            playerHealthBar.Setup(_playerBrain.StatsController);
+            _enduranceControlBar.Setup(_playerBrain.StatsController);
 
-            ItemFactory factory = new ItemFactory();
+            ItemFactory factory = new ItemFactory(_playerBrain.StatsController);
             _sceneItemStorage = new ItemSystem(
                 PrefabsStorage.SceneItemPrefab.GetComponent<SceneItem>(), 
                 itemRarityDescriptor.RarityDescriptor.Cast<IItemRarityColor>().ToArray(), 
@@ -80,6 +89,7 @@ namespace Core
                 return;
             
             _dropGenerator.Update();
+            _playerBrain.Update();
         }
         
         private void FixedUpdate()

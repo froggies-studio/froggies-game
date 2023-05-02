@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
+using StatsSystem.Endurance;
 using UnityEngine;
 
 namespace Movement
 {
     public class DirectionalMover : MonoBehaviour
     {
+        [SerializeField] private float _amountOfEndurance = 10;
         [Header("COLLISION")]
         [SerializeField] private LayerMask _groundLayer;
         [SerializeField] private int _detectorCount = 3;
@@ -95,8 +97,12 @@ namespace Movement
     
         #region Jump
     
-        public void CalculateJump(MovementInput input, MovementData data)
+        public void CalculateJump(MovementInput input, MovementData data, EnduranceSystem enduranceSystem)
         {
+            if (!enduranceSystem.CheckEnduranceAbility(_amountOfEndurance))
+            {
+                return;
+            }
             float currentVerticalSpeed = rigidbody.velocity.y;
             
             if (currentVerticalSpeed < data.FallClamp) 
@@ -107,6 +113,7 @@ namespace Movement
             
             if (input.JumpDown && CanUseCoyote || HasBufferedJump)
             {
+                enduranceSystem.UseEndurance(_amountOfEndurance);
                 currentVerticalSpeed = data.JumpVelocity;
                 _endedJumpEarly = false;
                 _coyoteUsable = false;

@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using StatsSystem.Enum;
 using UnityEngine;
-using UnityEngine.Assertions;
 
 namespace StatsSystem
 {
     public class StatsController : IStatValueGiver
     {
+        public event Action<Stat> OnStatChanged;
+        
         private readonly Dictionary<Stat, Stat> _currentStats;
         private readonly List<StatModifier> _activeModifiers;
 
@@ -31,6 +33,7 @@ namespace StatsSystem
                 : statToChange * statModifier.Stat;
             
             statToChange.SetStatValue(addedValue);
+            if (OnStatChanged != null) OnStatChanged.Invoke(statToChange);
 
             if (statModifier.Duration<0)
             {

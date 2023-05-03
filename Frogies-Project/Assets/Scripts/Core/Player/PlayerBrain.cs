@@ -42,7 +42,7 @@ namespace Core.Player
             zero.X = 0;
         }
 
-        private MovementInput zero = new MovementInput();
+        private MovementInput zero = new MovementInput(){X = 0};
         public void FixedUpdate()
         {
             _mover.RunGroundCheck();

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: PlayerAttacksData
   m_EditorClassIdentifier: 
   attacks:
-  - animationState: 1
+  - animationState: 2
     rechargeTime: 0.4
     damageAmount: 12
-  - animationState: 2
+  - animationState: 3
     rechargeTime: 0.8
     damageAmount: 27
   rechargeTimerMultiplayer: 1

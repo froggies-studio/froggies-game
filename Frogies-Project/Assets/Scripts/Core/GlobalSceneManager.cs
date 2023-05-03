@@ -67,9 +67,8 @@ namespace Core
             PlayerMoveInputReader moveInputReader = new PlayerMoveInputReader(Input);
             PlayerFightInputReader fightInputReader = new PlayerFightInputReader(Input, _attacksData);
             PlayerAnimationController playerAnimation = new PlayerAnimationController(animationStateManager, spriteFlipper);
-            BasicAttacker attacker = new BasicAttacker();
             statsStorage = prefabsStorage.StatsStorage;
-            _playerBrain = new PlayerBrain(_movementData, _attacksData, moveInputReader, fightInputReader, player, attacker, playerAnimation, statsStorage);
+            _playerBrain = new PlayerBrain(_movementData, _attacksData, moveInputReader, fightInputReader, player, playerAnimation, statsStorage);
             playerHealthBar.Setup(_playerBrain.StatsController);
             _enduranceControlBar.Setup(_playerBrain.StatsController);
 

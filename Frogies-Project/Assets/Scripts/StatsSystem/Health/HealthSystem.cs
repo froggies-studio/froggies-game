@@ -68,7 +68,7 @@ namespace StatsSystem.Health
                     return;
                 }
 
-                if (stat.Value <=0 )
+                if (stat.Value <0 )
                 {
                     _statsController.ProcessModifier(new StatModifier(
                         new Stat(StatType.Health, 0), StatModificatorType.Multiplier, -1, Time.time));

@@ -14,6 +14,7 @@ using Items.Storage;
 using JetBrains.Annotations;
 using Movement;
 using StatsSystem;
+using StatsSystem.Endurance;
 using StatsSystem.Health;
 using UnityEngine;
 
@@ -37,6 +38,7 @@ namespace Core
         [SerializeField] private ItemRarityDescriptorStorage itemRarityDescriptor;
 
         [SerializeField] private HealthBar playerHealthBar;
+        [SerializeField] private EnduranceControlBar _enduranceControlBar;
         
         public PlayerInputActions Input { get; private set; }
         [CanBeNull] public Camera GlobalCamera { get; set; }
@@ -69,6 +71,7 @@ namespace Core
             statsStorage = prefabsStorage.StatsStorage;
             _playerBrain = new PlayerBrain(_movementData, _attacksData, moveInputReader, fightInputReader, player, attacker, playerAnimation, statsStorage);
             playerHealthBar.Setup(_playerBrain.StatsController);
+            _enduranceControlBar.Setup(_playerBrain.StatsController);
 
             ItemFactory factory = new ItemFactory(_playerBrain.StatsController);
             _sceneItemStorage = new ItemSystem(
@@ -86,6 +89,7 @@ namespace Core
                 return;
             
             _dropGenerator.Update();
+            _playerBrain.Update();
         }
         
         private void FixedUpdate()

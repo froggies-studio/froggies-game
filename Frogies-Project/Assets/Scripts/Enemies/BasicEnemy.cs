@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Animation;
 using Core;
 using Core.Player;
@@ -9,12 +8,16 @@ using StatsSystem;
 using StatsSystem.Endurance;
 using StatsSystem.Health;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Enemies
 {
     public class BasicEnemy : MonoBehaviour
     {
-        public BasePrefabsStorage prefabsStorage;
+        [SerializeField] private DirectionalMover _mover;
+        [SerializeField] private MovementData _movementData;
+        
+        public StatsStorage statsStorage;
         public AnimationStateManager AnimationState;
         public Transform SpriteFlipper;
         public Transform Player;
@@ -22,12 +25,10 @@ namespace Enemies
         private HealthSystem _healthSystem;
         private EnduranceSystem _enduranceSystem;
 
-        [SerializeField] private MovementData _movementData;
-        private AttacksData _attacksData;
+         public AttacksData attacksData;
 
         private EnemyMovementInput _inputMoveProvider;
-        private IFightingInputProvider _inputFightingInputProvider;
-        [SerializeField] private DirectionalMover _mover;
+        private EnemyInputFightingProvider _inputFightingInputProvider;
         private BasicAttacker _attacker;
         private PlayerBrain _brain;
         private PlayerAnimationController _animation;
@@ -35,7 +36,6 @@ namespace Enemies
 
         private void Awake()
         {
-            var statsStorage = prefabsStorage.StatsStorage;
             var stats = statsStorage.Stats.Select(stat => stat.GetCopy()).ToDictionary(stat => stat);
             _statsController = new StatsController(stats);
             _healthSystem = new HealthSystem(_statsController);
@@ -47,14 +47,18 @@ namespace Enemies
 
             _animation = new PlayerAnimationController(AnimationState, SpriteFlipper);
             
-            _brain = new PlayerBrain(_movementData, _attacksData, _inputMoveProvider, _inputFightingInputProvider, _mover, _animation, statsStorage);
+            _brain = new PlayerBrain(_movementData, attacksData, _inputMoveProvider, _inputFightingInputProvider, _mover, _animation, statsStorage);
         }
 
         private void Update()
         {
-            _inputMoveProvider.CalculateHorizontalInput();
+            _inputFightingInputProvider.CalculateAttackInput(IsInAttackRange);
+            _inputMoveProvider.CalculateHorizontalInput(IsInAttackRange);
             _brain.Update();
         }
+
+        private float _attackRange = 1.5f;
+        private bool IsInAttackRange => Mathf.Abs(Player.transform.position.x-transform.position.x) < _attackRange;
 
         private void FixedUpdate()
         {
@@ -67,7 +71,7 @@ namespace Enemies
             switch (animationState)
             {
                 case PlayerAnimationState.Attack:
-                    Debug.Log("I am attacking");
+                    Debug.Log("Attack performed");
                     return;
             }
         }

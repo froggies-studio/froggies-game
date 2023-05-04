@@ -1,4 +1,5 @@
-﻿using Fighting;
+﻿using System;
+using Fighting;
 
 namespace Enemies
 {
@@ -9,6 +10,16 @@ namespace Enemies
         public void ResetAttackIndex(int index)
         {
             ActiveAttackIndex = -1;
+        }
+
+        public void CalculateAttackInput(bool isInAttackRange)
+        {
+            if (!isInAttackRange)
+            {
+                return;
+            }
+            
+            ActiveAttackIndex = 0;
         }
     }
 }

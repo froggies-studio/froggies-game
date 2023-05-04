@@ -26,13 +26,15 @@ namespace Enemies
             };
         }
 
-        public void CalculateHorizontalInput()
+        public void CalculateHorizontalInput(bool inAttackRange)
         {
             Input = new MovementInput
             {
                 JumpDown = false,
                 JumpUp = false,
-                X = Mathf.Clamp(_playerTransform.position.x - _enemyTransform.position.x,-1f,1f)
+                X = inAttackRange 
+                    ? 0 
+                    : Mathf.Clamp(_playerTransform.position.x - _enemyTransform.position.x, -1f, 1f)
             };
         }
     }

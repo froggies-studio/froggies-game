@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Animation;
 using Core;
+using Core.Player;
 using Fighting;
 using Movement;
 using StatsSystem;
@@ -27,7 +29,9 @@ namespace Enemies
         private IFightingInputProvider _inputFightingInputProvider;
         [SerializeField] private DirectionalMover _mover;
         private BasicAttacker _attacker;
+        private PlayerBrain _brain;
         private PlayerAnimationController _animation;
+
 
         private void Awake()
         {
@@ -39,64 +43,24 @@ namespace Enemies
             _inputMoveProvider = new EnemyMovementInput(Player, this.transform);
             _attacker = new BasicAttacker(_enduranceSystem);
             AnimationState.AnimationPerformed += OnAnimationPerformed;
+            _inputFightingInputProvider = new EnemyInputFightingProvider();
 
             _animation = new PlayerAnimationController(AnimationState, SpriteFlipper);
+            
+            _brain = new PlayerBrain(_movementData, _attacksData, _inputMoveProvider, _inputFightingInputProvider, _mover, _animation, statsStorage);
         }
 
         private void Update()
         {
-            if (Input.GetKeyUp(KeyCode.K))
-            {
-                Debug.Log("Key pressed");
-                var testAttackInfo = new AttackInfo() { animationState = PlayerAnimationState.Attack };
-                _animation.UpdateAnimationSystem(_inputMoveProvider.Input,
-                    testAttackInfo,
-                    Vector2.zero,
-                    true,
-                    true);
-            }
-            // else
-            // {
-            //     _animation.UpdateAnimationSystem(_inputMoveProvider.Input,
-            //         null,
-            //         Vector2.zero,
-            //         true,
-            //         _healthSystem.IsDead);
-            // }
-
-
             _inputMoveProvider.CalculateHorizontalInput();
+            _brain.Update();
         }
-
-        private MovementInput zero = new MovementInput() { X = 0 };
 
         private void FixedUpdate()
         {
-            _mover.RunGroundCheck();
-
-            _mover.CalculateHorizontalSpeed(_inputMoveProvider.Input, _movementData);
-            _mover.CalculateJump(_inputMoveProvider.Input, _movementData, _enduranceSystem);
-
-            AttackInfo? info = null;
-            _attacker.UpdateRechargeTimer(_attacksData);
-            // int activeAttackIndex = _inputFightingInputProvider.ActiveAttackIndex;
-            // if (activeAttackIndex != -1 && _attacker.CanPerformAttack(activeAttackIndex))
-            // {
-            //     _attacker.Attack(_inputFightingInputProvider.ActiveAttackIndex, _attacksData);
-            //     info = _attacksData.Attacks[_inputFightingInputProvider.ActiveAttackIndex];
-            // }
-            //
-            // if (!_attacker.IsAttacking)
-            // {
-            //     _mover.CalculateHorizontalSpeed(_inputMoveProvider.Input, _movementData);
-            // }
-            //
-            // _animation.UpdateAnimationSystem(_inputMoveProvider.Input, info, _mover.Velocity, _mover.IsGrounded,
-            //     _healthSystem.IsDead);
-
-            _inputMoveProvider.ResetOneTimeActions();
-            //_inputFightingInputProvider.ResetAttackIndex(_inputFightingInputProvider.ActiveAttackIndex);
+            _brain.FixedUpdate();
         }
+
 
         private void OnAnimationPerformed(PlayerAnimationState animationState)
         {
@@ -108,4 +72,5 @@ namespace Enemies
             }
         }
     }
+    
 }

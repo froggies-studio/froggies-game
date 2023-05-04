@@ -24,7 +24,7 @@ namespace Items
         {
             var items = _itemDescriptors;/*.Where(item => item.ItemRarity == rarity).ToList();*/
             var itemDescriptor = items.First(i => i.ItemId == ItemId.PowerPotion);/* items[Random.Range(0, items.Count())];*/
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < 1_0; i++)
             {
                 _itemSystem.DropItem(itemDescriptor, (Vector2)_player.transform.position + Vector2.one);
 

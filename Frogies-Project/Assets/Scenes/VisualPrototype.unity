@@ -1138,7 +1138,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1018727558, guid: b9f74d5534e90544ca4997f7293cb4b6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -15220,7 +15220,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8369383532742148375, guid: 5fd9ed34f1f755643b41c4b41d7077e5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.03
+      value: 8.816
       objectReference: {fileID: 0}
     - target: {fileID: 8369383532742148375, guid: 5fd9ed34f1f755643b41c4b41d7077e5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -15854,7 +15854,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1978694791}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.508, y: -2.9687214, z: -2.2055001}
+  m_LocalPosition: {x: 7.508, y: -2.9687214, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -15899,12 +15899,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef4583c7018443f496d833e5c0e50f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabsStorage: {fileID: 11400000, guid: db57d2d6b398a3147a0c50647aee09df, type: 2}
+  _mover: {fileID: 1978694793}
+  _movementData: {fileID: 11400000, guid: b45987eb88ff57d47806ac7d0d78ba0d, type: 2}
+  statsStorage: {fileID: 11400000, guid: de1316bfbf1b5ab4da0fb6175f1565e7, type: 2}
   AnimationState: {fileID: 257951815}
   SpriteFlipper: {fileID: 17258608}
   Player: {fileID: 2117226665}
-  _movementData: {fileID: 11400000, guid: da9fee57bf0761646bb6496791f4208d, type: 2}
-  _mover: {fileID: 1978694793}
+  attacksData: {fileID: 11400000, guid: 57e16d01267f34e40b73810550f7e425, type: 2}
 --- !u!61 &1978694795
 BoxCollider2D:
   m_ObjectHideFlags: 0

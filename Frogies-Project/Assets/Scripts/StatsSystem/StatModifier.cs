@@ -5,7 +5,7 @@ using UnityEngine;
 namespace StatsSystem
 {
     [Serializable]
-    public class StatModificator
+    public class StatModifier
     {
         [field: SerializeField] public Stat Stat { get; private set; }
         [field: SerializeField] public StatModificatorType Type { get; private set; }
@@ -13,7 +13,7 @@ namespace StatsSystem
         
         public float StartTime { get; }
 
-        public StatModificator(Stat stat, StatModificatorType type, float duration, float startTime)
+        public StatModifier(Stat stat, StatModificatorType type, float duration, float startTime)
         {
             Stat = stat;
             Type = type;

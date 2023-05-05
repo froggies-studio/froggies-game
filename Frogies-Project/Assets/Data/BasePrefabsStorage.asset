@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: BasePrefabsStorage
   m_EditorClassIdentifier: 
   _sceneItemPrefab: {fileID: 6391923034100640838, guid: 53dc34411a2eb3b4c929da0e5db43260, type: 3}
+  _statsStorage: {fileID: 11400000, guid: 2d38fb8f865369b44a30beb250ce2645, type: 2}

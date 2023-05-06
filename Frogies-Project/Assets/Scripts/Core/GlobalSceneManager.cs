@@ -6,6 +6,7 @@ using Core.Player;
 using Fighting;
 using Items;
 using Items.Behaviour;
+using Items.Core;
 using Items.Data;
 using Items.Enum;
 using Items.Rarity;
@@ -36,6 +37,7 @@ namespace Core
         [SerializeField] private ItemsStorage itemsStorage;
         [SerializeField] private BasePrefabsStorage prefabsStorage;
         [SerializeField] private ItemRarityDescriptorStorage itemRarityDescriptor;
+        [SerializeField] private PotionSystem.PotionSystem potionSystem;
 
         [SerializeField] private HealthBar playerHealthBar;
         [SerializeField] private EnduranceControlBar _enduranceControlBar;
@@ -81,12 +83,23 @@ namespace Core
             
             var descriptors = itemsStorage.ItemScriptables.Select(scriptable => scriptable.ItemDescriptor).ToList();
             _dropGenerator = new DropGenerator(player, _sceneItemStorage, descriptors);
+
+            var depowerPotions = descriptors.Where(descriptor => descriptor.ItemId == ItemId.DepowerPotion)
+                .Select(descriptor => new Potion(descriptor as StatChangingItemDescriptor, _playerBrain.StatsController)).ToList();
+            potionSystem.Setup(depowerPotions);
+            potionSystem.OnActive += (_, _) => isPaused = true;
+            potionSystem.OnOptionSelected += (_, _) => isPaused = false;
         }
 
         private void Update()
         {
             if(isPaused)
                 return;
+            
+            if (UnityEngine.Input.GetKeyUp(KeyCode.P))
+            {
+                potionSystem.OnNewDay();
+            }
             
             _dropGenerator.Update();
             _playerBrain.Update();

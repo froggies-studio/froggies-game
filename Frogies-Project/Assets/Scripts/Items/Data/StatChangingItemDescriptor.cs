@@ -10,6 +10,7 @@ namespace Items.Data
     public class StatChangingItemDescriptor : ItemDescriptor
     {
         [field: SerializeField] public List<StatModifier> StatModifiers { get; private set; }
+        [field: SerializeField] public String Name;
 
         public StatChangingItemDescriptor(
             ItemId itemId, ItemMaterial material, ItemType type, 

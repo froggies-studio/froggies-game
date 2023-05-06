@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Animation;
+using Core.InventorySystem;
 using Core.Player;
 using Fighting;
 using Items;
@@ -38,6 +39,7 @@ namespace Core
         [SerializeField] private BasePrefabsStorage prefabsStorage;
         [SerializeField] private ItemRarityDescriptorStorage itemRarityDescriptor;
         [SerializeField] private PotionSystem.PotionSystem potionSystem;
+        [SerializeField] private Inventory inventory;
 
         [SerializeField] private HealthBar playerHealthBar;
         [SerializeField] private EnduranceControlBar _enduranceControlBar;
@@ -79,7 +81,7 @@ namespace Core
             _sceneItemStorage = new ItemSystem(
                 PrefabsStorage.SceneItemPrefab.GetComponent<SceneItem>(), 
                 itemRarityDescriptor.RarityDescriptor.Cast<IItemRarityColor>().ToArray(), 
-                factory);
+                factory, inventory);
             
             var descriptors = itemsStorage.ItemScriptables.Select(scriptable => scriptable.ItemDescriptor).ToList();
             _dropGenerator = new DropGenerator(player, _sceneItemStorage, descriptors);

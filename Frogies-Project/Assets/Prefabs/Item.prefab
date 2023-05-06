@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4154394497602382597}
   - component: {fileID: 1332089508993666911}
   m_Layer: 5
-  m_Name: Potion
+  m_Name: Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 4350379093850114340}
   - component: {fileID: 3136143481456650907}
   m_Layer: 5
-  m_Name: PotionName
+  m_Name: ItemName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 3782942207919074217}
   - component: {fileID: 1657596943983891748}
   m_Layer: 5
-  m_Name: PotionDescription
+  m_Name: ItemDescription
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -388,7 +388,7 @@ GameObject:
   - component: {fileID: 3456798179857985773}
   - component: {fileID: 1785715697043562771}
   m_Layer: 5
-  m_Name: PotionIcon
+  m_Name: ItemIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -12,6 +12,7 @@ namespace Core.PotionSystem
         [SerializeField] private Button useButton;
         [SerializeField] private Image potionIcon;
         [SerializeField] private TMP_Text potionName;
+        [SerializeField] private TMP_Text potionDescription;
         public event Action<PotionOption> OnSelected;
         private Potion _potion;
 
@@ -23,6 +24,7 @@ namespace Core.PotionSystem
 
             potionIcon.sprite = potion.Descriptor.ItemSprite;
             potionName.text = ((StatChangingItemDescriptor)potion.Descriptor).Name;
+            potionDescription.text = ((StatChangingItemDescriptor)potion.Descriptor).Description;
         }
 
         private void OnUseButtonClick()

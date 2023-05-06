@@ -31,3 +31,4 @@ MonoBehaviour:
       <Type>k__BackingField: 1
       <Duration>k__BackingField: -1
     Name: Health Depower
+    Description: Reduces max health for 15%

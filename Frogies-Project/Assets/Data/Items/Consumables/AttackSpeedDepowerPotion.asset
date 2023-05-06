@@ -26,3 +26,4 @@ MonoBehaviour:
       <Type>k__BackingField: 1
       <Duration>k__BackingField: -1
     Name: Attack Speed Depower
+    Description: Reduces attack speed for 10%

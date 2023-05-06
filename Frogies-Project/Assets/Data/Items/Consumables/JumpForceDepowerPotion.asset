@@ -26,3 +26,4 @@ MonoBehaviour:
       <Type>k__BackingField: 1
       <Duration>k__BackingField: -1
     Name: Jump Force Depower
+    Description: Reduces jump force for 15%

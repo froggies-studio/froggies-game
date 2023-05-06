@@ -31,3 +31,4 @@ MonoBehaviour:
       <Type>k__BackingField: 1
       <Duration>k__BackingField: -1
     Name: Endurance Depower
+    Description: Reduces max endurance for 15%

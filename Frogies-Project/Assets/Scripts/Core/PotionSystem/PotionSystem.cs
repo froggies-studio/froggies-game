@@ -37,7 +37,7 @@ namespace Core.PotionSystem
         private void OptionOnSelected(PotionOption sender)
         {
             _options.Remove(sender);
-            Destroy(sender);
+            Destroy(sender.gameObject);
             
             gameObject.SetActive(false);
 

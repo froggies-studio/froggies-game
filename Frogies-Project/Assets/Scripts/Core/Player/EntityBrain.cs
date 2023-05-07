@@ -79,13 +79,14 @@ namespace Core.Player
             else
             {
                 _mover.CalculateHorizontalSpeed(zero, _movementData);
+
             }
 
             _animation.UpdateAnimationSystem(_inputMoveProvider.Input, info, _mover.Velocity, _mover.IsGrounded,
                 HealthSystem.IsDead);
 
-            _inputMoveProvider.ResetOneTimeActions();
             _inputFightingInputProvider.ResetAttackIndex(_inputFightingInputProvider.ActiveAttackIndex);
+            _inputMoveProvider.ResetOneTimeActions();
         }
 
         public void Update()

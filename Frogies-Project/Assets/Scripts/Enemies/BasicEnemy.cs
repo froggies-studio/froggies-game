@@ -21,6 +21,7 @@ namespace Enemies
         public Transform Player;
         private StatsController _statsController;
         private HealthSystem _healthSystem;
+        public float Health;
 
         public AttacksData attacksData;
 
@@ -30,8 +31,27 @@ namespace Enemies
         private PlayerAnimationController _animation;
 
         private readonly float _attackRange = 1.5f;
+        private Collider2D[] _colliders = new Collider2D[10];
+        private ContactFilter2D _contactFilter2D = new ContactFilter2D();
 
-        private bool IsInAttackRange => Mathf.Abs(Player.transform.position.x - transform.position.x) < _attackRange;
+        private bool IsInAttackRange
+        {
+            get
+            {
+                for (var i = 0; i < attackColliders.Length; i++)
+                {
+                    var size = Physics2D.OverlapCollider(attackColliders[i], _contactFilter2D, _colliders);
+                    if (size>0)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+
+
+            }
+        }
 
         private void Awake()
         {
@@ -46,10 +66,13 @@ namespace Enemies
 
             _brain = new EntityBrain(movementData, attacksData, _inputMoveProvider, _inputFightingInputProvider,
                 mover, _animation, statsStorage, attackColliders);
+            
+            _contactFilter2D.SetLayerMask(attacksData.AttackLayerMask);
         }
 
         private void Update()
         {
+            Health = _healthSystem.GetHealth();
             _inputFightingInputProvider.CalculateAttackInput(IsInAttackRange);
             _inputMoveProvider.CalculateHorizontalInput(IsInAttackRange);
             _brain.Update();

@@ -56,6 +56,8 @@ namespace Core
 
         private StatsStorage statsStorage;
 
+        public Collider2D[] AttackColliders;
+
         private void Awake()
         {
             Debug.Assert(Instance == null);
@@ -71,7 +73,7 @@ namespace Core
                 new PlayerAnimationController(animationStateManager, spriteFlipper);
             statsStorage = prefabsStorage.StatsStorage;
             var entityBrain = new EntityBrain(_movementData, _attacksData, moveInputReader, fightInputReader, player,
-                playerAnimation, statsStorage, new Collider2D[]{new BoxCollider2D(), new BoxCollider2D()});
+                playerAnimation, statsStorage, AttackColliders);
             playerHealthBar.Setup(entityBrain.StatsController);
             _enduranceControlBar.Setup(entityBrain.StatsController);
             var a = PlayerGameObject.AddComponent<Enemies.Player>();

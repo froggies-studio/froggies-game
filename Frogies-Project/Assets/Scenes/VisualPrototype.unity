@@ -16424,6 +16424,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1340500561}
     - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: playerDirectionalMover
+      value: 
+      objectReference: {fileID: 2117226670}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
       propertyPath: AttackColliders.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -16433,6 +16437,74 @@ PrefabInstance:
       objectReference: {fileID: 772508439}
     - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
       propertyPath: AttackColliders.Array.data[1]
+      value: 
+      objectReference: {fileID: 371016577}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: playerData.<HealthBar>k__BackingField
+      value: 
+      objectReference: {fileID: 1740382500}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: enemyData.<AttacksData>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 57e16d01267f34e40b73810550f7e425, type: 2}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: enemyData.<MovementData>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: b45987eb88ff57d47806ac7d0d78ba0d, type: 2}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: playerData.<AttacksData>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 00696a1cc8451b342b5979bd7b8b861d, type: 2}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: enemyData.<SpriteFlipper>k__BackingField
+      value: 
+      objectReference: {fileID: 1550565192}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: playerData.<MovementData>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: da9fee57bf0761646bb6496791f4208d, type: 2}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: playerData.<SpriteFlipper>k__BackingField
+      value: 
+      objectReference: {fileID: 1352488574}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: enemyData.<DirectionalMover>k__BackingField
+      value: 
+      objectReference: {fileID: 865073775}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: playerData.<DirectionalMover>k__BackingField
+      value: 
+      objectReference: {fileID: 2117226670}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: playerData.<EnduranceControlBar>k__BackingField
+      value: 
+      objectReference: {fileID: 1283346790}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: enemyData.<AnimationStateManager>k__BackingField
+      value: 
+      objectReference: {fileID: 276513669}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: playerData.<AnimationStateManager>k__BackingField
+      value: 
+      objectReference: {fileID: 1340500561}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: enemyData.<AttackColliders>k__BackingField.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: playerData.<AttackColliders>k__BackingField.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: enemyData.<AttackColliders>k__BackingField.Array.data[0]
+      value: 
+      objectReference: {fileID: 1441584872}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: playerData.<AttackColliders>k__BackingField.Array.data[0]
+      value: 
+      objectReference: {fileID: 772508439}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: playerData.<AttackColliders>k__BackingField.Array.data[1]
       value: 
       objectReference: {fileID: 371016577}
     - target: {fileID: 3658324198315273888, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}

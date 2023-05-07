@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Animation;
-using Core;
 using Core.Player;
 using Fighting;
 using Movement;
@@ -8,15 +7,14 @@ using StatsSystem;
 using StatsSystem.Endurance;
 using StatsSystem.Health;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Enemies
 {
-    public class BasicEnemy : MonoBehaviour
+    public class BasicEnemy : BasicEntity
     {
         [SerializeField] private DirectionalMover _mover;
         [SerializeField] private MovementData _movementData;
-        
+
         public StatsStorage statsStorage;
         public AnimationStateManager AnimationState;
         public Transform SpriteFlipper;
@@ -25,12 +23,12 @@ namespace Enemies
         private HealthSystem _healthSystem;
         private EnduranceSystem _enduranceSystem;
 
-         public AttacksData attacksData;
+        public AttacksData attacksData;
 
         private EnemyMovementInput _inputMoveProvider;
         private EnemyInputFightingProvider _inputFightingInputProvider;
         private BasicAttacker _attacker;
-        private PlayerBrain _brain;
+        private EntityBrain _brain;
         private PlayerAnimationController _animation;
 
 
@@ -46,8 +44,10 @@ namespace Enemies
             _inputFightingInputProvider = new EnemyInputFightingProvider();
 
             _animation = new PlayerAnimationController(AnimationState, SpriteFlipper);
-            
-            _brain = new PlayerBrain(_movementData, attacksData, _inputMoveProvider, _inputFightingInputProvider, _mover, _animation, statsStorage);
+            HealthSystem = _healthSystem;
+
+            _brain = new EntityBrain(_movementData, attacksData, _inputMoveProvider, _inputFightingInputProvider,
+                _mover, _animation, statsStorage);
         }
 
         private void Update()
@@ -58,7 +58,7 @@ namespace Enemies
         }
 
         private float _attackRange = 1.5f;
-        private bool IsInAttackRange => Mathf.Abs(Player.transform.position.x-transform.position.x) < _attackRange;
+        private bool IsInAttackRange => Mathf.Abs(Player.transform.position.x - transform.position.x) < _attackRange;
 
         private void FixedUpdate()
         {
@@ -71,10 +71,9 @@ namespace Enemies
             switch (animationState)
             {
                 case PlayerAnimationState.Attack:
-                    Debug.Log("Attack performed");
+                    _attacker.Attack(_inputFightingInputProvider.ActiveAttackIndex, attacksData);
                     return;
             }
         }
     }
-    
 }

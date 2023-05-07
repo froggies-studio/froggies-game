@@ -44,10 +44,11 @@ namespace Core
         [CanBeNull] public Camera GlobalCamera { get; set; }
         
         public Transform PlayerTransform => player.transform;
+        public GameObject PlayerGameObject => player.gameObject;
         
         public BasePrefabsStorage PrefabsStorage => prefabsStorage;
 
-        private PlayerBrain _playerBrain;
+        // private EntityBrain _entityBrain;
         private ItemSystem _sceneItemStorage;
         private DropGenerator _dropGenerator;
 
@@ -68,11 +69,13 @@ namespace Core
             PlayerFightInputReader fightInputReader = new PlayerFightInputReader(Input, _attacksData);
             PlayerAnimationController playerAnimation = new PlayerAnimationController(animationStateManager, spriteFlipper);
             statsStorage = prefabsStorage.StatsStorage;
-            _playerBrain = new PlayerBrain(_movementData, _attacksData, moveInputReader, fightInputReader, player, playerAnimation, statsStorage);
-            playerHealthBar.Setup(_playerBrain.StatsController);
-            _enduranceControlBar.Setup(_playerBrain.StatsController);
+            var _entityBrain = new EntityBrain(_movementData, _attacksData, moveInputReader, fightInputReader, player, playerAnimation, statsStorage);
+            playerHealthBar.Setup(_entityBrain.StatsController);
+            _enduranceControlBar.Setup(_entityBrain.StatsController);
+            var a = PlayerGameObject.AddComponent<Enemies.Player>();
+            a.Initialize(_entityBrain);
 
-            ItemFactory factory = new ItemFactory(_playerBrain.StatsController);
+            ItemFactory factory = new ItemFactory(_entityBrain.StatsController);
             _sceneItemStorage = new ItemSystem(
                 PrefabsStorage.SceneItemPrefab.GetComponent<SceneItem>(), 
                 itemRarityDescriptor.RarityDescriptor.Cast<IItemRarityColor>().ToArray(), 
@@ -88,7 +91,7 @@ namespace Core
                 return;
             
             _dropGenerator.Update();
-            _playerBrain.Update();
+            // _entityBrain.Update();
         }
         
         private void FixedUpdate()
@@ -96,7 +99,7 @@ namespace Core
             if(isPaused)
                 return;
             
-            _playerBrain.FixedUpdate();
+            // _entityBrain.FixedUpdate();
         }
     }
 }

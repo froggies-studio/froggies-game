@@ -8,10 +8,10 @@ using StatsSystem.Health;
 
 namespace Core.Player
 {
-    public class PlayerBrain
+    public class EntityBrain
     {
         private StatsController _statsController;
-        private HealthSystem _healthSystem;
+        public HealthSystem HealthSystem { get; private set; }
         private EnduranceSystem _enduranceSystem;
         
         private MovementData _movementData;
@@ -25,7 +25,7 @@ namespace Core.Player
 
         public StatsController StatsController => _statsController;
 
-        public PlayerBrain(MovementData movementData, AttacksData attacksData, IMovementInputProvider inputMoveProvider, IFightingInputProvider inputFightingInputProvider, DirectionalMover mover, PlayerAnimationController animation, StatsStorage statsStorage)
+        public EntityBrain(MovementData movementData, AttacksData attacksData, IMovementInputProvider inputMoveProvider, IFightingInputProvider inputFightingInputProvider, DirectionalMover mover, PlayerAnimationController animation, StatsStorage statsStorage)
         {
             _movementData = movementData;
             _attacksData = attacksData;
@@ -36,7 +36,7 @@ namespace Core.Player
             _animation = animation;
             var stats = statsStorage.Stats.Select(stat => stat.GetCopy()).ToDictionary(stat => stat);
             _statsController = new StatsController(stats);
-            _healthSystem = new HealthSystem(_statsController);
+            HealthSystem = new HealthSystem(_statsController);
             _enduranceSystem = new EnduranceSystem(_statsController);
             _attacker = new BasicAttacker(_enduranceSystem);
             zero.X = 0;
@@ -67,7 +67,7 @@ namespace Core.Player
                 _mover.CalculateHorizontalSpeed(zero, _movementData);
             }
 
-            _animation.UpdateAnimationSystem(_inputMoveProvider.Input, info, _mover.Velocity, _mover.IsGrounded, _healthSystem.IsDead);
+            _animation.UpdateAnimationSystem(_inputMoveProvider.Input, info, _mover.Velocity, _mover.IsGrounded, HealthSystem.IsDead);
             
             _inputMoveProvider.ResetOneTimeActions();
             _inputFightingInputProvider.ResetAttackIndex(_inputFightingInputProvider.ActiveAttackIndex);

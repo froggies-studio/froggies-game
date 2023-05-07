@@ -3980,14 +3980,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1874592841448176311, guid: b7005ff796549ff4ab935e81b4ffd7e2, type: 3}
-      propertyPath: m_Value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1874592841448176311, guid: b7005ff796549ff4ab935e81b4ffd7e2, type: 3}
-      propertyPath: m_Interactable
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3215724903603775152, guid: b7005ff796549ff4ab935e81b4ffd7e2, type: 3}
       propertyPath: m_Color.b
       value: 0.15726236
@@ -17761,14 +17753,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1874592841448176311, guid: b7005ff796549ff4ab935e81b4ffd7e2, type: 3}
-      propertyPath: m_Value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1874592841448176311, guid: b7005ff796549ff4ab935e81b4ffd7e2, type: 3}
-      propertyPath: m_Interactable
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3338167052063113229, guid: b7005ff796549ff4ab935e81b4ffd7e2, type: 3}
       propertyPath: m_Name
       value: PlayerHealthBar
@@ -17777,10 +17761,6 @@ PrefabInstance:
       propertyPath: scale
       value: 
       objectReference: {fileID: 1740382499}
-    - target: {fileID: 5137959494504331504, guid: b7005ff796549ff4ab935e81b4ffd7e2, type: 3}
-      propertyPath: slider
-      value: 
-      objectReference: {fileID: 8256593604017931469}
     - target: {fileID: 5137959494504331504, guid: b7005ff796549ff4ab935e81b4ffd7e2, type: 3}
       propertyPath: currentHealthText
       value: 
@@ -17793,14 +17773,3 @@ PrefabInstance:
       addedObject: {fileID: 267634528}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7005ff796549ff4ab935e81b4ffd7e2, type: 3}
---- !u!114 &8256593604017931469 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1874592841448176311, guid: b7005ff796549ff4ab935e81b4ffd7e2, type: 3}
-  m_PrefabInstance: {fileID: 8256593604017931468}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

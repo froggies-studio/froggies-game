@@ -89,8 +89,8 @@ namespace Core
             var depowerPotions = descriptors.Where(descriptor => descriptor.ItemId == ItemId.DepowerPotion)
                 .Select(descriptor => new Potion(descriptor as StatChangingItemDescriptor, _playerBrain.StatsController)).ToList();
             potionSystem.Setup(depowerPotions);
-            potionSystem.OnActive += (_, _) => isPaused = true;
-            potionSystem.OnOptionSelected += (_, _) => isPaused = false;
+            potionSystem.OnActive += () => isPaused = true;
+            potionSystem.OnOptionSelected += () => isPaused = false;
         }
 
         private void Update()
@@ -98,9 +98,10 @@ namespace Core
             if(isPaused)
                 return;
             
-            if (UnityEngine.Input.GetKeyUp(KeyCode.P))
+            // TODO: remove
+            if (UnityEngine.Input.GetKeyUp(KeyCode.P)) // for testing purpose only
             {
-                potionSystem.OnNewDay();
+                potionSystem.OpenPotionMenu();
             }
             
             _dropGenerator.Update();

@@ -26,9 +26,10 @@ namespace StatsSystem.Endurance
         public void SetMaxEndurance(Stat stat)
         {
             var maxEndurance = GetMaxEndurance();
-            if (stat.Type == StatType.MaxEndurance)
+            if (stat.Type == StatType.MaxEndurance && stat.Value < maxEndurance)
             {
-                _statsController.ProcessModifier(new StatModifier(new Stat(StatType.Endurance,maxEndurance-stat.Value), StatModificatorType.Additive, -1, Time.time));
+                _statsController.ProcessModifier(new StatModifier(
+                    new Stat(StatType.Endurance,maxEndurance-stat.Value), StatModificatorType.Additive, -1, Time.time));
             }
         }
         
@@ -37,7 +38,8 @@ namespace StatsSystem.Endurance
             var rechargeRate = GetCurrentRechargeRate();
             if (_currentEndurance < GetMaxEndurance())
             {
-                _statsController.ProcessModifier(new StatModifier(new Stat(StatType.Endurance, rechargeRate*Time.deltaTime), StatModificatorType.Additive, -1, Time.time));
+                _statsController.ProcessModifier(new StatModifier(
+                    new Stat(StatType.Endurance, rechargeRate*Time.deltaTime), StatModificatorType.Additive, -1, Time.time));
 
             }
         }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Items.Core;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Core.PotionSystem
 {
@@ -11,8 +10,8 @@ namespace Core.PotionSystem
         [SerializeField] private GameObject optionPrefab;
         [SerializeField] private Transform body;
         private List<PotionOption> _options;
-        public event EventHandler OnOptionSelected;
-        public event EventHandler OnActive;
+        public event Action OnOptionSelected;
+        public event Action OnActive;
         
         public void Setup(List<Potion> potions)
         {
@@ -28,10 +27,10 @@ namespace Core.PotionSystem
             gameObject.SetActive(false);
         }
 
-        public void OnNewDay() //connect with day/night feature
+        public void OpenPotionMenu() //connect with day/night feature
         {
             gameObject.SetActive(true);
-            if(OnActive != null) OnActive.Invoke(this, EventArgs.Empty);
+            if(OnActive != null) OnActive.Invoke();
         }
 
         private void OptionOnSelected(PotionOption sender)
@@ -41,7 +40,7 @@ namespace Core.PotionSystem
             
             gameObject.SetActive(false);
 
-            if(OnOptionSelected != null) OnOptionSelected.Invoke(this, EventArgs.Empty);
+            if(OnOptionSelected != null) OnOptionSelected.Invoke();
         }
 
     }

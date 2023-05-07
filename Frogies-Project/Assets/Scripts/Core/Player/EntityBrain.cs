@@ -5,12 +5,14 @@ using Movement;
 using StatsSystem;
 using StatsSystem.Endurance;
 using StatsSystem.Health;
+using WaveSystem;
 
 namespace Core.Player
 {
     public class EntityBrain
     {
         private StatsController _statsController;
+        
         public HealthSystem HealthSystem { get; private set; }
         private EnduranceSystem _enduranceSystem;
         

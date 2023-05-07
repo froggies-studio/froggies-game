@@ -58,7 +58,7 @@ namespace Enemies
         }
 
         private float _attackRange = 1.5f;
-        private bool IsInAttackRange => Mathf.Abs(Player.transform.position.x - transform.position.x) < _attackRange;
+        private bool IsInAttackRange => true;
 
         private void FixedUpdate()
         {

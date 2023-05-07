@@ -12,12 +12,12 @@ namespace Enemies
             HealthSystem = _brain.HealthSystem;
         }
 
-        private void Update()
+        public override void Update()
         {
             _brain.Update();
         }
 
-        private void FixedUpdate()
+        public override void FixedUpdate()
         {
             _brain.FixedUpdate();
         }

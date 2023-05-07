@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Animation;
 using Core.Player;
+using Enemies;
 using Fighting;
 using Items;
 using Items.Behaviour;
@@ -16,7 +17,9 @@ using Movement;
 using StatsSystem;
 using StatsSystem.Endurance;
 using StatsSystem.Health;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Core
 {
@@ -25,30 +28,21 @@ namespace Core
         public static GlobalSceneManager Instance { get; private set; }
         public static PlayerInputActions InputInstance => Instance.Input;
 
-        [SerializeField] private MovementData _movementData;
-        [SerializeField] private AttacksData _attacksData;
-
         [SerializeField] private new Camera camera;
-        [SerializeField] private DirectionalMover player;
-        [SerializeField] private AnimationStateManager animationStateManager;
-        [SerializeField] private Transform spriteFlipper;
 
         [SerializeField] private ItemsStorage itemsStorage;
         [SerializeField] private BasePrefabsStorage prefabsStorage;
         [SerializeField] private ItemRarityDescriptorStorage itemRarityDescriptor;
 
-        [SerializeField] private HealthBar playerHealthBar;
-        [SerializeField] private EnduranceControlBar _enduranceControlBar;
-
+        [SerializeField] private PlayerData playerData;
+        [SerializeField] private EnemyData enemyData;
         public PlayerInputActions Input { get; private set; }
         [CanBeNull] public Camera GlobalCamera { get; set; }
 
-        public Transform PlayerTransform => player.transform;
-        public GameObject PlayerGameObject => player.gameObject;
+        public Transform PlayerTransform => playerData.DirectionalMover.transform;
 
         public BasePrefabsStorage PrefabsStorage => prefabsStorage;
 
-        // private EntityBrain _entityBrain;
         private ItemSystem _sceneItemStorage;
         private DropGenerator _dropGenerator;
 
@@ -56,7 +50,7 @@ namespace Core
 
         private StatsStorage statsStorage;
 
-        public Collider2D[] AttackColliders;
+        private HashSet<BasicEntity> _entities;
 
         private void Awake()
         {
@@ -67,26 +61,65 @@ namespace Core
             Input = new PlayerInputActions();
             Input.Enable();
 
-            PlayerMoveInputReader moveInputReader = new PlayerMoveInputReader(Input);
-            PlayerFightInputReader fightInputReader = new PlayerFightInputReader(Input, _attacksData);
-            PlayerAnimationController playerAnimation =
-                new PlayerAnimationController(animationStateManager, spriteFlipper);
-            statsStorage = prefabsStorage.StatsStorage;
-            var entityBrain = new EntityBrain(_movementData, _attacksData, moveInputReader, fightInputReader, player,
-                playerAnimation, statsStorage, AttackColliders);
-            playerHealthBar.Setup(entityBrain.StatsController);
-            _enduranceControlBar.Setup(entityBrain.StatsController);
-            var a = PlayerGameObject.AddComponent<Enemies.Player>();
-            a.Initialize(entityBrain);
+            _entities = new HashSet<BasicEntity>();
+            var player = InitializePlayer(playerData);
+            _entities.Add(player);
+            _entities.Add(InitializeEnemy(enemyData));
 
-            ItemFactory factory = new ItemFactory(entityBrain.StatsController);
+            InitializeItemFactory(player);
+
+            InitializeDropGenerator();
+        }
+
+        private void InitializeItemFactory(BasicEntity player)
+        {
+            ItemFactory factory = new ItemFactory(player.StatsController);
             _sceneItemStorage = new ItemSystem(
                 PrefabsStorage.SceneItemPrefab.GetComponent<SceneItem>(),
                 itemRarityDescriptor.RarityDescriptor.Cast<IItemRarityColor>().ToArray(),
                 factory);
+        }
 
+        private BasicEntity InitializePlayer(PlayerData entityData)
+        {
+            entityData.DirectionalMover.GameObject();
+            PlayerMoveInputReader moveInputReader = new PlayerMoveInputReader(Input);
+            PlayerFightInputReader fightInputReader = new PlayerFightInputReader(Input, entityData.AttacksData);
+            PlayerAnimationController playerAnimation =
+                new PlayerAnimationController(entityData.AnimationStateManager, entityData.SpriteFlipper);
+            statsStorage = prefabsStorage.StatsStorage;
+            var entityBrain = new EntityBrain(entityData.MovementData, entityData.AttacksData, moveInputReader,
+                fightInputReader, entityData.DirectionalMover,
+                playerAnimation, statsStorage, entityData.AttackColliders);
+            entityData.HealthBar.Setup(entityBrain.StatsController);
+            entityData.EnduranceControlBar.Setup(entityBrain.StatsController);
+            var player = new Enemies.Player();
+            player.Initialize(entityBrain);
+            return player;
+        }
+
+        private BasicEntity InitializeEnemy(EnemyData entityData)
+        {
+            var stats = statsStorage.Stats.Select(stat => stat.GetCopy()).ToDictionary(stat => stat);
+            var inputMoveProvider = new EnemyMovementInput(playerData.DirectionalMover.transform,
+                entityData.DirectionalMover.transform);
+            var inputFightingInputProvider = new EnemyInputFightingProvider();
+
+            var animationController = new PlayerAnimationController(entityData.AnimationStateManager, entityData.SpriteFlipper);
+
+            var brain = new EntityBrain(entityData.MovementData, entityData.AttacksData, inputMoveProvider,
+                inputFightingInputProvider,
+                entityData.DirectionalMover, animationController, statsStorage, entityData.AttackColliders);
+            
+            var enemy = new BasicEnemy();
+            enemy.Initialize(brain);
+            return enemy;
+        }
+
+        private void InitializeDropGenerator()
+        {
             var descriptors = itemsStorage.ItemScriptables.Select(scriptable => scriptable.ItemDescriptor).ToList();
-            _dropGenerator = new DropGenerator(player, _sceneItemStorage, descriptors);
+            _dropGenerator = new DropGenerator(playerData.DirectionalMover, _sceneItemStorage, descriptors);
         }
 
         private void Update()
@@ -95,7 +128,10 @@ namespace Core
                 return;
 
             _dropGenerator.Update();
-            // _entityBrain.Update();
+            foreach (var entity in _entities)
+            {
+                entity.Update();
+            }
         }
 
         private void FixedUpdate()
@@ -103,7 +139,10 @@ namespace Core
             if (isPaused)
                 return;
 
-            // _entityBrain.FixedUpdate();
+            foreach (var entity in _entities)
+            {
+                entity.FixedUpdate();
+            }
         }
     }
 }

@@ -34,6 +34,14 @@ namespace Enemies
         private Collider2D[] _colliders = new Collider2D[10];
         private ContactFilter2D _contactFilter2D = new ContactFilter2D();
 
+
+        public void Initialize(EntityBrain brain)
+        {
+            HealthSystem = brain.HealthSystem;
+            _statsController = brain.StatsController;
+            _brain = brain;
+        }
+
         private bool IsInAttackRange
         {
             get
@@ -55,22 +63,10 @@ namespace Enemies
 
         private void Awake()
         {
-            var stats = statsStorage.Stats.Select(stat => stat.GetCopy()).ToDictionary(stat => stat);
-            _statsController = new StatsController(stats);
-            _healthSystem = new HealthSystem(_statsController);
-            _inputMoveProvider = new EnemyMovementInput(Player, this.transform);
-            _inputFightingInputProvider = new EnemyInputFightingProvider();
-
-            _animation = new PlayerAnimationController(animationState, spriteFlipper);
-            HealthSystem = _healthSystem;
-
-            _brain = new EntityBrain(movementData, attacksData, _inputMoveProvider, _inputFightingInputProvider,
-                mover, _animation, statsStorage, attackColliders);
-            
             _contactFilter2D.SetLayerMask(attacksData.AttackLayerMask);
         }
 
-        private void Update()
+        public override void Update()
         {
             Health = _healthSystem.GetHealth();
             _inputFightingInputProvider.CalculateAttackInput(IsInAttackRange);
@@ -78,7 +74,7 @@ namespace Enemies
             _brain.Update();
         }
 
-        private void FixedUpdate()
+        public override void FixedUpdate()
         {
             _brain.FixedUpdate();
         }

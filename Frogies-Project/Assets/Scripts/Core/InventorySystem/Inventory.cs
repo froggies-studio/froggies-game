@@ -29,7 +29,6 @@ namespace Core.InventorySystem
             switch (item)
             {
                 case Equipment equipment:
-                    Debug.Log(equipment.EquipmentType);
                     AddNewEquipment(equipment);
                     break;
                 case Potion potion:

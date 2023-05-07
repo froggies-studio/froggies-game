@@ -7,6 +7,7 @@ using StatsSystem;
 using StatsSystem.Endurance;
 using StatsSystem.Health;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Enemies
 {
@@ -31,6 +32,7 @@ namespace Enemies
         private EntityBrain _brain;
         private PlayerAnimationController _animation;
 
+        public LayerMask PlayerLayerMask;
 
         private void Awake()
         {
@@ -39,7 +41,7 @@ namespace Enemies
             _healthSystem = new HealthSystem(_statsController);
             _enduranceSystem = new EnduranceSystem(_statsController);
             _inputMoveProvider = new EnemyMovementInput(Player, this.transform);
-            _attacker = new BasicAttacker(_enduranceSystem);
+            _attacker = new BasicAttacker(_enduranceSystem, PlayerLayerMask, attackColliders );
             AnimationState.AnimationPerformed += OnAnimationPerformed;
             _inputFightingInputProvider = new EnemyInputFightingProvider();
 
@@ -65,6 +67,8 @@ namespace Enemies
             _brain.FixedUpdate();
         }
 
+        public Collider2D[] attackColliders;
+        
 
         private void OnAnimationPerformed(PlayerAnimationState animationState)
         {
@@ -75,5 +79,13 @@ namespace Enemies
                     return;
             }
         }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, _attackRange);
+        }
+
+
     }
 }

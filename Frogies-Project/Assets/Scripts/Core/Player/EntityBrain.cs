@@ -5,6 +5,7 @@ using Movement;
 using StatsSystem;
 using StatsSystem.Endurance;
 using StatsSystem.Health;
+using UnityEngine;
 
 namespace Core.Player
 {
@@ -38,13 +39,22 @@ namespace Core.Player
             _statsController = new StatsController(stats);
             HealthSystem = new HealthSystem(_statsController);
             _enduranceSystem = new EnduranceSystem(_statsController);
-            _attacker = new BasicAttacker(_enduranceSystem);
+            _attacker = new BasicAttacker(_enduranceSystem, _enemyLayerMask, _attackColliders);
             zero.X = 0;
         }
+        
+        // temp 
+        private Collider2D[] _attackColliders = new Collider2D[1]{new BoxCollider2D()};
+        private LayerMask _enemyLayerMask;
 
         private MovementInput zero = new MovementInput(){X = 0};
         public void FixedUpdate()
         {
+            if (HealthSystem.IsDead)
+            {
+                _animation.UpdateAnimationSystem(_inputMoveProvider.Input, null, _mover.Velocity, _mover.IsGrounded, HealthSystem.IsDead);
+                return;
+            }
             _mover.RunGroundCheck();
             
             _mover.CalculateJump(_inputMoveProvider.Input, _movementData, _enduranceSystem);
@@ -54,7 +64,7 @@ namespace Core.Player
             int activeAttackIndex = _inputFightingInputProvider.ActiveAttackIndex;
             if(activeAttackIndex != -1 && _attacker.CanPerformAttack(activeAttackIndex))
             {
-                _attacker.Attack(_inputFightingInputProvider.ActiveAttackIndex, _attacksData);
+                // _attacker.Attack(_inputFightingInputProvider.ActiveAttackIndex, _attacksData);
                 info = _attacksData.Attacks[_inputFightingInputProvider.ActiveAttackIndex];
             }
 

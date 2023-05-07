@@ -27,25 +27,25 @@ namespace Core
 
         [SerializeField] private MovementData _movementData;
         [SerializeField] private AttacksData _attacksData;
-        
+
         [SerializeField] private new Camera camera;
         [SerializeField] private DirectionalMover player;
         [SerializeField] private AnimationStateManager animationStateManager;
         [SerializeField] private Transform spriteFlipper;
-        
+
         [SerializeField] private ItemsStorage itemsStorage;
         [SerializeField] private BasePrefabsStorage prefabsStorage;
         [SerializeField] private ItemRarityDescriptorStorage itemRarityDescriptor;
 
         [SerializeField] private HealthBar playerHealthBar;
         [SerializeField] private EnduranceControlBar _enduranceControlBar;
-        
+
         public PlayerInputActions Input { get; private set; }
         [CanBeNull] public Camera GlobalCamera { get; set; }
-        
+
         public Transform PlayerTransform => player.transform;
         public GameObject PlayerGameObject => player.gameObject;
-        
+
         public BasePrefabsStorage PrefabsStorage => prefabsStorage;
 
         // private EntityBrain _entityBrain;
@@ -55,7 +55,7 @@ namespace Core
         private bool isPaused = false;
 
         private StatsStorage statsStorage;
-        
+
         private void Awake()
         {
             Debug.Assert(Instance == null);
@@ -67,38 +67,40 @@ namespace Core
 
             PlayerMoveInputReader moveInputReader = new PlayerMoveInputReader(Input);
             PlayerFightInputReader fightInputReader = new PlayerFightInputReader(Input, _attacksData);
-            PlayerAnimationController playerAnimation = new PlayerAnimationController(animationStateManager, spriteFlipper);
+            PlayerAnimationController playerAnimation =
+                new PlayerAnimationController(animationStateManager, spriteFlipper);
             statsStorage = prefabsStorage.StatsStorage;
-            var _entityBrain = new EntityBrain(_movementData, _attacksData, moveInputReader, fightInputReader, player, playerAnimation, statsStorage);
-            playerHealthBar.Setup(_entityBrain.StatsController);
-            _enduranceControlBar.Setup(_entityBrain.StatsController);
+            var entityBrain = new EntityBrain(_movementData, _attacksData, moveInputReader, fightInputReader, player,
+                playerAnimation, statsStorage, new Collider2D[]{new BoxCollider2D(), new BoxCollider2D()});
+            playerHealthBar.Setup(entityBrain.StatsController);
+            _enduranceControlBar.Setup(entityBrain.StatsController);
             var a = PlayerGameObject.AddComponent<Enemies.Player>();
-            a.Initialize(_entityBrain);
+            a.Initialize(entityBrain);
 
-            ItemFactory factory = new ItemFactory(_entityBrain.StatsController);
+            ItemFactory factory = new ItemFactory(entityBrain.StatsController);
             _sceneItemStorage = new ItemSystem(
-                PrefabsStorage.SceneItemPrefab.GetComponent<SceneItem>(), 
-                itemRarityDescriptor.RarityDescriptor.Cast<IItemRarityColor>().ToArray(), 
+                PrefabsStorage.SceneItemPrefab.GetComponent<SceneItem>(),
+                itemRarityDescriptor.RarityDescriptor.Cast<IItemRarityColor>().ToArray(),
                 factory);
-            
+
             var descriptors = itemsStorage.ItemScriptables.Select(scriptable => scriptable.ItemDescriptor).ToList();
             _dropGenerator = new DropGenerator(player, _sceneItemStorage, descriptors);
         }
 
         private void Update()
         {
-            if(isPaused)
+            if (isPaused)
                 return;
-            
+
             _dropGenerator.Update();
             // _entityBrain.Update();
         }
-        
+
         private void FixedUpdate()
         {
-            if(isPaused)
+            if (isPaused)
                 return;
-            
+
             // _entityBrain.FixedUpdate();
         }
     }

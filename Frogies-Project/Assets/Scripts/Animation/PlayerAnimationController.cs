@@ -9,7 +9,6 @@ namespace Animation
 
         private readonly AnimationStateManager _animationStateManager;
         private readonly Transform _animationFlipper;
-        private bool _canPlayAttackAnimation = false;
 
         public PlayerAnimationController(AnimationStateManager animationStateManager, Transform animationFlipper)
         {
@@ -17,18 +16,19 @@ namespace Animation
             _animationFlipper = animationFlipper;
         }
 
-        public void PreUpdate(BasicAttacker attacker)
-        {
-            _canPlayAttackAnimation = attacker.IsAbleToAttack;
-        }
-        
         public void UpdateAnimationSystem(MovementInput input, AttackInfo? attackInfo, Vector2 velocity,
-            bool moverIsGrounded)
+            bool moverIsGrounded, bool isDead)
         {
             PlayerAnimationState newState = PlayerAnimationState.Idle;
             bool isTurning = false;
+
+            if (isDead)
+            {
+                _animationStateManager.TriggerAnimationState(PlayerAnimationState.Death);
+                return;
+            }
             
-            if (_canPlayAttackAnimation && attackInfo.HasValue)
+            if (attackInfo.HasValue)
             {
                 _animationStateManager.TriggerAnimationState(attackInfo.Value.animationState);
                 return;

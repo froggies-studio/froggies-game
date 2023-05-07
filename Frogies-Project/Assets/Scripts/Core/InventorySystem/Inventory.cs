@@ -29,6 +29,7 @@ namespace Core.InventorySystem
             switch (item)
             {
                 case Equipment equipment:
+                    Debug.Log(equipment.EquipmentType);
                     AddNewEquipment(equipment);
                     break;
                 case Potion potion:
@@ -48,8 +49,11 @@ namespace Core.InventorySystem
             switch (newEquipment.EquipmentType)
             {
                 case EquipmentType.Body:
-                    _armor = newEquipment;
-                    armorIcon.sprite = _armor.Descriptor.ItemSprite;
+                    if (newEquipment.Descriptor.ItemId == ItemId.Breastplate)
+                    {
+                        _armor = newEquipment;
+                        armorIcon.sprite = _armor.Descriptor.ItemSprite;
+                    }
                     break;
                 case EquipmentType.Weapon:
                     _weapon = newEquipment;
@@ -68,7 +72,7 @@ namespace Core.InventorySystem
             Potion potion = _potions[0];
             potion.Use();
             _potions.RemoveAt(0);
-            potionCountText.text = _potions.ToString();
+            potionCountText.text = _potions.Count.ToString();
         }
 
         private void Update()

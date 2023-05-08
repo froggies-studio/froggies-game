@@ -1,5 +1,4 @@
-﻿using System;
-using Fighting;
+﻿using Fighting;
 
 namespace Enemies
 {
@@ -16,6 +15,7 @@ namespace Enemies
         {
             if (!isInAttackRange)
             {
+                ActiveAttackIndex = -1;
                 return;
             }
             

@@ -41,7 +41,7 @@ namespace Fighting
 
         public void Attack(int index, AttacksData data)
         {
-            if (!CanPerformAttack(index,data))
+            if (!CanPerformAttack(index, data))
                 return;
 
             if (_attackColliders[index] == null)
@@ -53,11 +53,11 @@ namespace Fighting
             var size = Physics2D.OverlapCollider(_attackColliders[index], _attackContactFilter, _attackTargetsBuffer);
             for (int i = 0; i < size; i++)
             {
-                var target = _attackTargetsBuffer[i].GetComponent<BasicEntity>();
-                // if (target != null)
-                // {
-                target.HealthSystem.TakeDamage(data.Attacks[index].damageAmount);
-                // }
+                var target = _attackTargetsBuffer[i].GetComponent<DamageReceiver>();
+                if (target != null)
+                {
+                    target.ReceiveDamage(data.Attacks[index].damageAmount);
+                }
             }
 
             _attackRechargeTimer = data.Attacks[index].rechargeTime;

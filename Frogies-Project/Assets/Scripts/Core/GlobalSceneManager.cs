@@ -95,24 +95,14 @@ namespace Core
             entityData.EnduranceControlBar.Setup(entityBrain.StatsController);
             var player = new Enemies.Player();
             player.Initialize(entityBrain);
+            
+            entityData.DamageReceiver.Initialize(entityBrain.HealthSystem.TakeDamage);
             return player;
         }
 
         private BasicEntity InitializeEnemy(EnemyData entityData)
         {
-            var stats = statsStorage.Stats.Select(stat => stat.GetCopy()).ToDictionary(stat => stat);
-            var inputMoveProvider = new EnemyMovementInput(playerData.DirectionalMover.transform,
-                entityData.DirectionalMover.transform);
-            var inputFightingInputProvider = new EnemyInputFightingProvider();
-
-            var animationController = new PlayerAnimationController(entityData.AnimationStateManager, entityData.SpriteFlipper);
-
-            var brain = new EntityBrain(entityData.MovementData, entityData.AttacksData, inputMoveProvider,
-                inputFightingInputProvider,
-                entityData.DirectionalMover, animationController, statsStorage, entityData.AttackColliders);
-            
-            var enemy = new BasicEnemy();
-            enemy.Initialize(brain);
+            var enemy = new BasicEnemy(entityData);
             return enemy;
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using Animation;
+using Enemies;
 using Fighting;
 using Movement;
 using StatsSystem;
@@ -20,6 +21,7 @@ namespace Core.Player
         [field: SerializeField] public MovementData MovementData { get; private set; }
         [field: SerializeField] public AttacksData AttacksData { get; private set; }
         [field: SerializeField] public Collider2D[] AttackColliders { get; private set; }
+        [field: SerializeField] public DamageReceiver DamageReceiver { get; private set; }
     }
 
     [Serializable]
@@ -30,7 +32,9 @@ namespace Core.Player
         [field: SerializeField] public MovementData MovementData { get; private set; }
         [field: SerializeField] public AttacksData AttacksData { get; private set; }
         [field: SerializeField] public Collider2D[] AttackColliders { get; private set; }
-        [field: SerializeField] public StatsController StatsController { get; private set; }
         [field: SerializeField] public Transform SpriteFlipper { get; private set; }
+        [field: SerializeField] public Transform Player { get; private set; }
+        [field: SerializeField] public StatsStorage StatsStorage { get; private set; }
+        [field: SerializeField] public DamageReceiver DamageReceiver { get; private set; }
     }
 }

@@ -14,12 +14,10 @@ using Items.Enum;
 using Items.Rarity;
 using Items.Scriptable;
 using Items.Storage;
-using JetBrains.Annotations;
 using Movement;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
-using UnityEngine.Serialization;
 using WaveSystem;
 
 namespace Core
@@ -74,14 +72,10 @@ namespace Core
 
             var descriptors = itemsStorage.ItemScriptables.Select(scriptable => scriptable.ItemDescriptor).ToList();
             
-            
-            var waves = _waveStorage.Waves.Select(wave => wave.GetCopy()).ToDictionary(wave => wave);
-            _waveController = new WaveController(waves, _waveData.Spawners, _waveData.Enemies);
-            _waveData.WaveBar.Setup(_waveController);
-            
             InitializeItemFactory(player);
             InitializePotionSystem(descriptors, player);
             InitializeDropGenerator(descriptors);
+            InitializeWaveSystem();
         }
 
         private void InitializeItemFactory(BasicEntity player)
@@ -136,6 +130,13 @@ namespace Core
         {
             _dropGenerator = new DropGenerator(playerData.DirectionalMover, _sceneItemStorage, itemDescriptors);
         }
+        
+        private void InitializeWaveSystem()
+        {
+            var waves = _waveStorage.Waves.Select(wave => wave.GetCopy()).ToDictionary(wave => wave);
+            _waveController = new WaveController(waves, _waveData.Spawners, _waveData.Enemies);
+            _waveData.WaveBar.Setup(_waveController);
+        }
 
         private void Update()
         {
@@ -147,7 +148,6 @@ namespace Core
             {
                 potionSystem.OpenPotionMenu();
             }
-            
             
             _waveController.EnemyChecker();
             if (UnityEngine.Input.GetKeyDown(KeyCode.K))

@@ -13,8 +13,6 @@ namespace StatsSystem.Endurance
         {
             _statsController = statsController;
             _statsController.OnStatChanged += SetMaxEndurance;
-            _maxEndurance = _statsController.GetStatsValue(StatType.MaxEndurance);
-            _rechargeRate = _statsController.GetStatsValue(StatType.EnduranceRechargeRate);
         }
         
         public void UseEndurance(float amountOfEndurance)

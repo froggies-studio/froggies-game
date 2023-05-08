@@ -42,6 +42,8 @@ namespace Fighting
             actions.Player.StrongAttack.performed += GatherInputAttackB;
 
             _attackBuffer = data.AttackBuffer;
+            _lastTriggeredBuffer[0] = -1;
+            _lastTriggeredBuffer[1] = -1;
         }
         
         public void ResetAttackIndex(int index)

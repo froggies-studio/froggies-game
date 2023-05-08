@@ -9,6 +9,7 @@ namespace Fighting
         public PlayerAnimationState animationState;
         public float rechargeTime;
         public float damageAmount;
+        public float enduranceCost;
 
         public bool Equals(AttackInfo other)
         {

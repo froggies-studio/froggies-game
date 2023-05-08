@@ -1,12 +1,11 @@
-﻿using Movement;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Enemies
+namespace Movement
 {
     public class EnemyMovementInput : IMovementInputProvider
     {
-        private Transform _playerTransform;
-        private Transform _enemyTransform;
+        private readonly Transform _playerTransform;
+        private readonly Transform _enemyTransform;
 
         public EnemyMovementInput(Transform playerTransform, Transform enemyTransform)
         {

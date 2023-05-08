@@ -16,8 +16,13 @@ MonoBehaviour:
   - animationState: 2
     rechargeTime: 0.4
     damageAmount: 12
+    enduranceCost: 5
   - animationState: 3
     rechargeTime: 0.8
-    damageAmount: 27
+    damageAmount: 270
+    enduranceCost: 3
   rechargeTimerMultiplayer: 1
   attackBuffer: 1.2
+  attackLayerMask:
+    serializedVersion: 2
+    m_Bits: 256

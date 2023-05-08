@@ -1,5 +1,7 @@
+using System;
 using Fighting;
 using Movement;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Animation
@@ -15,6 +17,13 @@ namespace Animation
             _animationStateManager = animationStateManager;
             _animationFlipper = animationFlipper;
         }
+        
+        public event Action<PlayerAnimationState> AnimationPerformed
+        {
+            add => _animationStateManager.AnimationPerformed += value;
+            remove => _animationStateManager.AnimationPerformed -= value;
+        }
+
 
         public void UpdateAnimationSystem(MovementInput input, AttackInfo? attackInfo, Vector2 velocity,
             bool moverIsGrounded, bool isDead)

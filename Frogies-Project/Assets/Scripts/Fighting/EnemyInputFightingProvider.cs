@@ -1,7 +1,4 @@
-﻿using System;
-using Fighting;
-
-namespace Enemies
+﻿namespace Fighting
 {
     public class EnemyInputFightingProvider : IFightingInputProvider
     {
@@ -16,6 +13,7 @@ namespace Enemies
         {
             if (!isInAttackRange)
             {
+                ActiveAttackIndex = -1;
                 return;
             }
             

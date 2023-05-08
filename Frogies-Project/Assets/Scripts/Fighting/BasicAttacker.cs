@@ -5,41 +5,79 @@ namespace Fighting
 {
     public class BasicAttacker
     {
-        // private float _weakAttackEndurance = 3;
-        // private float _hardAttackEndurance = 5;
-        private float _attackRechargeTimer;
-        private float[] _attackEndurance = new[] { 3f, 5f };
-        private readonly EnduranceSystem _enduranceSystem;
+        public bool IsAttacking => _attackRechargeTimer > 0;
 
-        public BasicAttacker(EnduranceSystem enduranceSystem)
+        private const int MaxAttackTargets = 10;
+
+        private readonly Collider2D[] _attackTargetsBuffer = new Collider2D[MaxAttackTargets];
+        private readonly EnduranceSystem _enduranceSystem;
+        private readonly ContactFilter2D _attackContactFilter;
+        private readonly Collider2D[] _attackColliders;
+        private readonly AttacksData _attacksData;
+
+        private float _attackRechargeTimer;
+        private int _activeAttackIndex = -1;
+
+        public BasicAttacker(EnduranceSystem enduranceSystem, 
+            LayerMask attackLayerMask, 
+            Collider2D[] attackColliders,
+            AttacksData attacksData)
         {
             _enduranceSystem = enduranceSystem;
+            _attackContactFilter = new ContactFilter2D();
+            _attackContactFilter.SetLayerMask(attackLayerMask);
+            _attackColliders = attackColliders;
+            _attacksData = attacksData;
+        }
+
+        public AttackInfo GetActiveAttackInfo()
+        {
+            return _attacksData.Attacks[_activeAttackIndex];
         }
 
         public bool CanPerformAttack(int attackIndex)
         {
-            return attackIndex != -1 
-                   && _attackRechargeTimer <= 0 
-                   && _enduranceSystem.CheckEnduranceAbility(_attackEndurance[attackIndex]);
+            return attackIndex != -1
+                   && _attackRechargeTimer <= 0
+                   && _enduranceSystem.CheckEnduranceAbility(_attacksData.Attacks[attackIndex].enduranceCost);
         }
 
-        public bool IsAttacking => _attackRechargeTimer > 0;
-
-        public void UpdateRechargeTimer(AttacksData data)
+        public void UpdateRechargeTimer()
         {
             if (_attackRechargeTimer > 0)
             {
-                _attackRechargeTimer -= data.RechargeTimerMultiplayer * Time.deltaTime;
+                _attackRechargeTimer -= _attacksData.RechargeTimerMultiplayer * Time.deltaTime;
             }
         }
 
-        public void Attack(int index, AttacksData data)
+        public void Attack()
         {
-            if (!CanPerformAttack(index))
+            if (!CanPerformAttack(_activeAttackIndex))
                 return;
 
-            _attackRechargeTimer = data.Attacks[index].rechargeTime;
-            _enduranceSystem.UseEndurance(_attackEndurance[index]);
+            var size = Physics2D.OverlapCollider(_attackColliders[_activeAttackIndex], _attackContactFilter,
+                _attackTargetsBuffer);
+            for (int i = 0; i < size; i++)
+            {
+                var target = _attackTargetsBuffer[i].GetComponent<DamageReceiver>();
+                if (target != null)
+                {
+                    target.ReceiveDamage(_attacksData.Attacks[_activeAttackIndex].damageAmount);
+                }
+            }
+
+            _attackRechargeTimer = _attacksData.Attacks[_activeAttackIndex].rechargeTime;
+            _enduranceSystem.UseEndurance(_attacksData.Attacks[_activeAttackIndex].enduranceCost);
+        }
+
+        public void SetActiveAttackIndex(int activeAttackIndex)
+        {
+            _activeAttackIndex = activeAttackIndex;
+        }
+
+        public void ResetActiveAttackIndex()
+        {
+            _activeAttackIndex = -1;
         }
     }
 }

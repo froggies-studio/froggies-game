@@ -15,29 +15,6 @@ namespace Core.Entities.Enemies
         private readonly Collider2D[] _colliders = new Collider2D[10];
         private readonly ContactFilter2D _contactFilter2D;
 
-        public BasicEnemy(EnemyData data)
-        {
-            _data = data;
-            InitializeBrain(data);
-            _contactFilter2D = new ContactFilter2D();
-            _contactFilter2D.SetLayerMask(data.AttacksData.AttackLayerMask);
-        }
-
-        private void InitializeBrain(EnemyData data)
-        {
-            _inputMoveProvider = new EnemyMovementInput(data.Player,
-                data.DirectionalMover.transform);
-            _inputFightingInputProvider = new EnemyInputFightingProvider();
-
-            var animationController = new PlayerAnimationController(data.AnimationStateManager, data.SpriteFlipper);
-
-            Brain = new EntityBrain(data.MovementData, data.AttacksData, _inputMoveProvider,
-                _inputFightingInputProvider,
-                data.DirectionalMover, animationController, data.StatsStorage, data.AttackColliders);
-            
-            data.DamageReceiver.Initialize(Brain.HealthSystem.TakeDamage);
-        }
-
         private bool IsInAttackRange
         {
             get
@@ -55,6 +32,14 @@ namespace Core.Entities.Enemies
             }
         }
 
+        public BasicEnemy(EnemyData data)
+        {
+            _data = data;
+            InitializeBrain(data);
+            _contactFilter2D = new ContactFilter2D();
+            _contactFilter2D.SetLayerMask(data.AttacksData.AttackLayerMask);
+        }
+
         public override void Update()
         {
             _inputFightingInputProvider.CalculateAttackInput(IsInAttackRange);
@@ -65,6 +50,21 @@ namespace Core.Entities.Enemies
         public override void FixedUpdate()
         {
             Brain.FixedUpdate();
+        }
+
+        private void InitializeBrain(EnemyData data)
+        {
+            _inputMoveProvider = new EnemyMovementInput(data.Player,
+                data.DirectionalMover.transform);
+            _inputFightingInputProvider = new EnemyInputFightingProvider();
+
+            var animationController = new PlayerAnimationController(data.AnimationStateManager, data.SpriteFlipper);
+
+            Brain = new EntityBrain(data.MovementData, data.AttacksData, _inputMoveProvider,
+                _inputFightingInputProvider,
+                data.DirectionalMover, animationController, data.StatsStorage, data.AttackColliders);
+            
+            data.DamageReceiver.Initialize(Brain.HealthSystem.TakeDamage);
         }
     }
 }

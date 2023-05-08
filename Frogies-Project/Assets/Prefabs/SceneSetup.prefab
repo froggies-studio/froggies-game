@@ -50,10 +50,5 @@ MonoBehaviour:
   player: {fileID: 0}
   animationStateManager: {fileID: 0}
   spriteFlipper: {fileID: 0}
-  itemsStorage: {fileID: 11400000, guid: 16e9c021093ef77458f8c6a71e341636, type: 2}
   prefabsStorage: {fileID: 11400000, guid: db57d2d6b398a3147a0c50647aee09df, type: 2}
   itemRarityDescriptor: {fileID: 11400000, guid: b1feae3760c9f4544a36d6295e50d385, type: 2}
-  potionSystem: {fileID: 0}
-  inventory: {fileID: 0}
-  playerHealthBar: {fileID: 0}
-  _enduranceControlBar: {fileID: 0}

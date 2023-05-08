@@ -16,7 +16,7 @@ namespace Core.Entities.Data
         [field: SerializeField] public AttacksData AttacksData { get; private set; }
         [field: SerializeField] public Collider2D[] AttackColliders { get; private set; }
         [field: SerializeField] public Transform SpriteFlipper { get; private set; }
-        [field: SerializeField] public Transform Player { get; private set; }
+        [field: SerializeField] public Transform Player { get; set; }
         [field: SerializeField] public StatsStorage StatsStorage { get; private set; }
         [field: SerializeField] public DamageReceiver DamageReceiver { get; private set; }
     }

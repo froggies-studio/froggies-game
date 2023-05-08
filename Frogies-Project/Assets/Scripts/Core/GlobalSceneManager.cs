@@ -14,6 +14,7 @@ using JetBrains.Annotations;
 using Movement;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Core
 {
@@ -29,7 +30,7 @@ namespace Core
         [SerializeField] private ItemRarityDescriptorStorage itemRarityDescriptor;
 
         [SerializeField] private PlayerData playerData;
-        [SerializeField] private EnemyData enemyData;
+        [SerializeField] private GameObject testEnemy;
         public PlayerInputActions Input { get; private set; }
         [CanBeNull] public Camera GlobalCamera { get; set; }
 
@@ -41,7 +42,7 @@ namespace Core
         private DropGenerator _dropGenerator;
 
         private bool _isPaused = false;
-        
+
         private HashSet<BasicEntity> _entities;
 
         private void Awake()
@@ -56,7 +57,7 @@ namespace Core
             _entities = new HashSet<BasicEntity>();
             var player = InitializePlayer(playerData);
             _entities.Add(player);
-            _entities.Add(InitializeEnemy(enemyData));
+            _entities.Add(InitializeEnemy(testEnemy, out _));
 
             InitializeItemFactory(player);
 
@@ -87,15 +88,18 @@ namespace Core
             entityData.EnduranceControlBar.Setup(entityBrain.StatsController);
             var player = new Entities.Player.Player();
             player.Initialize(entityBrain);
-            
+
             entityData.DamageReceiver.Initialize(entityBrain.HealthSystem.TakeDamage);
             return player;
         }
 
-        private BasicEntity InitializeEnemy(EnemyData entityData)
+        public BasicEntity InitializeEnemy(GameObject enemyPrefab, out GameObject enemyGameObject)
         {
-            var enemy = new BasicEnemy(entityData);
-            return enemy;
+            enemyGameObject = Instantiate(enemyPrefab);
+            var enemyData = enemyGameObject.GetComponent<EnemyDataComponent>();
+            enemyData.Data.Player = playerData.DirectionalMover.transform;
+            var basicEnemy = new BasicEnemy(enemyData.Data);
+            return basicEnemy;
         }
 
         private void InitializeDropGenerator()
@@ -110,6 +114,7 @@ namespace Core
                 return;
 
             _dropGenerator.Update();
+
             foreach (var entity in _entities)
             {
                 entity.Update();

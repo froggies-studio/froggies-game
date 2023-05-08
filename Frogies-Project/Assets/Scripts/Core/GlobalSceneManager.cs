@@ -14,11 +14,11 @@ using Items.Enum;
 using Items.Rarity;
 using Items.Scriptable;
 using Items.Storage;
-using JetBrains.Annotations;
 using Movement;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using WaveSystem;
 
 namespace Core
 {
@@ -34,9 +34,13 @@ namespace Core
         [SerializeField] private ItemRarityDescriptorStorage itemRarityDescriptor;
         [SerializeField] private PotionSystem.PotionSystem potionSystem;
         [SerializeField] private Inventory inventory;
+        [SerializeField] private WaveStorage _waveStorage;
 
         [SerializeField] private PlayerData playerData;
+        [SerializeField] private WaveData _waveData;
         [SerializeField] private GameObject testEnemy;
+
+        private WaveController _waveController;
         public PlayerInputActions Input { get; private set; }
         
         public PixelPerfectCamera GlobalCamera { get; private set; }
@@ -71,6 +75,7 @@ namespace Core
             InitializeItemFactory(player);
             InitializePotionSystem(descriptors, player);
             InitializeDropGenerator(descriptors);
+            InitializeWaveSystem();
         }
 
         private void InitializeItemFactory(BasicEntity player)
@@ -108,6 +113,7 @@ namespace Core
             var enemyData = enemyGameObject.GetComponent<EnemyDataComponent>();
             enemyData.Data.Player = playerData.DirectionalMover.transform;
             var basicEnemy = new BasicEnemy(enemyData.Data);
+            _entities.Add(basicEnemy);
             return basicEnemy;
         }
 
@@ -124,6 +130,13 @@ namespace Core
         {
             _dropGenerator = new DropGenerator(playerData.DirectionalMover, _sceneItemStorage, itemDescriptors);
         }
+        
+        private void InitializeWaveSystem()
+        {
+            var waves = _waveStorage.Waves.Select(wave => wave.GetCopy()).ToDictionary(wave => wave);
+            _waveController = new WaveController(waves, _waveData.Spawners, _waveData.Enemies);
+            _waveData.WaveBar.Setup(_waveController);
+        }
 
         private void Update()
         {
@@ -136,9 +149,14 @@ namespace Core
                 potionSystem.OpenPotionMenu();
             }
             
+            _waveController.EnemyChecker();
+            if (UnityEngine.Input.GetKeyDown(KeyCode.K))
+            {
+                _waveController.OnPotionPicked(0);
+            }
 
             _dropGenerator.Update();
-
+            
             foreach (var entity in _entities)
             {
                 entity.Update();

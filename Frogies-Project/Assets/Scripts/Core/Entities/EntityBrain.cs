@@ -5,7 +5,9 @@ using Movement;
 using StatsSystem;
 using StatsSystem.Endurance;
 using StatsSystem.Health;
+using WaveSystem;
 using UnityEngine;
+
 
 namespace Core.Entities
 {

@@ -1,12 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using Animation;
+using Core.InventorySystem;
 using Core.Entities;
 using Core.Entities.Data;
 using Core.Entities.Enemies;
 using Fighting;
 using Items;
 using Items.Behaviour;
+using Items.Core;
+using Items.Data;
+using Items.Enum;
 using Items.Rarity;
 using Items.Scriptable;
 using Items.Storage;
@@ -14,6 +18,7 @@ using JetBrains.Annotations;
 using Movement;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.Serialization;
 using WaveSystem;
 
@@ -29,6 +34,8 @@ namespace Core
         [SerializeField] private ItemsStorage itemsStorage;
         [SerializeField] private BasePrefabsStorage prefabsStorage;
         [SerializeField] private ItemRarityDescriptorStorage itemRarityDescriptor;
+        [SerializeField] private PotionSystem.PotionSystem potionSystem;
+        [SerializeField] private Inventory inventory;
         [SerializeField] private WaveStorage _waveStorage;
 
         [SerializeField] private PlayerData playerData;
@@ -37,8 +44,9 @@ namespace Core
 
         private WaveController _waveController;
         public PlayerInputActions Input { get; private set; }
-        [CanBeNull] public Camera GlobalCamera { get; set; }
-
+        
+        public PixelPerfectCamera GlobalCamera { get; private set; }
+        
         public Transform PlayerTransform => playerData.DirectionalMover.transform;
 
         public BasePrefabsStorage PrefabsStorage => prefabsStorage;
@@ -55,7 +63,7 @@ namespace Core
             Debug.Assert(Instance == null);
             Instance = this;
 
-            GlobalCamera = camera;
+            GlobalCamera = camera.GetComponent<PixelPerfectCamera>();
             Input = new PlayerInputActions();
             Input.Enable();
 
@@ -63,23 +71,26 @@ namespace Core
             var player = InitializePlayer(playerData);
             _entities.Add(player);
             _entities.Add(InitializeEnemy(testEnemy, out _));
+
+            var descriptors = itemsStorage.ItemScriptables.Select(scriptable => scriptable.ItemDescriptor).ToList();
+            
             
             var waves = _waveStorage.Waves.Select(wave => wave.GetCopy()).ToDictionary(wave => wave);
             _waveController = new WaveController(waves, _waveData.Spawners, _waveData.Enemies);
             _waveData.WaveBar.Setup(_waveController);
             
             InitializeItemFactory(player);
-
-            InitializeDropGenerator();
+            InitializePotionSystem(descriptors, player);
+            InitializeDropGenerator(descriptors);
         }
 
         private void InitializeItemFactory(BasicEntity player)
         {
             ItemFactory factory = new ItemFactory(player.Brain.StatsController);
             _sceneItemStorage = new ItemSystem(
-                PrefabsStorage.SceneItemPrefab.GetComponent<SceneItem>(),
-                itemRarityDescriptor.RarityDescriptor.Cast<IItemRarityColor>().ToArray(),
-                factory);
+                PrefabsStorage.SceneItemPrefab.GetComponent<SceneItem>(), 
+                itemRarityDescriptor.RarityDescriptor.Cast<IItemRarityColor>().ToArray(), 
+                factory, inventory);
         }
 
         private BasicEntity InitializePlayer(PlayerData entityData)
@@ -112,16 +123,31 @@ namespace Core
             return basicEnemy;
         }
 
-        private void InitializeDropGenerator()
+        private void InitializePotionSystem(List<ItemDescriptor> itemDescriptors, BasicEntity player)
         {
-            var descriptors = itemsStorage.ItemScriptables.Select(scriptable => scriptable.ItemDescriptor).ToList();
-            _dropGenerator = new DropGenerator(playerData.DirectionalMover, _sceneItemStorage, descriptors);
+            var depowerPotions = itemDescriptors.Where(descriptor => descriptor.ItemId == ItemId.DepowerPotion)
+                .Select(descriptor => new Potion(descriptor as StatChangingItemDescriptor, player.Brain.StatsController)).ToList();
+            potionSystem.Setup(depowerPotions);
+            potionSystem.OnActive += () => _isPaused = true;
+            potionSystem.OnOptionSelected += () => _isPaused = false;
+        }
+        
+        private void InitializeDropGenerator(List<ItemDescriptor> itemDescriptors)
+        {
+            _dropGenerator = new DropGenerator(playerData.DirectionalMover, _sceneItemStorage, itemDescriptors);
         }
 
         private void Update()
         {
             if (_isPaused)
                 return;
+            
+            // TODO: remove
+            if (UnityEngine.Input.GetKeyUp(KeyCode.P)) // for testing purpose only
+            {
+                potionSystem.OpenPotionMenu();
+            }
+            
             
             _waveController.EnemyChecker();
             if (UnityEngine.Input.GetKeyDown(KeyCode.K))

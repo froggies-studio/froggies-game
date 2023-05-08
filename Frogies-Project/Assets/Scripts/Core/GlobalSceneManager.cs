@@ -1,25 +1,19 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Animation;
-using Core.Player;
-using Enemies;
+using Core.Entities;
+using Core.Entities.Data;
+using Core.Entities.Enemies;
 using Fighting;
 using Items;
 using Items.Behaviour;
-using Items.Data;
-using Items.Enum;
 using Items.Rarity;
 using Items.Scriptable;
 using Items.Storage;
 using JetBrains.Annotations;
 using Movement;
-using StatsSystem;
-using StatsSystem.Endurance;
-using StatsSystem.Health;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Core
 {
@@ -46,10 +40,8 @@ namespace Core
         private ItemSystem _sceneItemStorage;
         private DropGenerator _dropGenerator;
 
-        private bool isPaused = false;
-
-        private StatsStorage statsStorage;
-
+        private bool _isPaused = false;
+        
         private HashSet<BasicEntity> _entities;
 
         private void Awake()
@@ -73,7 +65,7 @@ namespace Core
 
         private void InitializeItemFactory(BasicEntity player)
         {
-            ItemFactory factory = new ItemFactory(player.StatsController);
+            ItemFactory factory = new ItemFactory(player.Brain.StatsController);
             _sceneItemStorage = new ItemSystem(
                 PrefabsStorage.SceneItemPrefab.GetComponent<SceneItem>(),
                 itemRarityDescriptor.RarityDescriptor.Cast<IItemRarityColor>().ToArray(),
@@ -87,13 +79,13 @@ namespace Core
             PlayerFightInputReader fightInputReader = new PlayerFightInputReader(Input, entityData.AttacksData);
             PlayerAnimationController playerAnimation =
                 new PlayerAnimationController(entityData.AnimationStateManager, entityData.SpriteFlipper);
-            statsStorage = prefabsStorage.StatsStorage;
+            var statsStorage = prefabsStorage.StatsStorage;
             var entityBrain = new EntityBrain(entityData.MovementData, entityData.AttacksData, moveInputReader,
                 fightInputReader, entityData.DirectionalMover,
                 playerAnimation, statsStorage, entityData.AttackColliders);
             entityData.HealthBar.Setup(entityBrain.StatsController);
             entityData.EnduranceControlBar.Setup(entityBrain.StatsController);
-            var player = new Enemies.Player();
+            var player = new Entities.Player.Player();
             player.Initialize(entityBrain);
             
             entityData.DamageReceiver.Initialize(entityBrain.HealthSystem.TakeDamage);
@@ -114,7 +106,7 @@ namespace Core
 
         private void Update()
         {
-            if (isPaused)
+            if (_isPaused)
                 return;
 
             _dropGenerator.Update();
@@ -126,7 +118,7 @@ namespace Core
 
         private void FixedUpdate()
         {
-            if (isPaused)
+            if (_isPaused)
                 return;
 
             foreach (var entity in _entities)

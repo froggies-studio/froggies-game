@@ -1,11 +1,11 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Enemies
+namespace Fighting
 {
     public class DamageReceiver : MonoBehaviour
     {
-        public Action<float> OnDamageReceived { get; private set; }
+        private Action<float> OnDamageReceived { get; set; }
 
         public void Initialize(Action<float> onDamageReceived)
         {
@@ -14,7 +14,6 @@ namespace Enemies
 
         public void ReceiveDamage(float damage)
         {
-            Debug.Log("Damage received");
             OnDamageReceived?.Invoke(damage);
         }
     }

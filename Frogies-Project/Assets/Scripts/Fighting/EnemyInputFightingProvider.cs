@@ -1,6 +1,4 @@
-﻿using Fighting;
-
-namespace Enemies
+﻿namespace Fighting
 {
     public class EnemyInputFightingProvider : IFightingInputProvider
     {

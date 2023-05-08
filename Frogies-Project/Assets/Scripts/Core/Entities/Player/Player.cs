@@ -1,25 +1,20 @@
-﻿using Core.Player;
-
-namespace Enemies
+﻿namespace Core.Entities.Player
 {
     public class Player : BasicEntity
     {
-        private EntityBrain _brain;
-
         public void Initialize(EntityBrain brain)
         {
-            _brain = brain;
-            HealthSystem = _brain.HealthSystem;
+            Brain = brain;
         }
 
         public override void Update()
         {
-            _brain.Update();
+            Brain.Update();
         }
 
         public override void FixedUpdate()
         {
-            _brain.FixedUpdate();
+            Brain.FixedUpdate();
         }
     }
 }

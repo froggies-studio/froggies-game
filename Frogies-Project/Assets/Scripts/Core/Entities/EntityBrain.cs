@@ -7,46 +7,47 @@ using StatsSystem.Endurance;
 using StatsSystem.Health;
 using UnityEngine;
 
-namespace Core.Player
+namespace Core.Entities
 {
     public class EntityBrain
     {
-        private StatsController _statsController;
         public HealthSystem HealthSystem { get; private set; }
-        private EnduranceSystem _enduranceSystem;
-
-        private MovementData _movementData;
-
-        private IMovementInputProvider _inputMoveProvider;
-        private IFightingInputProvider _inputFightingInputProvider;
-        private DirectionalMover _mover;
-        private BasicAttacker _attacker;
-        private PlayerAnimationController _animation;
-
         public StatsController StatsController => _statsController;
 
-        public EntityBrain(MovementData movementData, AttacksData attacksData, IMovementInputProvider inputMoveProvider,
-            IFightingInputProvider inputFightingInputProvider, DirectionalMover mover,
-            PlayerAnimationController animation, StatsStorage statsStorage,
+        private readonly EnduranceSystem _enduranceSystem;
+        private readonly StatsController _statsController;
+
+        private readonly MovementData _movementData;
+
+        private readonly IMovementInputProvider _inputMoveProvider;
+        private readonly IFightingInputProvider _inputFightingInputProvider;
+        private readonly DirectionalMover _mover;
+        private readonly BasicAttacker _attacker;
+        private readonly PlayerAnimationController _animation;
+
+        public EntityBrain(MovementData movementData,
+            AttacksData attacksData,
+            IMovementInputProvider inputMoveProvider,
+            IFightingInputProvider inputFightingInputProvider,
+            DirectionalMover mover,
+            PlayerAnimationController animation,
+            StatsStorage statsStorage,
             Collider2D[] attackColliders)
         {
             _movementData = movementData;
             _inputMoveProvider = inputMoveProvider;
             _inputFightingInputProvider = inputFightingInputProvider;
             _mover = mover;
-            
+
             _animation = animation;
             var stats = statsStorage.Stats.Select(stat => stat.GetCopy()).ToDictionary(stat => stat);
             _statsController = new StatsController(stats);
             HealthSystem = new HealthSystem(_statsController);
             _enduranceSystem = new EnduranceSystem(_statsController);
-            _attacker = new BasicAttacker(_enduranceSystem, attacksData.AttackLayerMask, attackColliders,attacksData);
-            zero.X = 0;
+            _attacker = new BasicAttacker(_enduranceSystem, attacksData.AttackLayerMask, attackColliders, attacksData);
 
             animation.AnimationPerformed += OnAnimationPerformed;
         }
-
-        private MovementInput zero = new MovementInput() { X = 0 };
 
         public void FixedUpdate()
         {
@@ -70,14 +71,13 @@ namespace Core.Player
                 info = _attacker.GetActiveAttackInfo();
             }
 
-            if (!_attacker.IsAttacking)
+            if (_attacker.IsAttacking)
             {
-                _mover.CalculateHorizontalSpeed(_inputMoveProvider.Input, _movementData);
+                _mover.Stop();
             }
             else
             {
-                _mover.CalculateHorizontalSpeed(zero, _movementData);
-
+                _mover.CalculateHorizontalSpeed(_inputMoveProvider.Input, _movementData);
             }
 
             _animation.UpdateAnimationSystem(_inputMoveProvider.Input, info, _mover.Velocity, _mover.IsGrounded,

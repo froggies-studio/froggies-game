@@ -1,13 +1,13 @@
 ﻿using Animation;
-using Core.Player;
+using Core.Entities.Data;
+using Fighting;
+using Movement;
 using UnityEngine;
 
-namespace Enemies
+namespace Core.Entities.Enemies
 {
     public class BasicEnemy : BasicEntity
     {
-        public EntityBrain Brain { get; private set; }
-
         private readonly EnemyData _data;
         private EnemyMovementInput _inputMoveProvider;
         private EnemyInputFightingProvider _inputFightingInputProvider;
@@ -19,7 +19,6 @@ namespace Enemies
         {
             _data = data;
             InitializeBrain(data);
-            HealthSystem = Brain.HealthSystem;
             _contactFilter2D = new ContactFilter2D();
             _contactFilter2D.SetLayerMask(data.AttacksData.AttackLayerMask);
         }

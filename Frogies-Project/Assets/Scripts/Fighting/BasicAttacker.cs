@@ -1,4 +1,3 @@
-using Enemies;
 using UnityEngine;
 using StatsSystem.Endurance;
 
@@ -18,7 +17,6 @@ namespace Fighting
 
         private float _attackRechargeTimer;
         private int _activeAttackIndex = -1;
-
 
         public BasicAttacker(EnduranceSystem enduranceSystem, 
             LayerMask attackLayerMask, 

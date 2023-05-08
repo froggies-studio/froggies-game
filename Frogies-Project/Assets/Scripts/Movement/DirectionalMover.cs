@@ -93,6 +93,13 @@ namespace Movement
             rigidbody.velocity = rigidbodyVelocity;
         }
 
+        public void Stop()
+        {
+            var rigidbodyVelocity = rigidbody.velocity;
+            rigidbodyVelocity.x = 0;
+            rigidbody.velocity = rigidbodyVelocity;
+        }
+
         #endregion
     
         #region Jump

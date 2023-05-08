@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Animation;
 using Core.InventorySystem;
-using Core.Player;
 using Core.Entities;
 using Core.Entities.Data;
 using Core.Entities.Enemies;
@@ -20,7 +19,6 @@ using Movement;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
-using UnityEngine.Serialization;
 
 namespace Core
 {
@@ -40,12 +38,9 @@ namespace Core
         [SerializeField] private PlayerData playerData;
         [SerializeField] private GameObject testEnemy;
         public PlayerInputActions Input { get; private set; }
+        
         public PixelPerfectCamera GlobalCamera { get; private set; }
         
-        public Transform PlayerTransform => player.transform;
-        
-        [CanBeNull] public Camera GlobalCamera { get; set; }
-
         public Transform PlayerTransform => playerData.DirectionalMover.transform;
 
         public BasePrefabsStorage PrefabsStorage => prefabsStorage;
@@ -71,9 +66,11 @@ namespace Core
             _entities.Add(player);
             _entities.Add(InitializeEnemy(testEnemy, out _));
 
+            var descriptors = itemsStorage.ItemScriptables.Select(scriptable => scriptable.ItemDescriptor).ToList();
+            
             InitializeItemFactory(player);
-
-            InitializeDropGenerator();
+            InitializePotionSystem(descriptors, player);
+            InitializeDropGenerator(descriptors);
         }
 
         private void InitializeItemFactory(BasicEntity player)
@@ -83,10 +80,6 @@ namespace Core
                 PrefabsStorage.SceneItemPrefab.GetComponent<SceneItem>(), 
                 itemRarityDescriptor.RarityDescriptor.Cast<IItemRarityColor>().ToArray(), 
                 factory, inventory);
-            
-                PrefabsStorage.SceneItemPrefab.GetComponent<SceneItem>(),
-                itemRarityDescriptor.RarityDescriptor.Cast<IItemRarityColor>().ToArray(),
-                factory);
         }
 
         private BasicEntity InitializePlayer(PlayerData entityData)
@@ -118,17 +111,18 @@ namespace Core
             return basicEnemy;
         }
 
-        private void InitializeDropGenerator()
+        private void InitializePotionSystem(List<ItemDescriptor> itemDescriptors, BasicEntity player)
         {
-            var descriptors = itemsStorage.ItemScriptables.Select(scriptable => scriptable.ItemDescriptor).ToList();
-            _dropGenerator = new DropGenerator(player, _sceneItemStorage, descriptors);
-
-            var depowerPotions = descriptors.Where(descriptor => descriptor.ItemId == ItemId.DepowerPotion)
-                .Select(descriptor => new Potion(descriptor as StatChangingItemDescriptor, _playerBrain.StatsController)).ToList();
+            var depowerPotions = itemDescriptors.Where(descriptor => descriptor.ItemId == ItemId.DepowerPotion)
+                .Select(descriptor => new Potion(descriptor as StatChangingItemDescriptor, player.Brain.StatsController)).ToList();
             potionSystem.Setup(depowerPotions);
-            potionSystem.OnActive += () => isPaused = true;
-            potionSystem.OnOptionSelected += () => isPaused = false;
-            _dropGenerator = new DropGenerator(playerData.DirectionalMover, _sceneItemStorage, descriptors);
+            potionSystem.OnActive += () => _isPaused = true;
+            potionSystem.OnOptionSelected += () => _isPaused = false;
+        }
+        
+        private void InitializeDropGenerator(List<ItemDescriptor> itemDescriptors)
+        {
+            _dropGenerator = new DropGenerator(playerData.DirectionalMover, _sceneItemStorage, itemDescriptors);
         }
 
         private void Update()

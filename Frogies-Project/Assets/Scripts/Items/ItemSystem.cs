@@ -56,7 +56,6 @@ namespace Items
         
         private void TryPickItem(SceneItem sceneItem)
         {
-            _itemsOnScene[sceneItem].Use();
             Vector2 playerPosition = GlobalSceneManager.Instance.PlayerTransform.position;
             Vector2 itemPosition = sceneItem.transform.position;
             Vector2 distanceVec = playerPosition - itemPosition;

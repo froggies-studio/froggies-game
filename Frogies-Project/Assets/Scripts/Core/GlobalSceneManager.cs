@@ -15,6 +15,7 @@ using Movement;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
+using WaveSystem;
 
 namespace Core
 {
@@ -28,9 +29,13 @@ namespace Core
         [SerializeField] private ItemsStorage itemsStorage;
         [SerializeField] private BasePrefabsStorage prefabsStorage;
         [SerializeField] private ItemRarityDescriptorStorage itemRarityDescriptor;
+        [SerializeField] private WaveStorage _waveStorage;
 
         [SerializeField] private PlayerData playerData;
+        [SerializeField] private WaveData _waveData;
         [SerializeField] private GameObject testEnemy;
+
+        private WaveController _waveController;
         public PlayerInputActions Input { get; private set; }
         [CanBeNull] public Camera GlobalCamera { get; set; }
 
@@ -58,7 +63,11 @@ namespace Core
             var player = InitializePlayer(playerData);
             _entities.Add(player);
             _entities.Add(InitializeEnemy(testEnemy, out _));
-
+            
+            var waves = _waveStorage.Waves.Select(wave => wave.GetCopy()).ToDictionary(wave => wave);
+            _waveController = new WaveController(waves, _waveData.Spawners, _waveData.Enemies);
+            _waveData.WaveBar.Setup(_waveController);
+            
             InitializeItemFactory(player);
 
             InitializeDropGenerator();
@@ -99,6 +108,7 @@ namespace Core
             var enemyData = enemyGameObject.GetComponent<EnemyDataComponent>();
             enemyData.Data.Player = playerData.DirectionalMover.transform;
             var basicEnemy = new BasicEnemy(enemyData.Data);
+            _entities.Add(basicEnemy);
             return basicEnemy;
         }
 
@@ -112,9 +122,15 @@ namespace Core
         {
             if (_isPaused)
                 return;
+            
+            _waveController.EnemyChecker();
+            if (UnityEngine.Input.GetKeyDown(KeyCode.K))
+            {
+                _waveController.OnPotionPicked(0);
+            }
 
             _dropGenerator.Update();
-
+            
             foreach (var entity in _entities)
             {
                 entity.Update();

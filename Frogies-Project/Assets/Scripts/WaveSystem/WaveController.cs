@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Enemies;
+using Core;
 using StatsSystem.Health;
 using UnityEngine;
 using UnityEngine.Video;
@@ -55,10 +55,10 @@ namespace WaveSystem
             var currentEnemy = _enemies[(int)_currentWave.EnemyType];
             for (int i = 0; i < _currentWave.MaxAmountOfEnemies; i++)
             {
-                GameObject enemy = Object.Instantiate(currentEnemy.gameObject, _currentWaveSpawner.transform.position,
-                    _currentWaveSpawner.transform.rotation, _currentWaveSpawner.transform);
-                BasicEnemy createdEnemy = enemy.gameObject.GetComponent<BasicEnemy>();
-                createdEnemy.HealthSystem.OnDead += EnemyDeath;
+                var enemy = GlobalSceneManager.Instance.InitializeEnemy(currentEnemy, out GameObject newEnemy);
+                newEnemy.transform.position = _currentWaveSpawner.transform.position;
+                newEnemy.transform.parent = _currentWaveSpawner.transform;
+                enemy.Brain.HealthSystem.OnDead += EnemyDeath;
             }
             _currentAmountOfEnemies = _currentWave.MaxAmountOfEnemies;
         }

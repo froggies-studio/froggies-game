@@ -5,21 +5,14 @@ using Movement;
 using StatsSystem;
 using StatsSystem.Endurance;
 using StatsSystem.Health;
-<<<<<<< HEAD:Frogies-Project/Assets/Scripts/Core/Player/EntityBrain.cs
 using WaveSystem;
-=======
 using UnityEngine;
->>>>>>> basic-attacker-dev:Frogies-Project/Assets/Scripts/Core/Entities/EntityBrain.cs
+
 
 namespace Core.Entities
 {
     public class EntityBrain
     {
-<<<<<<< HEAD:Frogies-Project/Assets/Scripts/Core/Player/EntityBrain.cs
-        private StatsController _statsController;
-        
-=======
->>>>>>> basic-attacker-dev:Frogies-Project/Assets/Scripts/Core/Entities/EntityBrain.cs
         public HealthSystem HealthSystem { get; private set; }
         public StatsController StatsController => _statsController;
 

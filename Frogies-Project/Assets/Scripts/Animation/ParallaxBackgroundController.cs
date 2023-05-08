@@ -1,3 +1,4 @@
+using Cinemachine;
 using Core;
 using UnityEngine;
 
@@ -13,33 +14,44 @@ namespace Animation
         [SerializeField] private float farClipPlane = 50;
 
         [SerializeField] private float yFactor = 180f / 320f;
-    
+
+        private Vector3[] _startPositions;
         private Vector3 _lastCameraPosition;
-    
+
         private void Start()
         {
-            _lastCameraPosition = GlobalSceneManager.Instance.GlobalCamera.transform.position;
+            _startPositions = new Vector3[parallaxBg.Length];
+            for (var i = 0; i < parallaxBg.Length; i++)
+            {
+                var pixelPosition = GlobalSceneManager.Instance.GlobalCamera.RoundToPixel(parallaxBg[i].position);
+                _startPositions[i] = new Vector3(pixelPosition.x, pixelPosition.y, parallaxBg[i].position.z);
+            }
+
+            _lastCameraPosition = GlobalSceneManager.Instance.GlobalCamera.RoundToPixel(GlobalSceneManager.Instance.GlobalCamera.transform.position);
+            CinemachineCore.CameraUpdatedEvent.AddListener(UpdateParallax);
         }
 
-        private void Update()
+        private void UpdateParallax(CinemachineBrain arg0)
         {
-            Vector3 cameraPosition = GlobalSceneManager.Instance.GlobalCamera.transform.position;
-            Vector3 delta = cameraPosition - _lastCameraPosition;
-            foreach (var bgTransform in parallaxBg)
+            Vector3 cameraPosition = arg0.transform.position;
+            Vector3 delta = GlobalSceneManager.Instance.GlobalCamera.RoundToPixel(cameraPosition - _lastCameraPosition);
+            for (var i = 0; i < parallaxBg.Length; i++)
             {
-                Vector3 bgPos = bgTransform.position;
-                float distFromSubject = bgPos.z - characterOffset;
+                Vector3 bgPos = _startPositions[i];
+                float distFromSubject = _startPositions[i].z - characterOffset;
                 float clippingPlane = cameraPosition.z + (distFromSubject > 0 ? farClipPlane : nearClipPlane);
-                float parallaxFactor = Mathf.Abs(distFromSubject) / clippingPlane; 
-                bgTransform.position = new Vector3(bgPos.x + delta.x * parallaxFactor, bgPos.y + delta.y * parallaxFactor * yFactor, bgTransform.position.z);
+                float parallaxFactor = Mathf.Abs(distFromSubject) / clippingPlane;
+
+                var parallaxPosition = GlobalSceneManager.Instance.GlobalCamera.RoundToPixel(new Vector2(
+                    bgPos.x + delta.x * parallaxFactor,
+                    bgPos.y + delta.y * parallaxFactor));
+                parallaxBg[i].position = new Vector3(parallaxPosition.x, parallaxPosition.y, _startPositions[i].z);
             }
-        
+
             foreach (var bgTransform in staticBg)
             {
                 bgTransform.position = cameraPosition;
             }
-
-            _lastCameraPosition = cameraPosition;
         }
     }
 }

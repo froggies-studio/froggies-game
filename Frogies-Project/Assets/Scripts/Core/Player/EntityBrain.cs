@@ -16,7 +16,6 @@ namespace Core.Player
         private EnduranceSystem _enduranceSystem;
 
         private MovementData _movementData;
-        private AttacksData _attacksData;
 
         private IMovementInputProvider _inputMoveProvider;
         private IFightingInputProvider _inputFightingInputProvider;
@@ -32,7 +31,6 @@ namespace Core.Player
             Collider2D[] attackColliders)
         {
             _movementData = movementData;
-            _attacksData = attacksData;
             _inputMoveProvider = inputMoveProvider;
             _inputFightingInputProvider = inputFightingInputProvider;
             _mover = mover;
@@ -42,7 +40,7 @@ namespace Core.Player
             _statsController = new StatsController(stats);
             HealthSystem = new HealthSystem(_statsController);
             _enduranceSystem = new EnduranceSystem(_statsController);
-            _attacker = new BasicAttacker(_enduranceSystem, attacksData.AttackLayerMask, attackColliders);
+            _attacker = new BasicAttacker(_enduranceSystem, attacksData.AttackLayerMask, attackColliders,attacksData);
             zero.X = 0;
 
             animation.AnimationPerformed += OnAnimationPerformed;
@@ -64,12 +62,12 @@ namespace Core.Player
             _mover.CalculateJump(_inputMoveProvider.Input, _movementData, _enduranceSystem);
 
             AttackInfo? info = null;
-            _attacker.UpdateRechargeTimer(_attacksData);
+            _attacker.UpdateRechargeTimer();
             int activeAttackIndex = _inputFightingInputProvider.ActiveAttackIndex;
-            if (activeAttackIndex != -1 && _attacker.CanPerformAttack(activeAttackIndex, _attacksData))
+            if (activeAttackIndex != -1 && _attacker.CanPerformAttack(activeAttackIndex))
             {
-                // _attacker.Attack(_inputFightingInputProvider.ActiveAttackIndex, _attacksData);
-                info = _attacksData.Attacks[_inputFightingInputProvider.ActiveAttackIndex];
+                _attacker.SetActiveAttackIndex(_inputFightingInputProvider.ActiveAttackIndex);
+                info = _attacker.GetActiveAttackInfo();
             }
 
             if (!_attacker.IsAttacking)
@@ -100,7 +98,8 @@ namespace Core.Player
             switch (animationState)
             {
                 case PlayerAnimationState.Attack:
-                    _attacker.Attack(_inputFightingInputProvider.ActiveAttackIndex, _attacksData);
+                    _attacker.Attack();
+                    _attacker.ResetActiveAttackIndex();
                     return;
             }
         }

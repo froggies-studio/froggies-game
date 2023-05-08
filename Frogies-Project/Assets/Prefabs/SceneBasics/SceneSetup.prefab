@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3047133426348963247
 MonoBehaviour:
@@ -44,16 +44,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f829d0abf935434cb22fdc2c63c9760e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementData: {fileID: 11400000, guid: da9fee57bf0761646bb6496791f4208d, type: 2}
-  _attacksData: {fileID: 11400000, guid: 00696a1cc8451b342b5979bd7b8b861d, type: 2}
   camera: {fileID: 0}
-  player: {fileID: 0}
-  animationStateManager: {fileID: 0}
-  spriteFlipper: {fileID: 0}
   itemsStorage: {fileID: 11400000, guid: 16e9c021093ef77458f8c6a71e341636, type: 2}
   prefabsStorage: {fileID: 11400000, guid: db57d2d6b398a3147a0c50647aee09df, type: 2}
   itemRarityDescriptor: {fileID: 11400000, guid: b1feae3760c9f4544a36d6295e50d385, type: 2}
   potionSystem: {fileID: 0}
   inventory: {fileID: 0}
-  playerHealthBar: {fileID: 0}
-  _enduranceControlBar: {fileID: 0}
+  playerData:
+    <HealthBar>k__BackingField: {fileID: 0}
+    <EnduranceControlBar>k__BackingField: {fileID: 0}
+    <SpriteFlipper>k__BackingField: {fileID: 0}
+    <DirectionalMover>k__BackingField: {fileID: 0}
+    <AnimationStateManager>k__BackingField: {fileID: 0}
+    <MovementData>k__BackingField: {fileID: 11400000, guid: da9fee57bf0761646bb6496791f4208d, type: 2}
+    <AttacksData>k__BackingField: {fileID: 11400000, guid: 00696a1cc8451b342b5979bd7b8b861d, type: 2}
+    <AttackColliders>k__BackingField:
+    - {fileID: 0}
+    - {fileID: 0}
+    <DamageReceiver>k__BackingField: {fileID: 0}
+  testEnemy: {fileID: 5634132030223560505, guid: c54eeb9a1343fa247b55840d8afd779a, type: 3}

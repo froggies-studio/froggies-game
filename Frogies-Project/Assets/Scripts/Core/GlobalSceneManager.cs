@@ -19,6 +19,7 @@ using StatsSystem;
 using StatsSystem.Endurance;
 using StatsSystem.Health;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 namespace Core
 {
@@ -45,7 +46,7 @@ namespace Core
         [SerializeField] private EnduranceControlBar _enduranceControlBar;
         
         public PlayerInputActions Input { get; private set; }
-        [CanBeNull] public Camera GlobalCamera { get; set; }
+        public PixelPerfectCamera GlobalCamera { get; private set; }
         
         public Transform PlayerTransform => player.transform;
         
@@ -64,7 +65,7 @@ namespace Core
             Debug.Assert(Instance == null);
             Instance = this;
 
-            GlobalCamera = camera;
+            GlobalCamera = camera.GetComponent<PixelPerfectCamera>();
             Input = new PlayerInputActions();
             Input.Enable();
 

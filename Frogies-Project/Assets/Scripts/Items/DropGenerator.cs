@@ -23,7 +23,7 @@ namespace Items
         private void DropRandomItem(ItemRarity rarity)
         {
             var items = _itemDescriptors.Where(item => item.ItemRarity == rarity).ToList();
-            var itemDescriptor = items[Random.Range(0, items.Count())];
+            var itemDescriptor =  items[Random.Range(0, items.Count)];
             _itemSystem.DropItem(itemDescriptor, (Vector2)_player.transform.position + Vector2.one);
         }
         

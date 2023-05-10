@@ -1,4 +1,4 @@
-﻿using StatsSystem.Enum;
+using StatsSystem.Enum;
 using UnityEngine;
 
 namespace StatsSystem.Endurance

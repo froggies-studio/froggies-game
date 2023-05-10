@@ -10,7 +10,8 @@ namespace Core.PotionSystem
         [SerializeField] private GameObject optionPrefab;
         [SerializeField] private Transform body;
         private List<PotionOption> _options;
-        public event Action OnOptionSelected;
+        private int _potionCount;
+        public event Action<int> OnOptionSelected;
         public event Action OnActive;
         
         public void Setup(List<Potion> potions)
@@ -24,6 +25,8 @@ namespace Core.PotionSystem
                 option.OnSelected += OptionOnSelected;
                 _options.Add(option);
             }
+
+            _potionCount = _options.Count;
             gameObject.SetActive(false);
         }
 
@@ -40,7 +43,7 @@ namespace Core.PotionSystem
             
             gameObject.SetActive(false);
 
-            if(OnOptionSelected != null) OnOptionSelected.Invoke();
+            if(OnOptionSelected != null) OnOptionSelected.Invoke(_potionCount-_options.Count);
         }
 
     }

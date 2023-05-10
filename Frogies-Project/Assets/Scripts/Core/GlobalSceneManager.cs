@@ -123,7 +123,7 @@ namespace Core
                 .Select(descriptor => new Potion(descriptor as StatChangingItemDescriptor, player.Brain.StatsController)).ToList();
             potionSystem.Setup(depowerPotions);
             potionSystem.OnActive += () => _isPaused = true;
-            potionSystem.OnOptionSelected += () => _isPaused = false;
+            potionSystem.OnOptionSelected += _ => _isPaused = false;
         }
         
         private void InitializeDropGenerator(List<ItemDescriptor> itemDescriptors)
@@ -136,6 +136,7 @@ namespace Core
             var waves = _waveStorage.Waves.Select(wave => wave.GetCopy()).ToDictionary(wave => wave);
             _waveController = new WaveController(waves, _waveData.Spawners, _waveData.Enemies);
             _waveData.WaveBar.Setup(_waveController);
+            potionSystem.OnOptionSelected += _waveController.OnPotionPicked;
         }
 
         private void Update()
@@ -150,7 +151,8 @@ namespace Core
             }
             
             _waveController.EnemyChecker();
-            if (UnityEngine.Input.GetKeyDown(KeyCode.K))
+            // TODO: remove
+            if (UnityEngine.Input.GetKeyDown(KeyCode.K))// for testing purpose only
             {
                 _waveController.OnPotionPicked(0);
             }

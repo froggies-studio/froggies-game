@@ -34,7 +34,7 @@ namespace WaveSystem
         public void OnPotionPicked(int numberOfPotions)
         {
             _isNight = true;
-            _currentWave = GetWave(numberOfPotions);
+            _currentWave = GetWave(numberOfPotions-1);
             SpawnEnemies();
             if (OnWaveStarted != null) OnWaveStarted.Invoke();
         }

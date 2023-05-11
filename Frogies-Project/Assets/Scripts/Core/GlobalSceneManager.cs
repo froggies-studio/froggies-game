@@ -8,6 +8,7 @@ using Core.Entities.Enemies;
 using Fighting;
 using Items;
 using Items.Behaviour;
+using Items.Core;
 using Items.Data;
 using Items.Enum;
 using Items.Rarity;

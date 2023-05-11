@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core;
+using Core.InventorySystem;
 using Items.Behaviour;
 using Items.Core;
 using Items.Data;
@@ -18,9 +19,10 @@ namespace Items
         private readonly Dictionary<SceneItem, Item> _itemsOnScene;
         private readonly IItemRarityColor[] _rarityColors;
         private readonly ItemFactory _itemFactory;
+        private readonly Inventory _inventory;
 
 
-        public ItemSystem(SceneItem sceneItemPrefab, IItemRarityColor[] colors, ItemFactory itemFactory)
+        public ItemSystem(SceneItem sceneItemPrefab, IItemRarityColor[] colors, ItemFactory itemFactory, Inventory inventory)
         {
             Debug.Assert(colors.Length == RarityCount, "Rarity count is not equal to colors count");
             
@@ -30,6 +32,7 @@ namespace Items
             _transform = gameObject.transform;
             _rarityColors = colors;
             _itemFactory = itemFactory;
+            _inventory = inventory;
         }
 
         public void DropItem(ItemDescriptor descriptor, Vector2 position)
@@ -70,6 +73,7 @@ namespace Items
             _itemsOnScene.Remove(sceneItem);
             sceneItem.ItemClicked -= OnItemClicked;
             Object.Destroy(sceneItem.gameObject);
+            _inventory.AddNewItem(item);
         }
     }
 }

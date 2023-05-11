@@ -6,9 +6,9 @@ namespace Animation
     public enum PlayerAnimationState
     {
         Idle = 0,
-        Attack = 1,
-        Attack2 = 2,
-        Run = 3,
+        Run = 1,
+        Attack = 2,
+        Attack2 = 3,
         QuickTurn = 4,
         Jump = 5,
         Fall = 6,

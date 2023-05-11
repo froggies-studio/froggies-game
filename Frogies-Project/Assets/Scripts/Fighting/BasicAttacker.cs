@@ -1,50 +1,83 @@
-using StatsSystem.Endurance;
 using UnityEngine;
+using StatsSystem.Endurance;
 
 namespace Fighting
 {
     public class BasicAttacker
     {
-        private float _weakAttackEndurance = 3;
-        private float _hardAttackEndurance = 5;
-        private float _attackRechargeTimer;
+        public bool IsAttacking => _attackRechargeTimer > 0;
 
-        public bool IsAbleToAttack => _attackRechargeTimer <= 0;
-        
-        public void UpdateRechargeTimer(AttacksData data)
+        private const int MaxAttackTargets = 10;
+
+        private readonly Collider2D[] _attackTargetsBuffer = new Collider2D[MaxAttackTargets];
+        private readonly EnduranceSystem _enduranceSystem;
+        private readonly ContactFilter2D _attackContactFilter;
+        private readonly Collider2D[] _attackColliders;
+        private readonly AttacksData _attacksData;
+
+        private float _attackRechargeTimer;
+        private int _activeAttackIndex = -1;
+
+        public BasicAttacker(EnduranceSystem enduranceSystem, 
+            LayerMask attackLayerMask, 
+            Collider2D[] attackColliders,
+            AttacksData attacksData)
+        {
+            _enduranceSystem = enduranceSystem;
+            _attackContactFilter = new ContactFilter2D();
+            _attackContactFilter.SetLayerMask(attackLayerMask);
+            _attackColliders = attackColliders;
+            _attacksData = attacksData;
+        }
+
+        public AttackInfo GetActiveAttackInfo()
+        {
+            return _attacksData.Attacks[_activeAttackIndex];
+        }
+
+        public bool CanPerformAttack(int attackIndex)
+        {
+            return attackIndex != -1
+                   && _attackRechargeTimer <= 0
+                   && _enduranceSystem.CheckEnduranceAbility(_attacksData.Attacks[attackIndex].enduranceCost);
+        }
+
+        public void UpdateRechargeTimer()
         {
             if (_attackRechargeTimer > 0)
             {
-                _attackRechargeTimer -= data.RechargeTimerMultiplayer * Time.deltaTime;
-                return;
+                _attackRechargeTimer -= _attacksData.RechargeTimerMultiplayer * Time.deltaTime;
             }
         }
-        
-        public void Attack(int index, AttacksData data, EnduranceSystem enduranceSystem)
+
+        public void Attack()
         {
-            if(!IsAbleToAttack)
+            if (!CanPerformAttack(_activeAttackIndex))
                 return;
 
-            switch (index)
+            var size = Physics2D.OverlapCollider(_attackColliders[_activeAttackIndex], _attackContactFilter,
+                _attackTargetsBuffer);
+            for (int i = 0; i < size; i++)
             {
-                case 0:
-                    if (!enduranceSystem.CheckEnduranceAbility(_weakAttackEndurance))
-                    {
-                        return;
-                    }
-                    enduranceSystem.UseEndurance(_weakAttackEndurance);
-                    break;
-                    
-                case 1:
-                    if (!enduranceSystem.CheckEnduranceAbility(_hardAttackEndurance))
-                    {
-                        return;
-                    }
-                    enduranceSystem.UseEndurance(_hardAttackEndurance);
-                    break;
+                var target = _attackTargetsBuffer[i].GetComponent<DamageReceiver>();
+                if (target != null)
+                {
+                    target.ReceiveDamage(_attacksData.Attacks[_activeAttackIndex].damageAmount);
+                }
             }
-            
-            _attackRechargeTimer = data.Attacks[index].rechargeTime;
+
+            _attackRechargeTimer = _attacksData.Attacks[_activeAttackIndex].rechargeTime;
+            _enduranceSystem.UseEndurance(_attacksData.Attacks[_activeAttackIndex].enduranceCost);
+        }
+
+        public void SetActiveAttackIndex(int activeAttackIndex)
+        {
+            _activeAttackIndex = activeAttackIndex;
+        }
+
+        public void ResetActiveAttackIndex()
+        {
+            _activeAttackIndex = -1;
         }
     }
 }

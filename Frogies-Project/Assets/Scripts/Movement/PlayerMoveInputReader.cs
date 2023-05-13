@@ -15,6 +15,8 @@ namespace Movement
             actions.Player.Jump.canceled += GatherJumpInput;
             actions.Player.HorizontalMovement.performed += GatherHorizontalInput;
             actions.Player.HorizontalMovement.canceled += GatherHorizontalInput;
+            actions.Player.RollOver.performed += GatherRollOverInput;
+            actions.Player.RollOver.canceled += GatherRollOverInput;
         }
 
         private void GatherJumpInput(InputAction.CallbackContext context)
@@ -34,6 +36,14 @@ namespace Movement
                 JumpDown = Input.JumpDown,
                 JumpUp = Input.JumpUp,
                 X = context.ReadValue<float>()
+            };
+        }
+        private void GatherRollOverInput(InputAction.CallbackContext context)
+        {
+            Input = new MovementInput
+            {
+                RollOver = context.performed,
+                X = Input.X
             };
         }
         

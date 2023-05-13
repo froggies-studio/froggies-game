@@ -15,6 +15,7 @@ using Items.Rarity;
 using Items.Scriptable;
 using Items.Storage;
 using Movement;
+using StorySystem;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
@@ -40,6 +41,8 @@ namespace Core
         [SerializeField] private WaveData _waveData;
         [SerializeField] private GameObject testEnemy;
 
+        [SerializeField] private IActiveActor _playerActor;
+        
         private WaveController _waveController;
         public PlayerInputActions Input { get; private set; }
         

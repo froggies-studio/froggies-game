@@ -1,7 +1,12 @@
+using UnityEngine;
+
 namespace StorySystem.Data
 {
-    public class StoryNodeMultiple
+    [CreateAssetMenu(fileName = "NewStoryNodeMultiple", menuName = "Data/StoryNodeMultiple")]
+    public class StoryNodeMultiple : StoryNode
     {
-        
+        [SerializeField] private StoryNode[] nextNodes;
+
+        public StoryNode[] NextNodes => nextNodes;
     }
 }

@@ -32,8 +32,8 @@ namespace Core
         [SerializeField] private ItemsStorage itemsStorage;
         [SerializeField] private BasePrefabsStorage prefabsStorage;
         [SerializeField] private ItemRarityDescriptorStorage itemRarityDescriptor;
-        //[SerializeField] private PotionSystem.PotionSystem potionSystem;
-        //[SerializeField] private Inventory inventory;
+        [SerializeField] private PotionSystem.PotionSystem potionSystem;
+        [SerializeField] private Inventory inventory;
         [SerializeField] private WaveStorage _waveStorage;
 
         [SerializeField] public PlayerData playerData;
@@ -72,20 +72,20 @@ namespace Core
 
             var descriptors = itemsStorage.ItemScriptables.Select(scriptable => scriptable.ItemDescriptor).ToList();
             
-            //InitializeItemFactory(player);
-            //InitializePotionSystem(descriptors, player);
+            InitializeItemFactory(player);
+            InitializePotionSystem(descriptors, player);
             InitializeDropGenerator(descriptors);
             InitializeWaveSystem();
         }
 
-        // private void InitializeItemFactory(BasicEntity player)
-        // {
-        //     ItemFactory factory = new ItemFactory(player.Brain.StatsController);
-        //     _sceneItemStorage = new ItemSystem(
-        //         PrefabsStorage.SceneItemPrefab.GetComponent<SceneItem>(), 
-        //         itemRarityDescriptor.RarityDescriptor.Cast<IItemRarityColor>().ToArray(), 
-        //         factory, inventory);
-        // }
+         private void InitializeItemFactory(BasicEntity player)
+         {
+             ItemFactory factory = new ItemFactory(player.Brain.StatsController);
+             _sceneItemStorage = new ItemSystem(
+                 PrefabsStorage.SceneItemPrefab.GetComponent<SceneItem>(), 
+                 itemRarityDescriptor.RarityDescriptor.Cast<IItemRarityColor>().ToArray(), 
+                 factory, inventory);
+         }
 
         private BasicEntity InitializePlayer(PlayerData entityData)
         {
@@ -117,14 +117,14 @@ namespace Core
             return basicEnemy;
         }
 
-        // private void InitializePotionSystem(List<ItemDescriptor> itemDescriptors, BasicEntity player)
-        // {
-        //     var depowerPotions = itemDescriptors.Where(descriptor => descriptor.ItemId == ItemId.DepowerPotion)
-        //         .Select(descriptor => new Potion(descriptor as StatChangingItemDescriptor, player.Brain.StatsController)).ToList();
-        //     potionSystem.Setup(depowerPotions);
-        //     potionSystem.OnActive += () => _isPaused = true;
-        //     potionSystem.OnOptionSelected += _ => _isPaused = false;
-        // }
+         private void InitializePotionSystem(List<ItemDescriptor> itemDescriptors, BasicEntity player)
+         {
+             var depowerPotions = itemDescriptors.Where(descriptor => descriptor.ItemId == ItemId.DepowerPotion)
+                 .Select(descriptor => new Potion(descriptor as StatChangingItemDescriptor, player.Brain.StatsController)).ToList();
+             potionSystem.Setup(depowerPotions);
+             potionSystem.OnActive += () => _isPaused = true;
+             potionSystem.OnOptionSelected += _ => _isPaused = false;
+         }
         
         private void InitializeDropGenerator(List<ItemDescriptor> itemDescriptors)
         {
@@ -136,7 +136,7 @@ namespace Core
             var waves = _waveStorage.Waves.Select(wave => wave.GetCopy()).ToDictionary(wave => wave);
             _waveController = new WaveController(waves, _waveData.Spawners, _waveData.Enemies);
             _waveData.WaveBar.Setup(_waveController);
-            //potionSystem.OnOptionSelected += _waveController.OnPotionPicked;
+            potionSystem.OnOptionSelected += _waveController.OnPotionPicked;
         }
 
         private void Update()
@@ -147,7 +147,7 @@ namespace Core
             // TODO: remove
             if (UnityEngine.Input.GetKeyUp(KeyCode.P)) // for testing purpose only
             {
-                //potionSystem.OpenPotionMenu();
+                potionSystem.OpenPotionMenu();
             }
             
             _waveController.EnemyChecker();

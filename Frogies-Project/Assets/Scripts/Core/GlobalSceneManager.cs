@@ -18,6 +18,7 @@ using Movement;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using UnityEngine.Serialization;
 using WaveSystem;
 
 namespace Core
@@ -32,15 +33,18 @@ namespace Core
         [SerializeField] private ItemsStorage itemsStorage;
         [SerializeField] private BasePrefabsStorage prefabsStorage;
         [SerializeField] private ItemRarityDescriptorStorage itemRarityDescriptor;
+        [SerializeField] private WaveStorage _waveStorage;
+        
         [SerializeField] private PotionSystem.PotionSystem potionSystem;
         [SerializeField] private Inventory inventory;
-        [SerializeField] private WaveStorage _waveStorage;
+        [SerializeField] private DayTimer dayTimer;
 
         [SerializeField] private PlayerData playerData;
         [SerializeField] private WaveData _waveData;
         [SerializeField] private GameObject testEnemy;
 
         private WaveController _waveController;
+
         public PlayerInputActions Input { get; private set; }
         
         public PixelPerfectCamera GlobalCamera { get; private set; }
@@ -76,6 +80,14 @@ namespace Core
             InitializePotionSystem(descriptors, player);
             InitializeDropGenerator(descriptors);
             InitializeWaveSystem();
+            InitializeDayTimer();
+        }
+
+        private void InitializeDayTimer()
+        {
+            dayTimer.OnDayEnd += potionSystem.OpenPotionMenu;
+            _waveController.OnWaveCleared += dayTimer.ResetTimer;
+            potionSystem.OnActive += dayTimer.ClearTimer;
         }
 
         private void InitializeItemFactory(BasicEntity player)
@@ -143,6 +155,8 @@ namespace Core
         {
             if (_isPaused)
                 return;
+            
+            dayTimer.UpdateTimer();
             
             // TODO: remove
             if (UnityEngine.Input.GetKeyUp(KeyCode.P)) // for testing purpose only

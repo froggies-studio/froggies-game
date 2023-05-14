@@ -1,4 +1,5 @@
 using System;
+using StorySystem.Behaviour;
 using StorySystem.Data;
 
 namespace StorySystem
@@ -6,6 +7,6 @@ namespace StorySystem
     public interface IActiveActor
     {
         event Action<int> ChoiceCallback;
-        void Act(StoryNode[] nodes);
+        void Act(StoryNodeMultiple.StoryChoice[] nodes);
     }
 }

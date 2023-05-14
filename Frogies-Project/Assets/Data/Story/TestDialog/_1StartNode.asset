@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 410a29ca5e8949d3b92b2d0ea39d23fb, type: 3}
-  m_Name: NewStoryNodeMultiple
+  m_Script: {fileID: 11500000, guid: 0552e28aca9e4a1ab02a1da0d56afb5d, type: 3}
+  m_Name: _1StartNode
   m_EditorClassIdentifier: 
   line:
-    line: 
-  nextNodes:
-  - {fileID: 11400000, guid: 2483360b01366134e8fb9f98676cd723, type: 2}
+    line: Hey, who are you?<link="wave">Pipa</link>
+  nextNode: {fileID: 11400000, guid: f462d5fa04977924da0acf3850206262, type: 2}
+  switchActor: 0

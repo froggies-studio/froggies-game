@@ -1,5 +1,7 @@
 using System;
+using Core;
 using StorySystem.Data;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,37 +9,42 @@ namespace StorySystem.Behaviour
 {
     public class PlayerActor : StoryActor, IActiveActor
     {
+        [SerializeField] private RectTransform dialogContainer;
         [SerializeField] private RectTransform choicesContainer;
-        [SerializeField] private Button choicePrefab;
+        [SerializeField] private StoryChoice choicePrefab;
         
         public event Action<int> ChoiceCallback;
         
         private int _choiceNum;
         
-        public void Start()
+        public void Init()
         {
+            GlobalSceneManager.Instance.Input.Player.NextDialog.performed += ctx => ChoiceCallback?.Invoke(-1);
             ClearAct();
         }
         
-        public void Act(StoryNode[] nodes)
+        public void Act(StoryNodeMultiple.StoryChoice[] nodes)
         {
+            textPanel.gameObject.SetActive(true);
             _choiceNum = nodes.Length;
-            choicesContainer.gameObject.SetActive(true);
+            dialogContainer.gameObject.SetActive(true);
             for (var i = 0; i < _choiceNum; i++)
             {
                 var choice = Instantiate(choicePrefab.gameObject, choicesContainer);
                 int choiceNum = i;
-                choice.GetComponent<Button>().onClick.AddListener(() => OnChoiceClicked(choiceNum));
+                var uiChoice = choice.GetComponent<StoryChoice>();
+                uiChoice.InitChoice(nodes[i].Line.Line, choiceNum, OnChoiceClicked);
             }
         }
 
         private void ClearAct()
         {
-            foreach (GameObject child in choicesContainer)
+            foreach (Transform child in choicesContainer.transform)
             {
-                Destroy(child);
+                Destroy(child.gameObject);
             }
-            choicesContainer.gameObject.SetActive(false);
+            dialogContainer.gameObject.SetActive(false);
+            Deactivate();
         }
         
         private void OnChoiceClicked(int choiceNum)

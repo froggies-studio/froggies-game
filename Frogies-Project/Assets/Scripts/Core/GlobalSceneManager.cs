@@ -16,6 +16,7 @@ using Items.Scriptable;
 using Items.Storage;
 using Movement;
 using StorySystem;
+using StorySystem.Behaviour;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
@@ -40,8 +41,11 @@ namespace Core
         [SerializeField] private PlayerData playerData;
         [SerializeField] private WaveData _waveData;
         [SerializeField] private GameObject testEnemy;
-
-        [SerializeField] private IActiveActor _playerActor;
+        
+        [Header("Story")]
+        [SerializeField] private SimpleStoryTrigger _storyTrigger;
+        [SerializeField] private PlayerActor _playerActor;
+        [Space(10)]
         
         private WaveController _waveController;
         public PlayerInputActions Input { get; private set; }
@@ -52,8 +56,11 @@ namespace Core
 
         public BasePrefabsStorage PrefabsStorage => prefabsStorage;
 
+        public StoryDirector StoryDirector => _storyDirector;
+
         private ItemSystem _sceneItemStorage;
         private DropGenerator _dropGenerator;
+        private StoryDirector _storyDirector;
 
         private bool _isPaused = false;
 
@@ -79,6 +86,7 @@ namespace Core
             InitializePotionSystem(descriptors, player);
             InitializeDropGenerator(descriptors);
             InitializeWaveSystem();
+            InitializeStoryDirector();
         }
 
         private void InitializeItemFactory(BasicEntity player)
@@ -140,6 +148,14 @@ namespace Core
             _waveController = new WaveController(waves, _waveData.Spawners, _waveData.Enemies);
             _waveData.WaveBar.Setup(_waveController);
             potionSystem.OnOptionSelected += _waveController.OnPotionPicked;
+        }
+        
+        private void InitializeStoryDirector()
+        {
+            _playerActor.Init();
+            
+            _storyDirector = new StoryDirector();
+            _storyTrigger.InitTrigger(_storyDirector, _playerActor);
         }
 
         private void Update()

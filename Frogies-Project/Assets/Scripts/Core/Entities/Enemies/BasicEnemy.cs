@@ -1,5 +1,7 @@
-﻿using Animation;
+﻿using System;
+using Animation;
 using Core.Entities.Data;
+using Extensions;
 using Fighting;
 using Movement;
 using UnityEngine;
@@ -63,8 +65,24 @@ namespace Core.Entities.Enemies
             Brain = new EntityBrain(data.MovementData, data.AttacksData, _inputMoveProvider,
                 _inputFightingInputProvider,
                 data.DirectionalMover, animationController, data.StatsStorage, data.AttackColliders);
-            
+
             data.DamageReceiver.Initialize(Brain.HealthSystem.TakeDamage);
+            Brain.HealthSystem.OnDead += TurnToDeadState;
+        }
+
+        private void TurnToDeadState(object sender, EventArgs e)
+        {
+            foreach (var collider in _data.AttackColliders)
+            {
+                collider.enabled = false;
+            }
+
+            foreach (var collider in _data.Colliders)
+            {
+                collider.gameObject.layer = _data.DeadEnemyLayerMask.LayerToIndex();
+            }
+
+            _data.DamageReceiver.enabled = false;
         }
     }
 }

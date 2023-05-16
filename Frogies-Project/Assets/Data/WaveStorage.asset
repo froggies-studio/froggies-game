@@ -15,4 +15,4 @@ MonoBehaviour:
   <Waves>k__BackingField:
   - <Difficulty>k__BackingField: 0
     <EnemyType>k__BackingField: 0
-    <MaxAmountOfEnemies>k__BackingField: 4
+    <MaxAmountOfEnemies>k__BackingField: 1

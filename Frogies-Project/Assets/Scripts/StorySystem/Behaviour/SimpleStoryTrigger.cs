@@ -1,33 +1,34 @@
 using System;
 using StorySystem.Data;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace StorySystem.Behaviour
 {
     public class SimpleStoryTrigger : MonoBehaviour
     {
         [SerializeField] private StoryActor actor;
-        [SerializeField] private StoryNode _startNode;
+        [SerializeField] protected StoryNode startNode;
 
-        private StoryDirector _director;
         private PlayerActor _playerActor;
-        private bool _isInitialized;
+        protected StoryDirector Director;
+        protected bool IsInitialized;
         
         public void InitTrigger(StoryDirector director, PlayerActor playerActor)
         {
-            Debug.Assert(!_isInitialized, "Trigger is already initialized");
+            Debug.Assert(!IsInitialized, "Trigger is already initialized");
 
-            _director = director;
+            Director = director;
             _playerActor = playerActor;
             
-            _isInitialized = true;
+            IsInitialized = true;
         }
         
-        private void OnMouseDown()
+        protected void OnMouseDown()
         {
-            Debug.Assert(_isInitialized, "Trigger is not initialized");
+            Debug.Assert(IsInitialized, "Trigger is not initialized");
             
-            _director.StartStory(_startNode, actor, _playerActor, _playerActor);
+            Director.StartStory(startNode, actor, _playerActor, _playerActor);
         }
     }
 }

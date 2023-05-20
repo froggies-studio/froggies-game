@@ -46,7 +46,7 @@ namespace Core
         [SerializeField] private GameObject testEnemy;
         
         [Header("Story")]
-        [SerializeField] private SimpleStoryTrigger _storyTrigger;
+        [SerializeField] private StoryTriggerManager _storyTriggerManager;
         [SerializeField] private PlayerActor _playerActor;
         [Space(10)]
         
@@ -167,7 +167,7 @@ namespace Core
             _playerActor.Init();
             
             _storyDirector = new StoryDirector();
-            _storyTrigger.InitTrigger(_storyDirector, _playerActor);
+            _storyTriggerManager.InitTriggers(_playerActor, _storyDirector);
         }
 
         private void Update()

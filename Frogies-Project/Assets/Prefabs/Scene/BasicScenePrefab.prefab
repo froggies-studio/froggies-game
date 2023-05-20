@@ -105,7 +105,7 @@ Transform:
   - {fileID: 7191030151610259440}
   - {fileID: 7595323877751098028}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7273551618995341218
 GameObject:
@@ -2198,6 +2198,30 @@ PrefabInstance:
       propertyPath: currentEnduranceText
       value: 
       objectReference: {fileID: 8086721866410076842}
+    - target: {fileID: 7013708433158553322, guid: a5b762ffae67ae34db4e0afbcb5fdd33, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 9941a508542522a42aff2cce901495bf, type: 2}
+    - target: {fileID: 7013708433158553322, guid: a5b762ffae67ae34db4e0afbcb5fdd33, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.03804734
+      objectReference: {fileID: 0}
+    - target: {fileID: 7013708433158553322, guid: a5b762ffae67ae34db4e0afbcb5fdd33, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.088516645
+      objectReference: {fileID: 0}
+    - target: {fileID: 7013708433158553322, guid: a5b762ffae67ae34db4e0afbcb5fdd33, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.14150941
+      objectReference: {fileID: 0}
+    - target: {fileID: 7013708433158553322, guid: a5b762ffae67ae34db4e0afbcb5fdd33, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -3116497619795125456, guid: 9941a508542522a42aff2cce901495bf, type: 2}
+    - target: {fileID: 7013708433158553322, guid: a5b762ffae67ae34db4e0afbcb5fdd33, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278851364
+      objectReference: {fileID: 0}
     - target: {fileID: 8615589079497497028, guid: a5b762ffae67ae34db4e0afbcb5fdd33, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

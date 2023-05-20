@@ -62,6 +62,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NextDialog"",
+                    ""type"": ""Button"",
+                    ""id"": ""5bfcbcb7-9f63-4c0c-832f-bd574beb95bd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -207,6 +216,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""StrongAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3e039d29-bd22-4236-ac2f-56a844786b55"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextDialog"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -241,6 +261,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_HorizontalMovement = m_Player.FindAction("HorizontalMovement", throwIfNotFound: true);
         m_Player_BasicAttack = m_Player.FindAction("BasicAttack", throwIfNotFound: true);
         m_Player_StrongAttack = m_Player.FindAction("StrongAttack", throwIfNotFound: true);
+        m_Player_NextDialog = m_Player.FindAction("NextDialog", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -306,6 +327,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_HorizontalMovement;
     private readonly InputAction m_Player_BasicAttack;
     private readonly InputAction m_Player_StrongAttack;
+    private readonly InputAction m_Player_NextDialog;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -314,6 +336,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @HorizontalMovement => m_Wrapper.m_Player_HorizontalMovement;
         public InputAction @BasicAttack => m_Wrapper.m_Player_BasicAttack;
         public InputAction @StrongAttack => m_Wrapper.m_Player_StrongAttack;
+        public InputAction @NextDialog => m_Wrapper.m_Player_NextDialog;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -335,6 +358,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @StrongAttack.started += instance.OnStrongAttack;
             @StrongAttack.performed += instance.OnStrongAttack;
             @StrongAttack.canceled += instance.OnStrongAttack;
+            @NextDialog.started += instance.OnNextDialog;
+            @NextDialog.performed += instance.OnNextDialog;
+            @NextDialog.canceled += instance.OnNextDialog;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -351,6 +377,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @StrongAttack.started -= instance.OnStrongAttack;
             @StrongAttack.performed -= instance.OnStrongAttack;
             @StrongAttack.canceled -= instance.OnStrongAttack;
+            @NextDialog.started -= instance.OnNextDialog;
+            @NextDialog.performed -= instance.OnNextDialog;
+            @NextDialog.canceled -= instance.OnNextDialog;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -392,5 +421,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnHorizontalMovement(InputAction.CallbackContext context);
         void OnBasicAttack(InputAction.CallbackContext context);
         void OnStrongAttack(InputAction.CallbackContext context);
+        void OnNextDialog(InputAction.CallbackContext context);
     }
 }

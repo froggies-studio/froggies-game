@@ -17,5 +17,5 @@ MonoBehaviour:
       ahead is fraught with peril, sacrifice, and the untold secrets of a forgotten
       realm. Brace yourself, for the misty forest awaits, ready to reveal its darkest
       enigmas, and only your bravery and cunning can pierce the veil of the unknown.
-  nextNode: {fileID: 11400000, guid: 633855d8d6663d942b59b69441ee2aee, type: 2}
+  nextNode: {fileID: 11400000, guid: 733f55081dc2bfd46b2984de10d19663, type: 2}
   switchActor: 0

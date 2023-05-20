@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Items.Behaviour;
 using UnityEngine;
 
 namespace StorySystem.Behaviour

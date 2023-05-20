@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: _1StartNode
   m_EditorClassIdentifier: 
   line:
-    line: Hey, who are you?<link="wave">Pipa</link>
+    line: Hey, who are you?
   nextNode: {fileID: 11400000, guid: f462d5fa04977924da0acf3850206262, type: 2}
   switchActor: 0

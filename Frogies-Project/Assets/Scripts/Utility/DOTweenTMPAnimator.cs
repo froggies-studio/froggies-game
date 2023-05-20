@@ -23,8 +23,6 @@ namespace Utility
             _text.text = to;
             _text.ForceMeshUpdate();
             var textInfo = _text.textInfo;
-
-            
             
             for (var i = 0; i < textInfo.characterInfo.Length; i++)
             {
@@ -32,10 +30,10 @@ namespace Utility
                 var cols = textInfo.meshInfo[materialIndex].colors32;
                 int vertexIndex = textInfo.characterInfo[i].vertexIndex;
 
-                var color = cols[vertexIndex + 0];
+                var color = cols[vertexIndex];
                 color.a = 0;
                 
-                cols[vertexIndex + 0] = color;
+                cols[vertexIndex] = color;
                 cols[vertexIndex + 1] = color;
                 cols[vertexIndex + 2] = color;
                 cols[vertexIndex + 3] = color;
@@ -54,21 +52,23 @@ namespace Utility
             
             int index = 0;
             int prevIndex = 0; // dotween can skip some values, so we need to keep track of previous index
+            Debug.Log("Start");
             return DOTween.To(() => index, (x) => index = x, to.Length - 1, duration).OnUpdate(() =>
             {
                 if(index == prevIndex)
                     return;
-                
+
                 for (int i = prevIndex; i <= index; i++)
                 {
+                    Debug.Log(i);
                     int materialIndex = textInfo.characterInfo[i].materialReferenceIndex;
                     var cols = textInfo.meshInfo[materialIndex].colors32;
                     int vertexIndex = textInfo.characterInfo[i].vertexIndex;
 
-                    var color = cols[vertexIndex + 0];
+                    var color = cols[vertexIndex];
                     color.a = 255;
                 
-                    cols[vertexIndex + 0] = color;
+                    cols[vertexIndex] = color;
                     cols[vertexIndex + 1] = color;  
                     cols[vertexIndex + 2] = color;
                     cols[vertexIndex + 3] = color;

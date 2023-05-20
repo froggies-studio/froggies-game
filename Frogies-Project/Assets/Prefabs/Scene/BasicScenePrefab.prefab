@@ -509,6 +509,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1543409507115900316}
     - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: playerActor
+      value: 
+      objectReference: {fileID: 3601330050984217324}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: waveStorage
+      value: 
+      objectReference: {fileID: 11400000, guid: adff7781b2e8f134e9abb62ff14deb43, type: 2}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
       propertyPath: _playerActor
       value: 
       objectReference: {fileID: 3601330050984217324}
@@ -520,6 +528,10 @@ PrefabInstance:
       propertyPath: potionSystem
       value: 
       objectReference: {fileID: 3047121155943360749}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: waveData.<WaveBar>k__BackingField
+      value: 
+      objectReference: {fileID: 2908062767779856738}
     - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
       propertyPath: _waveData.<WaveBar>k__BackingField
       value: 

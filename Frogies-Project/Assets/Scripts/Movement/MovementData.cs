@@ -18,7 +18,8 @@ namespace Movement
         
         [Header("ROLLING OVER")]
         [SerializeField] private float amountOfEnduranceToRollOver = 10;
-        [SerializeField] private float rollOverVelocity = 2f;  
+        [SerializeField] private float rollOverMovingVelocity = 2f;
+        [SerializeField] private float rollOverStayingVelocity = 100f;
         [SerializeField] private float dashDuration = 0.2f;  
         
         public float Acceleration => acceleration;
@@ -28,7 +29,8 @@ namespace Movement
         public float JumpVelocity => jumpVelocity;
         public float AmountOfEnduranceToJump => amountOfEnduranceToJump;
         public float AmountOfEnduranceToRollOver => amountOfEnduranceToRollOver;
-        public float RollOverVelocity => rollOverVelocity;
+        public float RollOverMovingVelocity => rollOverMovingVelocity;
+        public float RollOverStayingVelocity => rollOverStayingVelocity;
         public float DashDuration => dashDuration;
     }
 }

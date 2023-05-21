@@ -36,7 +36,7 @@ namespace Core
         [SerializeField] private Inventory inventory;
         [SerializeField] private WaveStorage _waveStorage;
 
-        [SerializeField] public PlayerData playerData;
+        [SerializeField] private PlayerData playerData;
         [SerializeField] private WaveData _waveData;
         [SerializeField] private GameObject testEnemy;
 
@@ -48,6 +48,7 @@ namespace Core
         public Transform PlayerTransform => playerData.DirectionalMover.transform;
 
         public BasePrefabsStorage PrefabsStorage => prefabsStorage;
+        public PlayerData PlayerData => playerData;
 
         private ItemSystem _sceneItemStorage;
         private DropGenerator _dropGenerator;

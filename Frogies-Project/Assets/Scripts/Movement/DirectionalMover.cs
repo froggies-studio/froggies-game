@@ -25,7 +25,7 @@ namespace Movement
         [SerializeField] private new Rigidbody2D rigidbody;
         [SerializeField] private new Collider2D collider;
         
-        private bool isDashing = false;
+        [SerializeField]private bool isDashing = false;
         private float rollOverStartTime;
         private float rollOverDuration;
 
@@ -43,10 +43,12 @@ namespace Movement
         private float _lastJumpPressed = -100f;
         private float _lastRollOverPressed = -100f;
         private float _originalVelocity;
+        private FacingDirection _facingDirection = FacingDirection.Right;
 
         private bool CanUseCoyote => !_collisionGround && _coyoteUsable && _ofGroundTime + _coyoteTimeThreshold > Time.time;
         private bool HasBufferedJump => _collisionGround && _lastJumpPressed + _jumpBuffer > Time.time;
         private bool HasBufferedRollOver => _collisionGround && _lastRollOverPressed + _rollOverBuffer > Time.time;
+        private bool isFacingRight = true;
         
         #region Collisions
     
@@ -99,12 +101,14 @@ namespace Movement
                 currentHorizontalSpeed += input.X * data.Acceleration * Time.deltaTime;
 
                 currentHorizontalSpeed = Mathf.Clamp(currentHorizontalSpeed, -data.MoveClamp, data.MoveClamp);
+                
+                _facingDirection = currentHorizontalSpeed > 0 ? FacingDirection.Right : FacingDirection.Left;
             }
             else
             {
                 currentHorizontalSpeed = Mathf.MoveTowards(currentHorizontalSpeed, 0, data.DeAcceleration * Time.deltaTime);
             }
-
+            
             var rigidbodyVelocity = rigidbody.velocity;
             rigidbodyVelocity.x = currentHorizontalSpeed;
             rigidbody.velocity = rigidbodyVelocity;
@@ -175,14 +179,19 @@ namespace Movement
             if (input.RollOver)
             {
                 enduranceSystem.UseEndurance(data.AmountOfEnduranceToRollOver);
+                rollOverStartTime = Time.fixedTime;
+                rollOverDuration = data.DashDuration;
+                if (rigidbody.velocity.normalized.x != 0)
+                {
+                    _originalVelocity = rigidbody.velocity.x;
+                    var acceleration = data.RollOverMovingVelocity * rigidbody.velocity.normalized.x;
+                    rigidbody.velocity = new Vector2(rigidbody.velocity.x + acceleration, rigidbody.velocity.y);
+                }
+                else
+                {
+                    rigidbody.AddForce(new Vector2(data.RollOverStayingVelocity*(int)_facingDirection, 0));
+                }
             }
-
-            rollOverStartTime = Time.fixedTime;
-            rollOverDuration = data.DashDuration;
-            _originalVelocity = rigidbody.velocity.x;
-            var acceleration = data.RollOverVelocity * rigidbody.velocity.normalized.x;
-            rigidbody.velocity = new Vector2(rigidbody.velocity.x + acceleration, rigidbody.velocity.y);
-
         }
 
         public void EndRollOver()

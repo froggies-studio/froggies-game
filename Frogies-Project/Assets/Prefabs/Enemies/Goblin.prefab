@@ -323,6 +323,11 @@ MonoBehaviour:
     <Player>k__BackingField: {fileID: 0}
     <StatsStorage>k__BackingField: {fileID: 11400000, guid: de1316bfbf1b5ab4da0fb6175f1565e7, type: 2}
     <DamageReceiver>k__BackingField: {fileID: 3694686867019700642}
+    <Colliders>k__BackingField:
+    - {fileID: 1237643441137552330}
+    <GroundLayerMask>k__BackingField:
+      serializedVersion: 2
+      m_Bits: 1024
 --- !u!1 &7360140511703333957
 GameObject:
   m_ObjectHideFlags: 0

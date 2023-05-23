@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Animation;
 using Fighting;
 using Movement;
@@ -19,5 +20,7 @@ namespace Core.Entities.Data
         [field: SerializeField] public Transform Player { get; set; }
         [field: SerializeField] public StatsStorage StatsStorage { get; private set; }
         [field: SerializeField] public DamageReceiver DamageReceiver { get; private set; }
+        [field: SerializeField] public List<Collider2D> Colliders { get; private set; }
+        [field: SerializeField] public LayerMask DeadEnemyLayerMask { get; private set; }
     }
 }

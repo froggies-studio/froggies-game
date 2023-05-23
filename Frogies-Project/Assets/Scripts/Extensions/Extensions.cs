@@ -6,6 +6,11 @@ namespace Extensions
     {
         public static int LayerToIndex(this LayerMask layerMask)
         {
+            if (layerMask.value == 0)   
+            {
+                throw new UnityException("LayerMask value is 0");
+            }
+            
             int mask = layerMask.value;
             int layerNumber = 0;
         

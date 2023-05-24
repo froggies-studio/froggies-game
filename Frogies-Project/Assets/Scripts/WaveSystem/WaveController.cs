@@ -29,6 +29,7 @@ namespace WaveSystem
             _spawners = spawners;
             _enemies = enemies;
             _availableWaves = availableWaves;
+            OnEnemyKilled += EnemyChecker;
         }
 
         public void OnPotionPicked(int numberOfPotions)
@@ -74,11 +75,10 @@ namespace WaveSystem
         {
             if (_isNight)
             {
-                _currentAmountOfEnemies = _currentWaveSpawner.transform.childCount;
-                if (_currentAmountOfEnemies == 0 && OnWaveCleared!=null)
+                if (_currentAmountOfEnemies == 0)
                 {
-                    OnWaveCleared.Invoke();
                     _isNight = false;
+                    if (OnWaveCleared != null) OnWaveCleared.Invoke();
                 }
             }
         }

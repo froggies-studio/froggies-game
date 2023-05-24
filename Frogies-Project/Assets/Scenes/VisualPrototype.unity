@@ -14137,6 +14137,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasicScenePrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 7463083090053930905, guid: 241a0715e363ba543a3ee916588ab91b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7463083090053930905, guid: 241a0715e363ba543a3ee916588ab91b, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7463083090053930905, guid: 241a0715e363ba543a3ee916588ab91b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7463083090053930905, guid: 241a0715e363ba543a3ee916588ab91b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8431633274083647740, guid: 241a0715e363ba543a3ee916588ab91b, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

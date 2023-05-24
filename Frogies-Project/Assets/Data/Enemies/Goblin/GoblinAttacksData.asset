@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: GoblinAttacksData
   m_EditorClassIdentifier: 
   attacks:
-  - animationState: 2
+  - animationState: 3
     rechargeTime: 0.2
     damageAmount: 12
     enduranceCost: 0
-  - animationState: 3
+  - animationState: 4
     rechargeTime: 0.2
     damageAmount: 27
     enduranceCost: 0

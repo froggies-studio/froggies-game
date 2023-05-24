@@ -31,7 +31,8 @@ namespace StatsSystem.Health
                 new Stat(StatType.Health, -damage), StatModificatorType.Additive, -1, Time.time));
             
             if(OnHealthChanged != null) OnHealthChanged(this, EventArgs.Empty);
-            if (damage >= maxDamage && OnDead != null) OnDead(this, EventArgs.Empty);
+            if (damage >= maxDamage && OnDead != null) 
+                OnDead(this, EventArgs.Empty);
         }
 
         public void Heal(float healAmount)

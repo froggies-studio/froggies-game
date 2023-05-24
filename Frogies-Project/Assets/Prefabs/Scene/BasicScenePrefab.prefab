@@ -152,8 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 744794f78b9a454d93301b07129f3f72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  storyTriggers:
-  - {fileID: 0}
+  storyTriggers: []
 --- !u!1001 &318671910641398427
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -790,7 +789,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4505102131723169295, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
       propertyPath: orthographic size
-      value: 2.8125
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6956099021825678346, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
       propertyPath: m_Follow
@@ -798,11 +797,11 @@ PrefabInstance:
       objectReference: {fileID: 6237601158179411930}
     - target: {fileID: 8420289069549874891, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.08200024
+      value: -4.14
       objectReference: {fileID: 0}
     - target: {fileID: 8420289069549874891, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.546
+      value: -2.5900002
       objectReference: {fileID: 0}
     - target: {fileID: 8647839206715311041, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
       propertyPath: m_Name
@@ -813,6 +812,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
+--- !u!114 &5299881875664233967 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 162328777464285197, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
+  m_PrefabInstance: {fileID: 5461814484134424034}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aae03e24a8524686869756cfb6736358, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6946321325009525137 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3146337344106509427, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
@@ -919,6 +929,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2906056641165257094, guid: a5b762ffae67ae34db4e0afbcb5fdd33, type: 3}
+      propertyPath: dayNightVisuals
+      value: 
+      objectReference: {fileID: 5299881875664233967}
     - target: {fileID: 3227752068625055956, guid: a5b762ffae67ae34db4e0afbcb5fdd33, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

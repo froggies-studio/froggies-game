@@ -55,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: a67c725ea615526449344fc752016459, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -297,7 +297,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.32}
+  m_Size: {x: 1, y: 1.2}
   m_EdgeRadius: 0
 --- !u!114 &4408324868077312672
 MonoBehaviour:
@@ -323,6 +323,11 @@ MonoBehaviour:
     <Player>k__BackingField: {fileID: 0}
     <StatsStorage>k__BackingField: {fileID: 11400000, guid: de1316bfbf1b5ab4da0fb6175f1565e7, type: 2}
     <DamageReceiver>k__BackingField: {fileID: 3694686867019700642}
+    <Colliders>k__BackingField:
+    - {fileID: 1237643441137552330}
+    <DeadEnemyLayerMask>k__BackingField:
+      serializedVersion: 2
+      m_Bits: 1024
 --- !u!1 &7360140511703333957
 GameObject:
   m_ObjectHideFlags: 0

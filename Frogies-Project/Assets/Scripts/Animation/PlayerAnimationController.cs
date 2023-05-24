@@ -26,9 +26,10 @@ namespace Animation
 
 
         public void UpdateAnimationSystem(MovementInput input, AttackInfo? attackInfo, Vector2 velocity,
-            bool moverIsGrounded, bool isDead)
+            bool moverIsGrounded, bool isDead, bool isRollingOver)
         {
             PlayerAnimationState newState = PlayerAnimationState.Idle;
+           
             bool isTurning = false;
 
             if (isDead)
@@ -51,12 +52,16 @@ namespace Animation
             {
                 isTurning = (velocity.x * input.X) < 0;
                 newState = isTurning ? PlayerAnimationState.QuickTurn : PlayerAnimationState.Run;
+                if (isRollingOver)
+                {
+                    newState = PlayerAnimationState.RollOver;
+                }
             }
         
-            if (!isTurning && input.X != 0)
+            var animationFlipperLocalScale = _animationFlipper.localScale;
+            if (Mathf.Sign(animationFlipperLocalScale.x) != Mathf.Sign(input.X) && input.X != 0 && !isTurning)
             {
-                var animationFlipperLocalScale = _animationFlipper.localScale;
-                animationFlipperLocalScale.x = Mathf.Sign(velocity.x);
+                animationFlipperLocalScale.x = Mathf.Sign(input.X);
                 _animationFlipper.localScale = animationFlipperLocalScale;
             }
             

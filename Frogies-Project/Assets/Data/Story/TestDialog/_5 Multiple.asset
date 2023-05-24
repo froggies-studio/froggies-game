@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 410a29ca5e8949d3b92b2d0ea39d23fb, type: 3}
+  m_Name: _5 Multiple
+  m_EditorClassIdentifier: 
+  line:
+    line: 
+  nextNodes:
+  - Line:
+      line: You are living here
+    Node: {fileID: 11400000, guid: c85d8a1f196a174498f9ea88ba05dbf5, type: 2}
+  - Line:
+      line: You have lost in the forest
+    Node: {fileID: 11400000, guid: f52815045e982b148923c0c181534ccc, type: 2}

@@ -30,7 +30,7 @@ namespace Core.PotionSystem
             gameObject.SetActive(false);
         }
 
-        public void OpenPotionMenu() //connect with day/night feature
+        public void OpenPotionMenu()
         {
             gameObject.SetActive(true);
             if(OnActive != null) OnActive.Invoke();

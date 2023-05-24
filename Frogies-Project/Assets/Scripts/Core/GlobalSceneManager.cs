@@ -18,6 +18,7 @@ using Movement;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using WaveSystem;
 
@@ -42,6 +43,8 @@ namespace Core
         [SerializeField] private PlayerData playerData;
         [SerializeField] private WaveData _waveData;
         [SerializeField] private GameObject testEnemy;
+
+        [SerializeField] private GameObject DeathPanel;
 
         private WaveController _waveController;
 
@@ -69,6 +72,8 @@ namespace Core
             Input = new PlayerInputActions();
             Input.Enable();
 
+            DeathPanel.SetActive(false);
+            
             _entities = new HashSet<BasicEntity>();
             var player = InitializePlayer(playerData);
             _entities.Add(player);
@@ -116,6 +121,8 @@ namespace Core
             player.Initialize(entityBrain);
 
             entityData.DamageReceiver.Initialize(entityBrain.HealthSystem.TakeDamage);
+
+            entityBrain.HealthSystem.OnDead += (_, _) => DeathPanel.SetActive(true); 
             return player;
         }
 
@@ -188,6 +195,13 @@ namespace Core
             {
                 entity.FixedUpdate();
             }
+        }
+
+        public void RestartLevel()
+        {
+            //TODO: proper level restart
+            int index = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(index);
         }
     }
 }

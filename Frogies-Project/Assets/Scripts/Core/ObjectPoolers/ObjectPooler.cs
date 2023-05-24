@@ -13,26 +13,26 @@ namespace Core.ObjectPoolers
         
         private Dictionary<string, Queue<GameObject>> _poolDictionary;
 
-
-        public ObjectPooler(List<Pool> pools)
+        
+        public ObjectPooler()
         {
             _poolDictionary = new Dictionary<string, Queue<GameObject>>();
+        }
 
-            foreach (var pool in pools)
+        public void AddPooler(Pool pool)
+        {
+            var objectPool = new Queue<GameObject>();
+            for (int i = 0; i < pool.Size; i++)
             {
-                var objectPool = new Queue<GameObject>();
-                for (int i = 0; i < pool.Size; i++)
-                {
-                    var obj = pool.Parent != null 
-                        ? Object.Instantiate(pool.Prefab, pool.Parent.transform) 
-                        : Object.Instantiate(pool.Prefab);
+                var obj = pool.Parent != null 
+                    ? Object.Instantiate(pool.Prefab, pool.Parent.transform) 
+                    : Object.Instantiate(pool.Prefab);
                     
-                    obj.SetActive(false);
-                    objectPool.Enqueue(obj);
-                }
-
-                _poolDictionary.Add(pool.Tag, objectPool);
+                obj.SetActive(false);
+                objectPool.Enqueue(obj);
             }
+
+            _poolDictionary.Add(pool.Tag, objectPool);
         }
 
         public GameObject SpawnFromPool(string objectPoolTag, Vector3 position, Quaternion rotation)

@@ -1,4 +1,3 @@
-using System;
 using StorySystem.Data;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -10,8 +9,8 @@ namespace StorySystem.Behaviour
         [SerializeField] private StoryActor actor;
         [SerializeField] private StoryNode startNode;
 
-        private StoryDirector _director;
         private PlayerActor _playerActor;
+        private StoryDirector _director;
         private bool _isInitialized;
         private bool _isTriggered;
 

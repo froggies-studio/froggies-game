@@ -35,21 +35,19 @@ namespace Core
         [SerializeField] private ItemsStorage itemsStorage;
         [SerializeField] private BasePrefabsStorage prefabsStorage;
         [SerializeField] private ItemRarityDescriptorStorage itemRarityDescriptor;
-        [SerializeField] private WaveStorage _waveStorage;
+        [SerializeField] private WaveStorage waveStorage;
         
         [SerializeField] private PotionSystem.PotionSystem potionSystem;
         [SerializeField] private Inventory inventory;
         [SerializeField] private DayTimer dayTimer;
 
         [SerializeField] private PlayerData playerData;
-        [SerializeField] private WaveData _waveData;
+        [SerializeField] private WaveData waveData;
         [SerializeField] private GameObject testEnemy;
         
         [Header("Story")]
-        [SerializeField]
-        [CanBeNull]
-        private SimpleStoryTrigger _storyTrigger;
-        [SerializeField] private PlayerActor _playerActor;
+        [SerializeField] private StoryTriggerManager storyTriggerManager;
+        [SerializeField] private PlayerActor playerActor;
         [Space(10)]
         
         private WaveController _waveController;
@@ -92,8 +90,8 @@ namespace Core
             InitializePotionSystem(descriptors, player);
             InitializeDropGenerator(descriptors);
             InitializeWaveSystem();
-            InitializeDayTimer();
             InitializeStoryDirector();
+            InitializeDayTimer();
         }
 
         private void InitializeDayTimer()
@@ -158,18 +156,18 @@ namespace Core
         
         private void InitializeWaveSystem()
         {
-            var waves = _waveStorage.Waves.Select(wave => wave.GetCopy()).ToDictionary(wave => wave);
-            _waveController = new WaveController(waves, _waveData.Spawners, _waveData.Enemies);
-            _waveData.WaveBar.Setup(_waveController);
+            var waves = waveStorage.Waves.Select(wave => wave.GetCopy()).ToDictionary(wave => wave);
+            _waveController = new WaveController(waves, waveData.Spawners, waveData.Enemies);
+            waveData.WaveBar.Setup(_waveController);
             potionSystem.OnOptionSelected += _waveController.OnPotionPicked;
         }
         
         private void InitializeStoryDirector()
         {
-            _playerActor.Init();
+            playerActor.Init();
             
             _storyDirector = new StoryDirector();
-            _storyTrigger?.InitTrigger(_storyDirector, _playerActor);
+            storyTriggerManager.InitTriggers(playerActor, _storyDirector);
         }
 
         private void Update()

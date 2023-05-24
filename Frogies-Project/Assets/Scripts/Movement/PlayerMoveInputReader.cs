@@ -53,7 +53,8 @@ namespace Movement
             {
                 JumpDown = false,
                 JumpUp = false,
-                X = Input.X
+                X = Input.X,
+                RollOver = false
             };
         }
     }

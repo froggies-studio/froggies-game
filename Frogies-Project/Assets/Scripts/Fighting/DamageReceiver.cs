@@ -1,4 +1,5 @@
 ﻿using System;
+using Core;
 using UnityEngine;
 
 namespace Fighting
@@ -14,7 +15,11 @@ namespace Fighting
 
         public void ReceiveDamage(float damage)
         {
-            OnDamageReceived?.Invoke(damage);
+             if (GlobalSceneManager.Instance.PlayerData.DirectionalMover.IsDashing) //if player is dashing he won't take damage
+             {
+                  return;
+             }
+             OnDamageReceived?.Invoke(damage);
         }
     }
 }

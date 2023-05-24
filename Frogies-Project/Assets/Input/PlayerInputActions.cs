@@ -64,6 +64,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""RollOver"",
+                    ""type"": ""Button"",
+                    ""id"": ""34d58c6f-b52e-44c8-a8e7-8edacfc3e424"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""NextDialog"",
                     ""type"": ""Button"",
                     ""id"": ""5bfcbcb7-9f63-4c0c-832f-bd574beb95bd"",
@@ -219,6 +228,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""983d6fd1-0dfb-4c12-bb87-7b2d57324021"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""RollOver"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8c95b03d-5f13-480f-a5c9-1f3cf631bf64"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""OnScreen"",
+                    ""action"": ""RollOver"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""3e039d29-bd22-4236-ac2f-56a844786b55"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
@@ -261,6 +292,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_HorizontalMovement = m_Player.FindAction("HorizontalMovement", throwIfNotFound: true);
         m_Player_BasicAttack = m_Player.FindAction("BasicAttack", throwIfNotFound: true);
         m_Player_StrongAttack = m_Player.FindAction("StrongAttack", throwIfNotFound: true);
+        m_Player_RollOver = m_Player.FindAction("RollOver", throwIfNotFound: true);
         m_Player_NextDialog = m_Player.FindAction("NextDialog", throwIfNotFound: true);
     }
 
@@ -327,6 +359,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_HorizontalMovement;
     private readonly InputAction m_Player_BasicAttack;
     private readonly InputAction m_Player_StrongAttack;
+    private readonly InputAction m_Player_RollOver;
     private readonly InputAction m_Player_NextDialog;
     public struct PlayerActions
     {
@@ -336,6 +369,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @HorizontalMovement => m_Wrapper.m_Player_HorizontalMovement;
         public InputAction @BasicAttack => m_Wrapper.m_Player_BasicAttack;
         public InputAction @StrongAttack => m_Wrapper.m_Player_StrongAttack;
+        public InputAction @RollOver => m_Wrapper.m_Player_RollOver;
         public InputAction @NextDialog => m_Wrapper.m_Player_NextDialog;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -358,6 +392,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @StrongAttack.started += instance.OnStrongAttack;
             @StrongAttack.performed += instance.OnStrongAttack;
             @StrongAttack.canceled += instance.OnStrongAttack;
+            @RollOver.started += instance.OnRollOver;
+            @RollOver.performed += instance.OnRollOver;
+            @RollOver.canceled += instance.OnRollOver;
             @NextDialog.started += instance.OnNextDialog;
             @NextDialog.performed += instance.OnNextDialog;
             @NextDialog.canceled += instance.OnNextDialog;
@@ -377,6 +414,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @StrongAttack.started -= instance.OnStrongAttack;
             @StrongAttack.performed -= instance.OnStrongAttack;
             @StrongAttack.canceled -= instance.OnStrongAttack;
+            @RollOver.started -= instance.OnRollOver;
+            @RollOver.performed -= instance.OnRollOver;
+            @RollOver.canceled -= instance.OnRollOver;
             @NextDialog.started -= instance.OnNextDialog;
             @NextDialog.performed -= instance.OnNextDialog;
             @NextDialog.canceled -= instance.OnNextDialog;
@@ -421,6 +461,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnHorizontalMovement(InputAction.CallbackContext context);
         void OnBasicAttack(InputAction.CallbackContext context);
         void OnStrongAttack(InputAction.CallbackContext context);
+        void OnRollOver(InputAction.CallbackContext context);
         void OnNextDialog(InputAction.CallbackContext context);
     }
 }

@@ -17,3 +17,7 @@ MonoBehaviour:
   deAcceleration: 40
   fallClamp: -25
   jumpVelocity: 12
+  amountOfEnduranceToJump: 5
+  amountOfEnduranceToRollOver: 10
+  rollOverVelocity: 2
+  dashDuration: 0.4

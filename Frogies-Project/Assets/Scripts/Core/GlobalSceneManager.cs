@@ -14,11 +14,13 @@ using Items.Enum;
 using Items.Rarity;
 using Items.Scriptable;
 using Items.Storage;
+using JetBrains.Annotations;
 using Movement;
+using StorySystem;
+using StorySystem.Behaviour;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
-using UnityEngine.Serialization;
 using WaveSystem;
 
 namespace Core
@@ -42,7 +44,14 @@ namespace Core
         [SerializeField] private PlayerData playerData;
         [SerializeField] private WaveData _waveData;
         [SerializeField] private GameObject testEnemy;
-
+        
+        [Header("Story")]
+        [SerializeField]
+        [CanBeNull]
+        private SimpleStoryTrigger _storyTrigger;
+        [SerializeField] private PlayerActor _playerActor;
+        [Space(10)]
+        
         private WaveController _waveController;
 
         public PlayerInputActions Input { get; private set; }
@@ -53,8 +62,11 @@ namespace Core
 
         public BasePrefabsStorage PrefabsStorage => prefabsStorage;
 
+        public StoryDirector StoryDirector => _storyDirector;
+
         private ItemSystem _sceneItemStorage;
         private DropGenerator _dropGenerator;
+        private StoryDirector _storyDirector;
 
         private bool _isPaused = false;
 
@@ -81,6 +93,7 @@ namespace Core
             InitializeDropGenerator(descriptors);
             InitializeWaveSystem();
             InitializeDayTimer();
+            InitializeStoryDirector();
         }
 
         private void InitializeDayTimer()
@@ -149,6 +162,14 @@ namespace Core
             _waveController = new WaveController(waves, _waveData.Spawners, _waveData.Enemies);
             _waveData.WaveBar.Setup(_waveController);
             potionSystem.OnOptionSelected += _waveController.OnPotionPicked;
+        }
+        
+        private void InitializeStoryDirector()
+        {
+            _playerActor.Init();
+            
+            _storyDirector = new StoryDirector();
+            _storyTrigger?.InitTrigger(_storyDirector, _playerActor);
         }
 
         private void Update()

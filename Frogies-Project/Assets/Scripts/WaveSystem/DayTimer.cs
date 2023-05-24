@@ -13,7 +13,7 @@ namespace WaveSystem
         public Action OnDayEnd;
         public bool _isDay;
         
-        private float _dayDuration = 0.5f * 30;
+        private float _dayDuration = 0.5f * 60;
         private float _time;
         
         private void Start()

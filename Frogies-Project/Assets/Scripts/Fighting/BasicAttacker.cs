@@ -52,9 +52,6 @@ namespace Fighting
 
         public void Attack()
         {
-            if (!CanPerformAttack(_activeAttackIndex))
-                return;
-
             var size = Physics2D.OverlapCollider(_attackColliders[_activeAttackIndex], _attackContactFilter,
                 _attackTargetsBuffer);
             for (int i = 0; i < size; i++)
@@ -65,14 +62,13 @@ namespace Fighting
                     target.ReceiveDamage(_attacksData.Attacks[_activeAttackIndex].damageAmount);
                 }
             }
-
-            _attackRechargeTimer = _attacksData.Attacks[_activeAttackIndex].rechargeTime;
-            _enduranceSystem.UseEndurance(_attacksData.Attacks[_activeAttackIndex].enduranceCost);
         }
 
         public void SetActiveAttackIndex(int activeAttackIndex)
         {
             _activeAttackIndex = activeAttackIndex;
+            _attackRechargeTimer = _attacksData.Attacks[_activeAttackIndex].rechargeTime;
+            _enduranceSystem.UseEndurance(_attacksData.Attacks[_activeAttackIndex].enduranceCost);
         }
 
         public void ResetActiveAttackIndex()

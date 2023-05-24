@@ -56,34 +56,42 @@ namespace Core.Entities
             if (HealthSystem.IsDead)
             {
                 _animation.UpdateAnimationSystem(_inputMoveProvider.Input, null, _mover.Velocity, _mover.IsGrounded,
-                    HealthSystem.IsDead);
+                    HealthSystem.IsDead, _mover.IsDashing);
+                _mover.Stop();
                 return;
             }
 
             _mover.RunGroundCheck();
 
             _mover.CalculateJump(_inputMoveProvider.Input, _movementData, _enduranceSystem);
+            
+            _mover.CalculateRollOver(_inputMoveProvider.Input, _movementData, _enduranceSystem);
+           if (_mover.IsDashing)
+           {
+                if (Time.fixedTime -_mover.RollOverStartTime >=_mover.RollOverDuration)
+                {
+                     _mover.EndRollOver();
+                }
+            }
 
             AttackInfo? info = null;
             _attacker.UpdateRechargeTimer();
             int activeAttackIndex = _inputFightingInputProvider.ActiveAttackIndex;
-            if (activeAttackIndex != -1 && _attacker.CanPerformAttack(activeAttackIndex))
+            if (_mover.IsGrounded && _attacker.CanPerformAttack(activeAttackIndex))
             {
                 _attacker.SetActiveAttackIndex(_inputFightingInputProvider.ActiveAttackIndex);
                 info = _attacker.GetActiveAttackInfo();
             }
 
+            var input = _inputMoveProvider.Input;
             if (_attacker.IsAttacking)
             {
-                _mover.Stop();
+                input.X = 0;
             }
-            else
-            {
-                _mover.CalculateHorizontalSpeed(_inputMoveProvider.Input, _movementData);
-            }
+            _mover.CalculateHorizontalSpeed(input, _movementData);
 
             _animation.UpdateAnimationSystem(_inputMoveProvider.Input, info, _mover.Velocity, _mover.IsGrounded,
-                HealthSystem.IsDead);
+                HealthSystem.IsDead, _mover.IsDashing);
 
             _inputFightingInputProvider.ResetAttackIndex(_inputFightingInputProvider.ActiveAttackIndex);
             _inputMoveProvider.ResetOneTimeActions();
@@ -100,6 +108,7 @@ namespace Core.Entities
             switch (animationState)
             {
                 case PlayerAnimationState.Attack:
+                case PlayerAnimationState.Attack2:
                     _attacker.Attack();
                     _attacker.ResetActiveAttackIndex();
                     return;

@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using StatsSystem.Endurance;
 using UnityEngine;
+using Vector2 = UnityEngine.Vector2;
 
 namespace Movement
 {
     public class DirectionalMover : MonoBehaviour
     {
-        [SerializeField] private float _amountOfEndurance = 10;
         [Header("COLLISION")]
         [SerializeField] private LayerMask _groundLayer;
         [SerializeField] private int _detectorCount = 3;
@@ -17,13 +18,22 @@ namespace Movement
         
         [SerializeField] private float _coyoteTimeThreshold = 0.1f;
         [SerializeField] private float _jumpBuffer = 0.1f;
+        [SerializeField] private float _rollOverBuffer = 0.1f;
+        
         [SerializeField] private float _jumpEndEarlyGravityMultiplier = 0.45f;
         
         [SerializeField] private new Rigidbody2D rigidbody;
         [SerializeField] private new Collider2D collider;
+        
+        [SerializeField]private bool isDashing = false;
+        private float rollOverStartTime;
+        private float rollOverDuration;
 
         public Vector2 Velocity => rigidbody.velocity;
         public bool IsGrounded => _collisionGround;
+        public bool IsDashing => isDashing;
+        public float RollOverStartTime => rollOverStartTime;
+        public float RollOverDuration => rollOverDuration;
         
         private bool _collisionGround;
         private float _ofGroundTime;
@@ -31,9 +41,14 @@ namespace Movement
         private bool _endedJumpEarly = true;
         private float _apexPoint;
         private float _lastJumpPressed = -100f;
+        private float _lastRollOverPressed = -100f;
+        private float _originalVelocity;
+        private FacingDirection _facingDirection = FacingDirection.Right;
 
         private bool CanUseCoyote => !_collisionGround && _coyoteUsable && _ofGroundTime + _coyoteTimeThreshold > Time.time;
         private bool HasBufferedJump => _collisionGround && _lastJumpPressed + _jumpBuffer > Time.time;
+        private bool HasBufferedRollOver => _collisionGround && _lastRollOverPressed + _rollOverBuffer > Time.time;
+        private bool isFacingRight = true;
         
         #region Collisions
     
@@ -76,18 +91,24 @@ namespace Movement
     
         public void CalculateHorizontalSpeed(MovementInput input, MovementData data)
         {
+            if (isDashing)
+            {
+                return;
+            }
             float currentHorizontalSpeed = rigidbody.velocity.x;
             if (input.X != 0)
             {
                 currentHorizontalSpeed += input.X * data.Acceleration * Time.deltaTime;
 
                 currentHorizontalSpeed = Mathf.Clamp(currentHorizontalSpeed, -data.MoveClamp, data.MoveClamp);
+                
+                _facingDirection = currentHorizontalSpeed > 0 ? FacingDirection.Right : FacingDirection.Left;
             }
             else
             {
                 currentHorizontalSpeed = Mathf.MoveTowards(currentHorizontalSpeed, 0, data.DeAcceleration * Time.deltaTime);
             }
-
+            
             var rigidbodyVelocity = rigidbody.velocity;
             rigidbodyVelocity.x = currentHorizontalSpeed;
             rigidbody.velocity = rigidbodyVelocity;
@@ -106,7 +127,7 @@ namespace Movement
     
         public void CalculateJump(MovementInput input, MovementData data, EnduranceSystem enduranceSystem)
         {
-            if (!enduranceSystem.CheckEnduranceAbility(_amountOfEndurance))
+            if (!enduranceSystem.CheckEnduranceAbility(data.AmountOfEnduranceToJump))
             {
                 return;
             }
@@ -120,7 +141,7 @@ namespace Movement
             
             if (input.JumpDown && CanUseCoyote || HasBufferedJump)
             {
-                enduranceSystem.UseEndurance(_amountOfEndurance);
+                enduranceSystem.UseEndurance(data.AmountOfEnduranceToJump);
                 currentVerticalSpeed = data.JumpVelocity;
                 _endedJumpEarly = false;
                 _coyoteUsable = false;
@@ -139,6 +160,45 @@ namespace Movement
             rigidbody.velocity = rigidbodyVelocity;
         }
 
+        #endregion
+        
+        #region RollOver
+
+        public void CalculateRollOver(MovementInput input, MovementData data, EnduranceSystem enduranceSystem)
+        {
+            if (input.RollOver)
+            {
+                _lastRollOverPressed = Time.time;
+            }
+            if (!enduranceSystem.CheckEnduranceAbility(data.AmountOfEnduranceToRollOver) || !HasBufferedRollOver)
+            {
+                return;
+            }
+
+            isDashing = true;
+            if (input.RollOver)
+            {
+                enduranceSystem.UseEndurance(data.AmountOfEnduranceToRollOver);
+                rollOverStartTime = Time.fixedTime;
+                rollOverDuration = data.DashDuration;
+                if (rigidbody.velocity.normalized.x != 0)
+                {
+                    _originalVelocity = rigidbody.velocity.x;
+                    var acceleration = data.RollOverMovingVelocity * rigidbody.velocity.normalized.x;
+                    rigidbody.velocity = new Vector2(rigidbody.velocity.x + acceleration, rigidbody.velocity.y);
+                }
+                else
+                {
+                    rigidbody.AddForce(new Vector2(data.RollOverStayingVelocity*(int)_facingDirection, 0));
+                }
+            }
+        }
+
+        public void EndRollOver()
+        {
+            isDashing = false;
+            rigidbody.velocity = new Vector2(_originalVelocity, rigidbody.velocity.y);
+        }
         #endregion
     }
 }

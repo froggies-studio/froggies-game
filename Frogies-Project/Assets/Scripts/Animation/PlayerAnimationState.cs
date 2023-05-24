@@ -7,12 +7,13 @@ namespace Animation
     {
         Idle = 0,
         Run = 1,
-        Attack = 2,
-        Attack2 = 3,
-        QuickTurn = 4,
-        Jump = 5,
-        Fall = 6,
-        GetHit = 7,
-        Death = 8,
+        RollOver = 2,
+        Attack = 3,
+        Attack2 = 4,
+        QuickTurn = 5,
+        Jump = 6,
+        Fall = 7,
+        GetHit = 8,
+        Death = 9,
     }
 }

@@ -79,7 +79,9 @@ namespace Core.Entities.Enemies
 
             foreach (var collider in _data.Colliders)
             {
-                collider.gameObject.layer = _data.DeadEnemyLayerMask.LayerToIndex();
+                var rigidbody2D = collider.gameObject.GetComponent<Rigidbody2D>(); // TODO: refactor
+                rigidbody2D.bodyType = RigidbodyType2D.Static;
+                collider.enabled = false;
             }
 
             _data.DamageReceiver.enabled = false;

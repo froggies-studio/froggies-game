@@ -77,7 +77,7 @@ namespace Core.Entities
             AttackInfo? info = null;
             _attacker.UpdateRechargeTimer();
             int activeAttackIndex = _inputFightingInputProvider.ActiveAttackIndex;
-            if (activeAttackIndex != -1 && _attacker.CanPerformAttack(activeAttackIndex))
+            if (_mover.IsGrounded && _attacker.CanPerformAttack(activeAttackIndex))
             {
                 _attacker.SetActiveAttackIndex(_inputFightingInputProvider.ActiveAttackIndex);
                 info = _attacker.GetActiveAttackInfo();

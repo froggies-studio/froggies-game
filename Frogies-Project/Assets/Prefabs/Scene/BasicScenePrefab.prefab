@@ -178,6 +178,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8542137123285161268}
     - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: DeathPanel
+      value: 
+      objectReference: {fileID: 2892690515441271832}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
       propertyPath: playerActor
       value: 
       objectReference: {fileID: 3601330050984217324}
@@ -326,6 +330,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+--- !u!114 &3325259470767081268 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+  m_PrefabInstance: {fileID: 318671910641398427}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f829d0abf935434cb22fdc2c63c9760e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5574179054904305039 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5275773703363401492, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
@@ -789,7 +804,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4505102131723169295, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
       propertyPath: orthographic size
-      value: 3
+      value: 3.0640626
       objectReference: {fileID: 0}
     - target: {fileID: 6956099021825678346, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
       propertyPath: m_Follow
@@ -797,11 +812,11 @@ PrefabInstance:
       objectReference: {fileID: 6237601158179411930}
     - target: {fileID: 8420289069549874891, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.14
+      value: -0.08200024
       objectReference: {fileID: 0}
     - target: {fileID: 8420289069549874891, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.5900002
+      value: -1.546
       objectReference: {fileID: 0}
     - target: {fileID: 8647839206715311041, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
       propertyPath: m_Name
@@ -941,6 +956,22 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3277763862490918318, guid: a5b762ffae67ae34db4e0afbcb5fdd33, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3325259470767081268}
+    - target: {fileID: 3277763862490918318, guid: a5b762ffae67ae34db4e0afbcb5fdd33, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RestartLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3277763862490918318, guid: a5b762ffae67ae34db4e0afbcb5fdd33, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Core.GlobalSceneManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3277763862490918318, guid: a5b762ffae67ae34db4e0afbcb5fdd33, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8979039236609617710, guid: a5b762ffae67ae34db4e0afbcb5fdd33, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -965,6 +996,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4fc34bd543b4f71814a1ceba1b713fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2892690515441271832 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8209090287330894896, guid: a5b762ffae67ae34db4e0afbcb5fdd33, type: 3}
+  m_PrefabInstance: {fileID: 6469538160064028712}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2908062767779856738 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8184141151008039242, guid: a5b762ffae67ae34db4e0afbcb5fdd33, type: 3}

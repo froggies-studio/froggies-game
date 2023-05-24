@@ -57,6 +57,7 @@ namespace Core.Entities
             {
                 _animation.UpdateAnimationSystem(_inputMoveProvider.Input, null, _mover.Velocity, _mover.IsGrounded,
                     HealthSystem.IsDead, _mover.IsDashing);
+                _mover.Stop();
                 return;
             }
 
@@ -82,14 +83,12 @@ namespace Core.Entities
                 info = _attacker.GetActiveAttackInfo();
             }
 
+            var input = _inputMoveProvider.Input;
             if (_attacker.IsAttacking)
             {
-                _mover.Stop();
+                input.X = 0;
             }
-            else
-            {
-                _mover.CalculateHorizontalSpeed(_inputMoveProvider.Input, _movementData);
-            }
+            _mover.CalculateHorizontalSpeed(input, _movementData);
 
             _animation.UpdateAnimationSystem(_inputMoveProvider.Input, info, _mover.Velocity, _mover.IsGrounded,
                 HealthSystem.IsDead, _mover.IsDashing);
@@ -109,6 +108,7 @@ namespace Core.Entities
             switch (animationState)
             {
                 case PlayerAnimationState.Attack:
+                case PlayerAnimationState.Attack2:
                     _attacker.Attack();
                     _attacker.ResetActiveAttackIndex();
                     return;

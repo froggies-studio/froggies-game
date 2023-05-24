@@ -29,6 +29,7 @@ namespace Animation
             bool moverIsGrounded, bool isDead, bool isRollingOver)
         {
             PlayerAnimationState newState = PlayerAnimationState.Idle;
+           
             bool isTurning = false;
 
             if (isDead)
@@ -57,10 +58,10 @@ namespace Animation
                 }
             }
         
-            if (!isTurning && input.X != 0)
+            var animationFlipperLocalScale = _animationFlipper.localScale;
+            if (Mathf.Sign(animationFlipperLocalScale.x) != Mathf.Sign(input.X) && !isTurning)
             {
-                var animationFlipperLocalScale = _animationFlipper.localScale;
-                animationFlipperLocalScale.x = Mathf.Sign(velocity.x);
+                animationFlipperLocalScale.x = Mathf.Sign(input.X);
                 _animationFlipper.localScale = animationFlipperLocalScale;
             }
             

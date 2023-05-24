@@ -56,13 +56,22 @@ namespace Core.Entities
             if (HealthSystem.IsDead)
             {
                 _animation.UpdateAnimationSystem(_inputMoveProvider.Input, null, _mover.Velocity, _mover.IsGrounded,
-                    HealthSystem.IsDead);
+                    HealthSystem.IsDead, _mover.IsDashing);
                 return;
             }
 
             _mover.RunGroundCheck();
 
             _mover.CalculateJump(_inputMoveProvider.Input, _movementData, _enduranceSystem);
+            
+            _mover.CalculateRollOver(_inputMoveProvider.Input, _movementData, _enduranceSystem);
+           if (_mover.IsDashing)
+           {
+                if (Time.fixedTime -_mover.RollOverStartTime >=_mover.RollOverDuration)
+                {
+                     _mover.EndRollOver();
+                }
+            }
 
             AttackInfo? info = null;
             _attacker.UpdateRechargeTimer();
@@ -83,7 +92,7 @@ namespace Core.Entities
             }
 
             _animation.UpdateAnimationSystem(_inputMoveProvider.Input, info, _mover.Velocity, _mover.IsGrounded,
-                HealthSystem.IsDead);
+                HealthSystem.IsDead, _mover.IsDashing);
 
             _inputFightingInputProvider.ResetAttackIndex(_inputFightingInputProvider.ActiveAttackIndex);
             _inputMoveProvider.ResetOneTimeActions();

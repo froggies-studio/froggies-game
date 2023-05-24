@@ -16,6 +16,7 @@
         DepowerPotion,
         // Quest
         QuestItem,
+        Note,
         // Key
         Key,
         // Misc

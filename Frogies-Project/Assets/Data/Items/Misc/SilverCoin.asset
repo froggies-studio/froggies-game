@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SilverCoin
   m_EditorClassIdentifier: 
   _itemDescriptor:
-    <ItemId>k__BackingField: 11
+    <ItemId>k__BackingField: 12
     <Material>k__BackingField: 3
     <Type>k__BackingField: 6
     <ItemSprite>k__BackingField: {fileID: 21300000, guid: 83f2beb3e2ba2e347b4b0d5d63d0373b, type: 3}

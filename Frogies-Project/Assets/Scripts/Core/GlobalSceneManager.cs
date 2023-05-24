@@ -14,6 +14,7 @@ using Items.Enum;
 using Items.Rarity;
 using Items.Scriptable;
 using Items.Storage;
+using JetBrains.Annotations;
 using Movement;
 using StorySystem;
 using StorySystem.Behaviour;
@@ -34,20 +35,25 @@ namespace Core
         [SerializeField] private ItemsStorage itemsStorage;
         [SerializeField] private BasePrefabsStorage prefabsStorage;
         [SerializeField] private ItemRarityDescriptorStorage itemRarityDescriptor;
+        [SerializeField] private WaveStorage _waveStorage;
+        
         [SerializeField] private PotionSystem.PotionSystem potionSystem;
         [SerializeField] private Inventory inventory;
-        [SerializeField] private WaveStorage _waveStorage;
+        [SerializeField] private DayTimer dayTimer;
 
         [SerializeField] private PlayerData playerData;
         [SerializeField] private WaveData _waveData;
         [SerializeField] private GameObject testEnemy;
         
         [Header("Story")]
-        [SerializeField] private SimpleStoryTrigger _storyTrigger;
+        [SerializeField]
+        [CanBeNull]
+        private SimpleStoryTrigger _storyTrigger;
         [SerializeField] private PlayerActor _playerActor;
         [Space(10)]
         
         private WaveController _waveController;
+
         public PlayerInputActions Input { get; private set; }
         
         public PixelPerfectCamera GlobalCamera { get; private set; }
@@ -86,7 +92,15 @@ namespace Core
             InitializePotionSystem(descriptors, player);
             InitializeDropGenerator(descriptors);
             InitializeWaveSystem();
+            InitializeDayTimer();
             InitializeStoryDirector();
+        }
+
+        private void InitializeDayTimer()
+        {
+            dayTimer.OnDayEnd += potionSystem.OpenPotionMenu;
+            _waveController.OnWaveCleared += dayTimer.ResetTimer;
+            potionSystem.OnActive += dayTimer.ClearTimer;
         }
 
         private void InitializeItemFactory(BasicEntity player)
@@ -155,13 +169,15 @@ namespace Core
             _playerActor.Init();
             
             _storyDirector = new StoryDirector();
-            _storyTrigger.InitTrigger(_storyDirector, _playerActor);
+            _storyTrigger?.InitTrigger(_storyDirector, _playerActor);
         }
 
         private void Update()
         {
             if (_isPaused)
                 return;
+            
+            dayTimer.UpdateTimer();
             
             // TODO: remove
             if (UnityEngine.Input.GetKeyUp(KeyCode.P)) // for testing purpose only

@@ -10,7 +10,6 @@ namespace Utility
     public class DOTweenTMPAnimator
     {
         private TMP_Text _text;
-        
 
         public DOTweenTMPAnimator(TMP_Text text)
         {
@@ -52,7 +51,6 @@ namespace Utility
             
             int index = 0;
             int prevIndex = 0; // dotween can skip some values, so we need to keep track of previous index
-            Debug.Log("Start");
             return DOTween.To(() => index, (x) => index = x, to.Length - 1, duration).OnUpdate(() =>
             {
                 if(index == prevIndex)
@@ -60,7 +58,6 @@ namespace Utility
 
                 for (int i = prevIndex; i <= index; i++)
                 {
-                    Debug.Log(i);
                     int materialIndex = textInfo.characterInfo[i].materialReferenceIndex;
                     var cols = textInfo.meshInfo[materialIndex].colors32;
                     int vertexIndex = textInfo.characterInfo[i].vertexIndex;
@@ -98,7 +95,7 @@ namespace Utility
                 origins[charIndex + 3] = verts[vertexIndex + 3];
             }
             
-            var rnd = new System.Random();
+            // TODO: some Sorp fixes needed
             return DOTween.To(()=> shakeTime, x=> shakeTime = x, 1f, duration)
                 .OnUpdate(() =>
             {

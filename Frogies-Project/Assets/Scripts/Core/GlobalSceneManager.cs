@@ -52,7 +52,7 @@ namespace Core
         [SerializeField] private PlayerActor playerActor;
         [Space(10)]
 
-        [SerializeField] private GameObject DeathPanel;
+        [SerializeField] private GameObject deathPanel;
 
         private WaveController _waveController;
 
@@ -84,7 +84,7 @@ namespace Core
             Input = new PlayerInputActions();
             Input.Enable();
 
-            DeathPanel.SetActive(false);
+            deathPanel.SetActive(false);
             
             _entities = new HashSet<BasicEntity>();
             var player = InitializePlayer(playerData);
@@ -135,7 +135,7 @@ namespace Core
 
             entityData.DamageReceiver.Initialize(entityBrain.HealthSystem.TakeDamage);
 
-            entityBrain.HealthSystem.OnDead += (_, _) => DeathPanel.SetActive(true); 
+            entityBrain.HealthSystem.OnDead += (_, _) => deathPanel.SetActive(true); 
             return player;
         }
 

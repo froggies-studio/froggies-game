@@ -59,7 +59,7 @@ namespace Animation
             }
         
             var animationFlipperLocalScale = _animationFlipper.localScale;
-            if (Mathf.Sign(animationFlipperLocalScale.x) != Mathf.Sign(input.X) && !isTurning)
+            if (Mathf.Sign(animationFlipperLocalScale.x) != Mathf.Sign(input.X) && input.X != 0 && !isTurning)
             {
                 animationFlipperLocalScale.x = Mathf.Sign(input.X);
                 _animationFlipper.localScale = animationFlipperLocalScale;

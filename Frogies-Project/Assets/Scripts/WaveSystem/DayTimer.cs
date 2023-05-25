@@ -1,4 +1,5 @@
 ﻿using System;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
@@ -6,12 +7,15 @@ namespace WaveSystem
 {
     public class DayTimer : MonoBehaviour
     {
-        private float _dayDuration = 0.5f * 60f;
-        private float _time;
+        [SerializeField] private TMP_Text timeText;
+        [SerializeField] private DayNightVisuals dayNightVisuals;
+        
         public Action OnDayEnd;
         public bool _isDay;
-        [SerializeField] private TMP_Text timeText;
-
+        
+        private float _dayDuration = 0.5f * 60;
+        private float _time;
+        
         private void Start()
         {
             ResetTimer();
@@ -30,12 +34,20 @@ namespace WaveSystem
             {
                 _time -= Time.deltaTime;
                 UpdateTimerDisplay(_time);
+                UpdateVisuals(_time);
             }
             else if (_isDay)
             {
                 ClearTimer();
+                dayNightVisuals.TransitionToNight();
                 if (OnDayEnd != null) OnDayEnd.Invoke();
             }
+        }
+
+        private void UpdateVisuals(float time)
+        {
+            float dayProgress = 1 - time / _dayDuration;
+            dayNightVisuals.UpdateVisuals(dayProgress, _isDay);
         }
 
         public void ClearTimer()

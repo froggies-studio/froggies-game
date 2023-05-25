@@ -21,6 +21,8 @@ using StorySystem.Behaviour;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using WaveSystem;
 
 namespace Core
@@ -49,7 +51,9 @@ namespace Core
         [SerializeField] private StoryTriggerManager storyTriggerManager;
         [SerializeField] private PlayerActor playerActor;
         [Space(10)]
-        
+
+        [SerializeField] private GameObject deathPanel;
+
         private WaveController _waveController;
 
         public PlayerInputActions Input { get; private set; }
@@ -59,6 +63,7 @@ namespace Core
         public Transform PlayerTransform => playerData.DirectionalMover.transform;
 
         public BasePrefabsStorage PrefabsStorage => prefabsStorage;
+        public PlayerData PlayerData => playerData;
 
         public StoryDirector StoryDirector => _storyDirector;
 
@@ -79,6 +84,8 @@ namespace Core
             Input = new PlayerInputActions();
             Input.Enable();
 
+            deathPanel.SetActive(false);
+            
             _entities = new HashSet<BasicEntity>();
             var player = InitializePlayer(playerData);
             _entities.Add(player);
@@ -101,14 +108,14 @@ namespace Core
             potionSystem.OnActive += dayTimer.ClearTimer;
         }
 
-        private void InitializeItemFactory(BasicEntity player)
-        {
-            ItemFactory factory = new ItemFactory(player.Brain.StatsController);
-            _sceneItemStorage = new ItemSystem(
-                PrefabsStorage.SceneItemPrefab.GetComponent<SceneItem>(), 
-                itemRarityDescriptor.RarityDescriptor.Cast<IItemRarityColor>().ToArray(), 
-                factory, inventory);
-        }
+         private void InitializeItemFactory(BasicEntity player)
+         {
+             ItemFactory factory = new ItemFactory(player.Brain.StatsController);
+             _sceneItemStorage = new ItemSystem(
+                 PrefabsStorage.SceneItemPrefab.GetComponent<SceneItem>(), 
+                 itemRarityDescriptor.RarityDescriptor.Cast<IItemRarityColor>().ToArray(), 
+                 factory, inventory);
+         }
 
         private BasicEntity InitializePlayer(PlayerData entityData)
         {
@@ -127,6 +134,8 @@ namespace Core
             player.Initialize(entityBrain);
 
             entityData.DamageReceiver.Initialize(entityBrain.HealthSystem.TakeDamage);
+
+            entityBrain.HealthSystem.OnDead += (_, _) => deathPanel.SetActive(true); 
             return player;
         }
 
@@ -140,14 +149,14 @@ namespace Core
             return basicEnemy;
         }
 
-        private void InitializePotionSystem(List<ItemDescriptor> itemDescriptors, BasicEntity player)
-        {
-            var depowerPotions = itemDescriptors.Where(descriptor => descriptor.ItemId == ItemId.DepowerPotion)
-                .Select(descriptor => new Potion(descriptor as StatChangingItemDescriptor, player.Brain.StatsController)).ToList();
-            potionSystem.Setup(depowerPotions);
-            potionSystem.OnActive += () => _isPaused = true;
-            potionSystem.OnOptionSelected += _ => _isPaused = false;
-        }
+         private void InitializePotionSystem(List<ItemDescriptor> itemDescriptors, BasicEntity player)
+         {
+             var depowerPotions = itemDescriptors.Where(descriptor => descriptor.ItemId == ItemId.DepowerPotion)
+                 .Select(descriptor => new Potion(descriptor as StatChangingItemDescriptor, player.Brain.StatsController)).ToList();
+             potionSystem.Setup(depowerPotions);
+             potionSystem.OnActive += () => _isPaused = true;
+             potionSystem.OnOptionSelected += _ => _isPaused = false;
+         }
         
         private void InitializeDropGenerator(List<ItemDescriptor> itemDescriptors)
         {
@@ -207,6 +216,13 @@ namespace Core
             {
                 entity.FixedUpdate();
             }
+        }
+
+        public void RestartLevel()
+        {
+            //TODO: proper level restart
+            int index = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(index);
         }
     }
 }

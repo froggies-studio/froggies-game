@@ -1,5 +1,7 @@
+using StatsSystem;
 using UnityEngine;
 using StatsSystem.Endurance;
+using StatsSystem.Enum;
 
 namespace Fighting
 {
@@ -64,10 +66,10 @@ namespace Fighting
             }
         }
 
-        public void SetActiveAttackIndex(int activeAttackIndex)
+        public void SetActiveAttackIndex(int activeAttackIndex, StatsController statsController)
         {
             _activeAttackIndex = activeAttackIndex;
-            _attackRechargeTimer = _attacksData.Attacks[_activeAttackIndex].rechargeTime;
+            _attackRechargeTimer = statsController.GetStatsValue(StatType.AttackRecharge)*(_activeAttackIndex+1);
             _enduranceSystem.UseEndurance(_attacksData.Attacks[_activeAttackIndex].enduranceCost);
         }
 

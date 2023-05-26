@@ -14,13 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attacks:
   - animationState: 3
-    rechargeTime: 0.4
     damageAmount: 12
     enduranceCost: 5
   - animationState: 4
-    rechargeTime: 0.8
-    damageAmount: 270
-    enduranceCost: 3
+    damageAmount: 20
+    enduranceCost: 10
   rechargeTimerMultiplayer: 1
   attackBuffer: 1.2
   attackLayerMask:

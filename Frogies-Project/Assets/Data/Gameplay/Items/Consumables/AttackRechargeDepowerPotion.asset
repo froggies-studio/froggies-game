@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e41ffa8c156142b0adea470800d0dc2a, type: 3}
-  m_Name: AttackSpeedDepowerPotion
+  m_Name: AttackRechargeDepowerPotion
   m_EditorClassIdentifier: 
   _itemDescriptor:
     <ItemId>k__BackingField: 8
@@ -21,9 +21,9 @@ MonoBehaviour:
     <Price>k__BackingField: 0
     <StatModifiers>k__BackingField:
     - <Stat>k__BackingField:
-        <Type>k__BackingField: 7
-        <Value>k__BackingField: 0.9
+        <Type>k__BackingField: 8
+        <Value>k__BackingField: 1.2
       <Type>k__BackingField: 1
       <Duration>k__BackingField: -1
-    Name: Attack Speed Depower
-    Description: Reduces attack speed for 10%
+    Name: Attack Recharge Depower
+    Description: Icreases attack recharge for 20%

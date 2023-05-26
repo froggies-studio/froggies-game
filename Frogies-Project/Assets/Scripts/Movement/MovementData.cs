@@ -7,13 +7,11 @@ namespace Movement
     public class MovementData : ScriptableObject
     {
         [Header("WALKING")]
-        [SerializeField] private float acceleration = 90;
         [SerializeField] private float moveClamp = 13;
         [SerializeField] private float deAcceleration = 60f;
         
         [Header("GRAVITY")] [SerializeField] private float fallClamp = -40f;
         [Header("JUMPING")] 
-        [SerializeField] private float jumpVelocity = 30;
         [SerializeField] private float amountOfEnduranceToJump = 5;
         
         [Header("ROLLING OVER")]
@@ -22,11 +20,9 @@ namespace Movement
         [SerializeField] private float rollOverStayingVelocity = 100f;
         [SerializeField] private float dashDuration = 0.2f;  
         
-        public float Acceleration => acceleration;
         public float MoveClamp => moveClamp;
         public float DeAcceleration => deAcceleration;
         public float FallClamp => fallClamp;
-        public float JumpVelocity => jumpVelocity;
         public float AmountOfEnduranceToJump => amountOfEnduranceToJump;
         public float AmountOfEnduranceToRollOver => amountOfEnduranceToRollOver;
         public float RollOverMovingVelocity => rollOverMovingVelocity;

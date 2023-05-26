@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using StatsSystem;
 using StatsSystem.Endurance;
+using StatsSystem.Enum;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 
@@ -88,7 +90,7 @@ namespace Movement
     
         #region Walk
     
-        public void CalculateHorizontalSpeed(MovementInput input, MovementData data)
+        public void CalculateHorizontalSpeed(MovementInput input, MovementData data, StatsController statsController)
         {
             if (isDashing)
             {
@@ -97,7 +99,7 @@ namespace Movement
             float currentHorizontalSpeed = rigidbody.velocity.x;
             if (input.X != 0)
             {
-                currentHorizontalSpeed += input.X * data.Acceleration * Time.deltaTime;
+                currentHorizontalSpeed += input.X * statsController.GetStatsValue(StatType.MovementSpeed) * Time.deltaTime;
 
                 currentHorizontalSpeed = Mathf.Clamp(currentHorizontalSpeed, -data.MoveClamp, data.MoveClamp);
                 
@@ -124,7 +126,8 @@ namespace Movement
     
         #region Jump
     
-        public void CalculateJump(MovementInput input, MovementData data, EnduranceSystem enduranceSystem)
+        public void CalculateJump(
+            MovementInput input, MovementData data, EnduranceSystem enduranceSystem, StatsController statsController)
         {
             if (!enduranceSystem.CheckEnduranceAbility(data.AmountOfEnduranceToJump))
             {
@@ -141,7 +144,7 @@ namespace Movement
             if (input.JumpDown && CanUseCoyote || HasBufferedJump)
             {
                 enduranceSystem.UseEndurance(data.AmountOfEnduranceToJump);
-                currentVerticalSpeed = data.JumpVelocity;
+                currentVerticalSpeed = statsController.GetStatsValue(StatType.JumpVelocity);
                 _endedJumpEarly = false;
                 _coyoteUsable = false;
                 _ofGroundTime = float.MinValue;

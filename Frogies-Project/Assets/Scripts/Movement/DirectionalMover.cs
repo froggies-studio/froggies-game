@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using StatsSystem;
 using StatsSystem.Endurance;
+using StatsSystem.Enum;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 
@@ -26,14 +28,14 @@ namespace Movement
         [SerializeField] private new Collider2D collider;
         
         [SerializeField]private bool isDashing = false;
-        private float rollOverStartTime;
-        private float rollOverDuration;
+        private float _rollOverStartTime;
+        private float _rollOverDuration;
 
         public Vector2 Velocity => rigidbody.velocity;
         public bool IsGrounded => _collisionGround;
         public bool IsDashing => isDashing;
-        public float RollOverStartTime => rollOverStartTime;
-        public float RollOverDuration => rollOverDuration;
+        public float RollOverStartTime => _rollOverStartTime;
+        public float RollOverDuration => _rollOverDuration;
         
         private bool _collisionGround;
         private float _ofGroundTime;
@@ -48,7 +50,6 @@ namespace Movement
         private bool CanUseCoyote => !_collisionGround && _coyoteUsable && _ofGroundTime + _coyoteTimeThreshold > Time.time;
         private bool HasBufferedJump => _collisionGround && _lastJumpPressed + _jumpBuffer > Time.time;
         private bool HasBufferedRollOver => _collisionGround && _lastRollOverPressed + _rollOverBuffer > Time.time;
-        private bool isFacingRight = true;
         
         #region Collisions
     
@@ -89,7 +90,7 @@ namespace Movement
     
         #region Walk
     
-        public void CalculateHorizontalSpeed(MovementInput input, MovementData data)
+        public void CalculateHorizontalSpeed(MovementInput input, MovementData data, StatsController statsController)
         {
             if (isDashing)
             {
@@ -98,7 +99,7 @@ namespace Movement
             float currentHorizontalSpeed = rigidbody.velocity.x;
             if (input.X != 0)
             {
-                currentHorizontalSpeed += input.X * data.Acceleration * Time.deltaTime;
+                currentHorizontalSpeed += input.X * statsController.GetStatsValue(StatType.MovementSpeed) * Time.deltaTime;
 
                 currentHorizontalSpeed = Mathf.Clamp(currentHorizontalSpeed, -data.MoveClamp, data.MoveClamp);
                 
@@ -125,7 +126,8 @@ namespace Movement
     
         #region Jump
     
-        public void CalculateJump(MovementInput input, MovementData data, EnduranceSystem enduranceSystem)
+        public void CalculateJump(
+            MovementInput input, MovementData data, EnduranceSystem enduranceSystem, StatsController statsController)
         {
             if (!enduranceSystem.CheckEnduranceAbility(data.AmountOfEnduranceToJump))
             {
@@ -142,7 +144,7 @@ namespace Movement
             if (input.JumpDown && CanUseCoyote || HasBufferedJump)
             {
                 enduranceSystem.UseEndurance(data.AmountOfEnduranceToJump);
-                currentVerticalSpeed = data.JumpVelocity;
+                currentVerticalSpeed = statsController.GetStatsValue(StatType.JumpVelocity);
                 _endedJumpEarly = false;
                 _coyoteUsable = false;
                 _ofGroundTime = float.MinValue;
@@ -179,13 +181,15 @@ namespace Movement
             if (input.RollOver)
             {
                 enduranceSystem.UseEndurance(data.AmountOfEnduranceToRollOver);
-                rollOverStartTime = Time.fixedTime;
-                rollOverDuration = data.DashDuration;
+                _rollOverStartTime = Time.fixedTime;
+                _rollOverDuration = data.DashDuration;
                 if (rigidbody.velocity.normalized.x != 0)
                 {
-                    _originalVelocity = rigidbody.velocity.x;
-                    var acceleration = data.RollOverMovingVelocity * rigidbody.velocity.normalized.x;
-                    rigidbody.velocity = new Vector2(rigidbody.velocity.x + acceleration, rigidbody.velocity.y);
+                    var velocity = rigidbody.velocity;
+                    _originalVelocity = velocity.x;
+                    var acceleration = data.RollOverMovingVelocity * velocity.normalized.x;
+                    velocity = new Vector2(velocity.x + acceleration, velocity.y);
+                    rigidbody.velocity = velocity;
                 }
                 else
                 {

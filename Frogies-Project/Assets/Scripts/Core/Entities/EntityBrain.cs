@@ -63,7 +63,7 @@ namespace Core.Entities
 
             _mover.RunGroundCheck();
 
-            _mover.CalculateJump(_inputMoveProvider.Input, _movementData, _enduranceSystem);
+            _mover.CalculateJump(_inputMoveProvider.Input, _movementData, _enduranceSystem, _statsController);
             
             _mover.CalculateRollOver(_inputMoveProvider.Input, _movementData, _enduranceSystem);
            if (_mover.IsDashing)
@@ -80,7 +80,7 @@ namespace Core.Entities
             if (_mover.IsGrounded && _attacker.CanPerformAttack(activeAttackIndex))
             {
                 _attacker.SetActiveAttackIndex(_inputFightingInputProvider.ActiveAttackIndex);
-                info = _attacker.GetActiveAttackInfo();
+                info = _attacker.UpdateAndGetActiveAttackInfo(_statsController);
             }
 
             var input = _inputMoveProvider.Input;
@@ -88,7 +88,7 @@ namespace Core.Entities
             {
                 input.X = 0;
             }
-            _mover.CalculateHorizontalSpeed(input, _movementData);
+            _mover.CalculateHorizontalSpeed(input, _movementData, _statsController);
 
             _animation.UpdateAnimationSystem(_inputMoveProvider.Input, info, _mover.Velocity, _mover.IsGrounded,
                 HealthSystem.IsDead, _mover.IsDashing);

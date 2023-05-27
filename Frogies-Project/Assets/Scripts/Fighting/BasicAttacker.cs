@@ -1,5 +1,7 @@
+using StatsSystem;
 using UnityEngine;
 using StatsSystem.Endurance;
+using StatsSystem.Enum;
 
 namespace Fighting
 {
@@ -30,8 +32,12 @@ namespace Fighting
             _attacksData = attacksData;
         }
 
-        public AttackInfo GetActiveAttackInfo()
+        public AttackInfo UpdateAndGetActiveAttackInfo(StatsController statsController)
         {
+            _attacksData.Attacks[_activeAttackIndex].rechargeTime =
+                statsController.GetStatsValue(StatType.AttackRecharge) * (_activeAttackIndex + 1);
+            _attacksData.Attacks[_activeAttackIndex].damageAmount =
+                statsController.GetStatsValue(StatType.Damage) * (_activeAttackIndex + 1);
             return _attacksData.Attacks[_activeAttackIndex];
         }
 
@@ -52,11 +58,13 @@ namespace Fighting
 
         public void Attack()
         {
+            _enduranceSystem.UseEndurance(_attacksData.Attacks[_activeAttackIndex].enduranceCost);
             var size = Physics2D.OverlapCollider(_attackColliders[_activeAttackIndex], _attackContactFilter,
                 _attackTargetsBuffer);
             for (int i = 0; i < size; i++)
             {
                 var target = _attackTargetsBuffer[i].GetComponent<DamageReceiver>();
+                
                 if (target != null)
                 {
                     target.ReceiveDamage(_attacksData.Attacks[_activeAttackIndex].damageAmount);
@@ -68,7 +76,6 @@ namespace Fighting
         {
             _activeAttackIndex = activeAttackIndex;
             _attackRechargeTimer = _attacksData.Attacks[_activeAttackIndex].rechargeTime;
-            _enduranceSystem.UseEndurance(_attacksData.Attacks[_activeAttackIndex].enduranceCost);
         }
 
         public void ResetActiveAttackIndex()

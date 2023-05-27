@@ -52,11 +52,13 @@ namespace Core.InventorySystem
                     {
                         _armor = newEquipment;
                         armorIcon.sprite = _armor.Descriptor.ItemSprite;
+                        newEquipment.Use();
                     }
                     break;
                 case EquipmentType.Weapon:
                     _weapon = newEquipment;
                     weaponIcon.sprite = _weapon.Descriptor.ItemSprite;
+                    newEquipment.Use();
                     break;
                 default:
                     throw new NotSupportedException();

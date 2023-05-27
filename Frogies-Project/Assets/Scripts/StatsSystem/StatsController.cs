@@ -28,11 +28,21 @@ namespace StatsSystem
             var statToChange = _currentStats.FirstOrDefault(stat => stat.Key.Type == statModifier.Stat.Type).Key;
             Debug.Assert(statToChange!=null);
 
-            var addedValue = statModifier.Type == StatModificatorType.Additive
-                ? statToChange + statModifier.Stat
-                : statToChange * statModifier.Stat;
+            float newValue = statToChange.Value;
+            switch (statModifier.Type)
+            {
+                case StatModificatorType.Additive:
+                    newValue=statToChange + statModifier.Stat;
+                    break;
+                case StatModificatorType.Multiplier:
+                    newValue=statToChange * statModifier.Stat;
+                    break;
+                case StatModificatorType.Setter:
+                    newValue=statModifier.Stat;
+                    break;  
+            };
             
-            statToChange.SetStatValue(addedValue);
+            statToChange.SetStatValue(newValue);
             if (OnStatChanged != null) OnStatChanged.Invoke(statToChange);
 
             if (statModifier.Duration<0)
@@ -46,7 +56,7 @@ namespace StatsSystem
             }
             else
             {
-                var addedStat = new Stat(statModifier.Stat.Type, addedValue);
+                var addedStat = new Stat(statModifier.Stat.Type, newValue);
                 var tempModificator = new StatModifier(addedStat, statModifier.Type,
                     statModifier.Duration, Time.time);
                 _activeModifiers.Add(tempModificator);

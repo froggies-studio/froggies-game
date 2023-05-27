@@ -72,7 +72,7 @@ namespace StatsSystem.Health
                 if (stat.Value <0 )
                 {
                     _statsController.ProcessModifier(new StatModifier(
-                        new Stat(StatType.Health, 0), StatModificatorType.Multiplier, -1, Time.time));
+                        new Stat(StatType.Health, 0), StatModificatorType.Setter, -1, Time.time));
                     if (OnDead != null) OnDead(this, EventArgs.Empty);
                 }
             }

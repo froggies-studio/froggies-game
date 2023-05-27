@@ -79,8 +79,8 @@ namespace Core.Entities
             int activeAttackIndex = _inputFightingInputProvider.ActiveAttackIndex;
             if (_mover.IsGrounded && _attacker.CanPerformAttack(activeAttackIndex))
             {
-                _attacker.SetActiveAttackIndex(_inputFightingInputProvider.ActiveAttackIndex, _statsController);
-                info = _attacker.GetActiveAttackInfo();
+                _attacker.SetActiveAttackIndex(_inputFightingInputProvider.ActiveAttackIndex);
+                info = _attacker.UpdateAndGetActiveAttackInfo(_statsController);
             }
 
             var input = _inputMoveProvider.Input;

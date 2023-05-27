@@ -19,7 +19,6 @@ namespace Items.Core
             {
                 _statsController.ProcessModifier(modifier);
             }
-            Debug.Log($"Used item: {Descriptor.ItemId}");
         }
     }
 }

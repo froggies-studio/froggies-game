@@ -25,8 +25,9 @@ namespace StatsSystem.Health
         public void TakeDamage(float damage)
         {
             float maxDamage = GetHealth();
-            damage = maxDamage > damage ? damage : maxDamage;
-            
+            damage -= _statsController.GetStatsValue(StatType.DamageResistance);
+            damage = Math.Clamp(damage, 0, maxDamage);
+
             _statsController.ProcessModifier(new StatModifier(
                 new Stat(StatType.Health, -damage), StatModificatorType.Additive, -1, Time.time));
             

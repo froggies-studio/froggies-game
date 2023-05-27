@@ -1,6 +1,7 @@
 using System;
 using Items.Data;
 using Items.Enum;
+using StatsSystem;
 
 namespace Items.Core
 {
@@ -9,9 +10,11 @@ namespace Items.Core
         private bool _equipped;
         
         public EquipmentType EquipmentType { get; }
+        private StatsController _statsController;
         
-        public Equipment(ItemDescriptor descriptor) : base(descriptor)
+        public Equipment(StatChangingItemDescriptor descriptor, StatsController statsController) : base(descriptor)
         {
+            _statsController = statsController;
             if (descriptor.Type == ItemType.Weapon)
                 EquipmentType = EquipmentType.Weapon;
         }
@@ -20,7 +23,11 @@ namespace Items.Core
 
         public override void Use()
         {
-            //Todo implement with stat system
+            _equipped = true;
+            foreach (var modifier in ((StatChangingItemDescriptor)Descriptor).StatModifiers)
+            {
+                _statsController.ProcessModifier(modifier);
+            }
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Items
                         case ItemId.Sword:
                         case ItemId.Shield:
                         case ItemId.Spear:
-                            return new Equipment(descriptor);
+                            return new Equipment((StatChangingItemDescriptor)descriptor, _statsController);
                         default:
                             throw new NullReferenceException($"Item ID: '{descriptor.ItemId}' is not supported");
                     }
@@ -44,7 +44,7 @@ namespace Items
                         case ItemId.Helmet:
                         case ItemId.Breastplate:
                         case ItemId.Boots:
-                            return new Equipment(descriptor);
+                            return new Equipment((StatChangingItemDescriptor)descriptor, _statsController);
                         default:
                             throw new NullReferenceException($"Item ID: '{descriptor.ItemId}' is not supported");
                     }
@@ -52,7 +52,7 @@ namespace Items
                     switch (descriptor.ItemId)
                     {
                         case ItemId.QuestItem:
-                            return new Equipment(descriptor);
+                            return new QuestItem(descriptor);
                         default:
                             throw new NullReferenceException($"Item ID: '{descriptor.ItemId}' is not supported");
                     }
@@ -60,7 +60,7 @@ namespace Items
                     switch (descriptor.ItemId)
                     {
                         case ItemId.Key:
-                            return new Equipment(descriptor);
+                            return new QuestItem(descriptor);
                         default:
                             throw new NullReferenceException($"Item ID: '{descriptor.ItemId}' is not supported");
                     }
@@ -69,7 +69,8 @@ namespace Items
                     {
                         case ItemId.Coin:
                         case ItemId.Food:
-                            return new Equipment(descriptor);
+                        case ItemId.Note:
+                            return new QuestItem(descriptor);
                         default:
                             throw new NullReferenceException($"Item ID: '{descriptor.ItemId}' is not supported");
                     }

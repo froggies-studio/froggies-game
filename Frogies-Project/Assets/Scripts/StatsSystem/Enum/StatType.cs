@@ -11,6 +11,7 @@
         EnduranceRechargeRate,
         MovementSpeed,
         AttackRecharge,
-        JumpVelocity
+        JumpVelocity,
+        DamageResistance,
     }
 }

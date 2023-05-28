@@ -4,7 +4,7 @@ using Animation;
 using Core.InventorySystem;
 using Core.Entities;
 using Core.Entities.Data;
-using Core.Entities.Enemies;
+using Core.Entities.Spawners;
 using Fighting;
 using Items;
 using Items.Behaviour;
@@ -14,7 +14,6 @@ using Items.Enum;
 using Items.Rarity;
 using Items.Scriptable;
 using Items.Storage;
-using JetBrains.Annotations;
 using Movement;
 using StorySystem;
 using StorySystem.Behaviour;
@@ -22,7 +21,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using WaveSystem;
 
 namespace Core
@@ -55,6 +53,7 @@ namespace Core
         [SerializeField] private GameObject deathPanel;
 
         private WaveController _waveController;
+        public EnemySpawner EnemySpawner { get; private set; }
 
         public PlayerInputActions Input { get; private set; }
         
@@ -73,7 +72,7 @@ namespace Core
 
         private bool _isPaused = false;
 
-        private HashSet<BasicEntity> _entities;
+        public HashSet<BasicEntity> Entities { get; private set; }
 
         private void Awake()
         {
@@ -85,11 +84,13 @@ namespace Core
             Input.Enable();
 
             deathPanel.SetActive(false);
+
+            EnemySpawner = new EnemySpawner(this);
             
-            _entities = new HashSet<BasicEntity>();
+            Entities = new HashSet<BasicEntity>();
             var player = InitializePlayer(playerData);
-            _entities.Add(player);
-            _entities.Add(InitializeEnemy(testEnemy, out _));
+            Entities.Add(player);
+            Entities.Add(EnemySpawner.Spawn(testEnemy, out _));
 
             var descriptors = itemsStorage.ItemScriptables.Select(scriptable => scriptable.ItemDescriptor).ToList();
             
@@ -138,18 +139,8 @@ namespace Core
             entityBrain.HealthSystem.OnDead += (_, _) => deathPanel.SetActive(true); 
             return player;
         }
-
-        public BasicEntity InitializeEnemy(GameObject enemyPrefab, out GameObject enemyGameObject)
-        {
-            enemyGameObject = Instantiate(enemyPrefab);
-            var enemyData = enemyGameObject.GetComponent<EnemyDataComponent>();
-            enemyData.Data.Player = playerData.DirectionalMover.transform;
-            var basicEnemy = new BasicEnemy(enemyData.Data);
-            _entities.Add(basicEnemy);
-            return basicEnemy;
-        }
-
-         private void InitializePotionSystem(List<ItemDescriptor> itemDescriptors, BasicEntity player)
+        
+        private void InitializePotionSystem(List<ItemDescriptor> itemDescriptors, BasicEntity player)
          {
              var depowerPotions = itemDescriptors.Where(descriptor => descriptor.ItemId == ItemId.DepowerPotion)
                  .Select(descriptor => new Potion(descriptor as StatChangingItemDescriptor, player.Brain.StatsController)).ToList();
@@ -166,7 +157,7 @@ namespace Core
         private void InitializeWaveSystem()
         {
             var waves = waveStorage.Waves.Select(wave => wave.GetCopy()).ToDictionary(wave => wave);
-            _waveController = new WaveController(waves, waveData.Spawners, waveData.Enemies);
+            _waveController = new WaveController(waves, waveData.Spawners, waveData.Enemies, EnemySpawner);
             waveData.WaveBar.Setup(_waveController);
             potionSystem.OnOptionSelected += _waveController.OnPotionPicked;
         }
@@ -201,7 +192,7 @@ namespace Core
 
             _dropGenerator.Update();
             
-            foreach (var entity in _entities)
+            foreach (var entity in Entities)
             {
                 entity.Update();
             }
@@ -212,7 +203,7 @@ namespace Core
             if (_isPaused)
                 return;
 
-            foreach (var entity in _entities)
+            foreach (var entity in Entities)
             {
                 entity.FixedUpdate();
             }

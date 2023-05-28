@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 690128339
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: 1018727558, guid: b9f74d5534e90544ca4997f7293cb4b6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -202,7 +202,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2991ff244094e9581bb569057267190, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _amountOfEndurance: 10
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -212,9 +211,11 @@ MonoBehaviour:
   debugGroundChecks: 0
   _coyoteTimeThreshold: 0.1
   _jumpBuffer: 0.1
+  _rollOverBuffer: 0.1
   _jumpEndEarlyGravityMultiplier: 0.45
   rigidbody: {fileID: 4164882110468357246}
   collider: {fileID: 1237643441137552330}
+  isDashing: 0
 --- !u!114 &3694686867019700642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,9 +326,7 @@ MonoBehaviour:
     <DamageReceiver>k__BackingField: {fileID: 3694686867019700642}
     <Colliders>k__BackingField:
     - {fileID: 1237643441137552330}
-    <DeadEnemyLayerMask>k__BackingField:
-      serializedVersion: 2
-      m_Bits: 1024
+    <Renderer>k__BackingField: {fileID: 3436147264433644339}
 --- !u!1 &7360140511703333957
 GameObject:
   m_ObjectHideFlags: 0

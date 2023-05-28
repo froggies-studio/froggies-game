@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core;
+using Core.Entities.Spawners;
 using StatsSystem.Health;
 using UnityEngine;
 using UnityEngine.Video;
@@ -23,12 +24,17 @@ namespace WaveSystem
         private GameObject _currentWaveSpawner;
         private bool _isNight;
         private int _currentAmountOfEnemies;
+        private EnemySpawner _enemySpawner;
 
-        public WaveController(Dictionary<Wave, Wave> availableWaves, List<GameObject> spawners, List<GameObject> enemies)
+        public WaveController(Dictionary<Wave, Wave> availableWaves, 
+            List<GameObject> spawners, 
+            List<GameObject> enemies,
+            EnemySpawner enemySpawner)
         {
             _spawners = spawners;
             _enemies = enemies;
             _availableWaves = availableWaves;
+            _enemySpawner = enemySpawner;
             OnEnemyKilled += EnemyChecker;
         }
 
@@ -56,7 +62,7 @@ namespace WaveSystem
             var currentEnemy = _enemies[(int)_currentWave.EnemyType];
             for (int i = 0; i < _currentWave.MaxAmountOfEnemies; i++)
             {
-                var enemy = GlobalSceneManager.Instance.InitializeEnemy(currentEnemy, out GameObject newEnemy);
+                var enemy = _enemySpawner.Spawn(currentEnemy, out GameObject newEnemy);
                 newEnemy.transform.position = _currentWaveSpawner.transform.position;
                 newEnemy.transform.parent = _currentWaveSpawner.transform;
                 enemy.Brain.HealthSystem.OnDead += EnemyDeath;

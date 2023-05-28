@@ -43,7 +43,6 @@ namespace Core
 
         [SerializeField] private PlayerData playerData;
         [SerializeField] private WaveData waveData;
-        [SerializeField] private GameObject testEnemy;
         
         [Header("Story")]
         [SerializeField] private StoryTriggerManager storyTriggerManager;
@@ -90,7 +89,6 @@ namespace Core
             Entities = new HashSet<BasicEntity>();
             var player = InitializePlayer(playerData);
             Entities.Add(player);
-            Entities.Add(EnemySpawner.Spawn(testEnemy, out _));
 
             var descriptors = itemsStorage.ItemScriptables.Select(scriptable => scriptable.ItemDescriptor).ToList();
             

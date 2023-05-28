@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Animation;
 using Fighting;
@@ -49,28 +50,26 @@ namespace Core.Entities
             _attacker = new BasicAttacker(_enduranceSystem, attacksData.AttackLayerMask, attackColliders, attacksData);
 
             animation.AnimationPerformed += OnAnimationPerformed;
+            HealthSystem.OnDead += UpdateToDeadAnimation;
         }
 
         public void FixedUpdate()
         {
             if (HealthSystem.IsDead)
             {
-                _animation.UpdateAnimationSystem(_inputMoveProvider.Input, null, _mover.Velocity, _mover.IsGrounded,
-                    HealthSystem.IsDead, _mover.IsDashing);
-                _mover.Stop();
                 return;
             }
 
             _mover.RunGroundCheck();
 
             _mover.CalculateJump(_inputMoveProvider.Input, _movementData, _enduranceSystem, _statsController);
-            
+
             _mover.CalculateRollOver(_inputMoveProvider.Input, _movementData, _enduranceSystem);
-           if (_mover.IsDashing)
-           {
-                if (Time.fixedTime -_mover.RollOverStartTime >=_mover.RollOverDuration)
+            if (_mover.IsDashing)
+            {
+                if (Time.fixedTime - _mover.RollOverStartTime >= _mover.RollOverDuration)
                 {
-                     _mover.EndRollOver();
+                    _mover.EndRollOver();
                 }
             }
 
@@ -88,6 +87,7 @@ namespace Core.Entities
             {
                 input.X = 0;
             }
+
             _mover.CalculateHorizontalSpeed(input, _movementData, _statsController);
 
             _animation.UpdateAnimationSystem(_inputMoveProvider.Input, info, _mover.Velocity, _mover.IsGrounded,
@@ -99,6 +99,11 @@ namespace Core.Entities
 
         public void Update()
         {
+            if (HealthSystem.IsDead)
+            {
+                return;
+            }
+            
             _enduranceSystem.RestoreEndurance();
             _enduranceSystem.SetCurrentEndurance();
         }
@@ -113,6 +118,12 @@ namespace Core.Entities
                     _attacker.ResetActiveAttackIndex();
                     return;
             }
+        }
+
+        private void UpdateToDeadAnimation(object sender, EventArgs e)
+        {
+            _animation.UpdateAnimationSystem(_inputMoveProvider.Input, null, _mover.Velocity, _mover.IsGrounded,
+                HealthSystem.IsDead, _mover.IsDashing);
         }
     }
 }

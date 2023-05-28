@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Animation;
@@ -14,7 +15,6 @@ using Items.Enum;
 using Items.Rarity;
 using Items.Scriptable;
 using Items.Storage;
-using JetBrains.Annotations;
 using Movement;
 using StorySystem;
 using StorySystem.Behaviour;
@@ -22,7 +22,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using WaveSystem;
 
 namespace Core
@@ -30,7 +29,7 @@ namespace Core
     public class GlobalSceneManager : MonoBehaviour
     {
         public static GlobalSceneManager Instance { get; private set; }
-        public static PlayerInputActions InputInstance => Instance.Input;
+        public static PlayerInputActions InputInstance => Instance.PlayerInputActions;
 
         [SerializeField] private new Camera camera;
 
@@ -38,7 +37,7 @@ namespace Core
         [SerializeField] private BasePrefabsStorage prefabsStorage;
         [SerializeField] private ItemRarityDescriptorStorage itemRarityDescriptor;
         [SerializeField] private WaveStorage waveStorage;
-        
+
         [SerializeField] private PotionSystem.PotionSystem potionSystem;
         [SerializeField] private Inventory inventory;
         [SerializeField] private DayTimer dayTimer;
@@ -46,20 +45,17 @@ namespace Core
         [SerializeField] private PlayerData playerData;
         [SerializeField] private WaveData waveData;
         [SerializeField] private GameObject testEnemy;
-        
-        [Header("Story")]
-        [SerializeField] private StoryTriggerManager storyTriggerManager;
-        [SerializeField] private PlayerActor playerActor;
-        [Space(10)]
 
-        [SerializeField] private GameObject deathPanel;
+        [Header("Story")] [SerializeField] private StoryTriggerManager storyTriggerManager;
+        [SerializeField] private PlayerActor playerActor;
+        [Space(10)] [SerializeField] private GameObject deathPanel;
 
         private WaveController _waveController;
 
-        public PlayerInputActions Input { get; private set; }
-        
+        public PlayerInputActions PlayerInputActions { get; private set; }
+
         public PixelPerfectCamera GlobalCamera { get; private set; }
-        
+
         public Transform PlayerTransform => playerData.DirectionalMover.transform;
 
         public BasePrefabsStorage PrefabsStorage => prefabsStorage;
@@ -72,6 +68,31 @@ namespace Core
         private StoryDirector _storyDirector;
 
         private bool _isPaused = false;
+        public bool IsPaused
+        {
+            get => _isPaused;
+            set
+            {
+                if (value == _isPaused)
+                {
+                    return;
+                }
+                
+                Time.timeScale = value ? 0 : 1;
+                _isPaused = value;
+
+                if (value)
+                {
+                    OnPauseStarted?.Invoke();
+                }
+                else
+                {
+                    OnPauseFinished?.Invoke();
+                }
+            }
+        }
+        public event Action OnPauseStarted;
+        public event Action OnPauseFinished;
 
         private HashSet<BasicEntity> _entities;
 
@@ -79,20 +100,20 @@ namespace Core
         {
             Debug.Assert(Instance == null);
             Instance = this;
-
+            
             GlobalCamera = camera.GetComponent<PixelPerfectCamera>();
-            Input = new PlayerInputActions();
-            Input.Enable();
+            PlayerInputActions = new PlayerInputActions();
+            PlayerInputActions.Enable();
 
             deathPanel.SetActive(false);
-            
+
             _entities = new HashSet<BasicEntity>();
             var player = InitializePlayer(playerData);
             _entities.Add(player);
             _entities.Add(InitializeEnemy(testEnemy, out _));
 
             var descriptors = itemsStorage.ItemScriptables.Select(scriptable => scriptable.ItemDescriptor).ToList();
-            
+
             InitializeItemFactory(player);
             InitializePotionSystem(descriptors, player);
             InitializeDropGenerator(descriptors);
@@ -108,20 +129,21 @@ namespace Core
             potionSystem.OnActive += dayTimer.ClearTimer;
         }
 
-         private void InitializeItemFactory(BasicEntity player)
-         {
-             ItemFactory factory = new ItemFactory(player.Brain.StatsController);
-             _sceneItemStorage = new ItemSystem(
-                 PrefabsStorage.SceneItemPrefab.GetComponent<SceneItem>(), 
-                 itemRarityDescriptor.RarityDescriptor.Cast<IItemRarityColor>().ToArray(), 
-                 factory, inventory);
-         }
+        private void InitializeItemFactory(BasicEntity player)
+        {
+            ItemFactory factory = new ItemFactory(player.Brain.StatsController);
+            _sceneItemStorage = new ItemSystem(
+                PrefabsStorage.SceneItemPrefab.GetComponent<SceneItem>(),
+                itemRarityDescriptor.RarityDescriptor.Cast<IItemRarityColor>().ToArray(),
+                factory, inventory);
+        }
 
         private BasicEntity InitializePlayer(PlayerData entityData)
         {
             entityData.DirectionalMover.GameObject();
-            PlayerMoveInputReader moveInputReader = new PlayerMoveInputReader(Input);
-            PlayerFightInputReader fightInputReader = new PlayerFightInputReader(Input, entityData.AttacksData);
+            PlayerMoveInputReader moveInputReader = new PlayerMoveInputReader(PlayerInputActions);
+            PlayerFightInputReader fightInputReader =
+                new PlayerFightInputReader(PlayerInputActions, entityData.AttacksData);
             PlayerAnimationController playerAnimation =
                 new PlayerAnimationController(entityData.AnimationStateManager, entityData.SpriteFlipper);
             var statsStorage = prefabsStorage.StatsStorage;
@@ -135,7 +157,7 @@ namespace Core
 
             entityData.DamageReceiver.Initialize(entityBrain.HealthSystem.TakeDamage);
 
-            entityBrain.HealthSystem.OnDead += (_, _) => deathPanel.SetActive(true); 
+            entityBrain.HealthSystem.OnDead += (_, _) => deathPanel.SetActive(true);
             return player;
         }
 
@@ -149,20 +171,21 @@ namespace Core
             return basicEnemy;
         }
 
-         private void InitializePotionSystem(List<ItemDescriptor> itemDescriptors, BasicEntity player)
-         {
-             var depowerPotions = itemDescriptors.Where(descriptor => descriptor.ItemId == ItemId.DepowerPotion)
-                 .Select(descriptor => new Potion(descriptor as StatChangingItemDescriptor, player.Brain.StatsController)).ToList();
-             potionSystem.Setup(depowerPotions);
-             potionSystem.OnActive += () => _isPaused = true;
-             potionSystem.OnOptionSelected += _ => _isPaused = false;
-         }
-        
+        private void InitializePotionSystem(List<ItemDescriptor> itemDescriptors, BasicEntity player)
+        {
+            var depowerPotions = itemDescriptors.Where(descriptor => descriptor.ItemId == ItemId.DepowerPotion)
+                .Select(descriptor =>
+                    new Potion(descriptor as StatChangingItemDescriptor, player.Brain.StatsController)).ToList();
+            potionSystem.Setup(depowerPotions);
+            potionSystem.OnActive += () => IsPaused = true;
+            potionSystem.OnOptionSelected += _ => IsPaused = false;
+        }
+
         private void InitializeDropGenerator(List<ItemDescriptor> itemDescriptors)
         {
             _dropGenerator = new DropGenerator(playerData.DirectionalMover, _sceneItemStorage, itemDescriptors);
         }
-        
+
         private void InitializeWaveSystem()
         {
             var waves = waveStorage.Waves.Select(wave => wave.GetCopy()).ToDictionary(wave => wave);
@@ -170,37 +193,37 @@ namespace Core
             waveData.WaveBar.Setup(_waveController);
             potionSystem.OnOptionSelected += _waveController.OnPotionPicked;
         }
-        
+
         private void InitializeStoryDirector()
         {
             playerActor.Init();
-            
+
             _storyDirector = new StoryDirector();
             storyTriggerManager.InitTriggers(playerActor, _storyDirector);
         }
 
         private void Update()
         {
-            if (_isPaused)
+            if (IsPaused)
                 return;
-            
+
             dayTimer.UpdateTimer();
-            
+
             // TODO: remove
             if (UnityEngine.Input.GetKeyUp(KeyCode.P)) // for testing purpose only
             {
                 potionSystem.OpenPotionMenu();
             }
-            
+
             _waveController.EnemyChecker();
             // TODO: remove
-            if (UnityEngine.Input.GetKeyDown(KeyCode.K))// for testing purpose only
+            if (UnityEngine.Input.GetKeyDown(KeyCode.K)) // for testing purpose only
             {
                 _waveController.OnPotionPicked(0);
             }
 
             _dropGenerator.Update();
-            
+
             foreach (var entity in _entities)
             {
                 entity.Update();
@@ -209,7 +232,7 @@ namespace Core
 
         private void FixedUpdate()
         {
-            if (_isPaused)
+            if (IsPaused)
                 return;
 
             foreach (var entity in _entities)

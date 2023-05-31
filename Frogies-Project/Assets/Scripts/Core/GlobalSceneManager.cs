@@ -5,7 +5,7 @@ using Animation;
 using Core.InventorySystem;
 using Core.Entities;
 using Core.Entities.Data;
-using Core.Entities.Enemies;
+using Core.Entities.Spawners;
 using Fighting;
 using Items;
 using Items.Behaviour;
@@ -44,13 +44,13 @@ namespace Core
 
         [SerializeField] private PlayerData playerData;
         [SerializeField] private WaveData waveData;
-        [SerializeField] private GameObject testEnemy;
 
         [Header("Story")] [SerializeField] private StoryTriggerManager storyTriggerManager;
         [SerializeField] private PlayerActor playerActor;
         [Space(10)] [SerializeField] private GameObject deathPanel;
 
         private WaveController _waveController;
+        public EnemySpawner EnemySpawner { get; private set; }
 
         public PlayerInputActions PlayerInputActions { get; private set; }
 
@@ -94,7 +94,7 @@ namespace Core
         public event Action OnPauseStarted;
         public event Action OnPauseFinished;
 
-        private HashSet<BasicEntity> _entities;
+        public HashSet<BasicEntity> Entities { get; private set; }
 
         private void Awake()
         {
@@ -107,10 +107,11 @@ namespace Core
 
             deathPanel.SetActive(false);
 
-            _entities = new HashSet<BasicEntity>();
+            EnemySpawner = new EnemySpawner(this);
+            
+            Entities = new HashSet<BasicEntity>();
             var player = InitializePlayer(playerData);
-            _entities.Add(player);
-            _entities.Add(InitializeEnemy(testEnemy, out _));
+            Entities.Add(player);
 
             var descriptors = itemsStorage.ItemScriptables.Select(scriptable => scriptable.ItemDescriptor).ToList();
 
@@ -161,26 +162,15 @@ namespace Core
             return player;
         }
 
-        public BasicEntity InitializeEnemy(GameObject enemyPrefab, out GameObject enemyGameObject)
-        {
-            enemyGameObject = Instantiate(enemyPrefab);
-            var enemyData = enemyGameObject.GetComponent<EnemyDataComponent>();
-            enemyData.Data.Player = playerData.DirectionalMover.transform;
-            var basicEnemy = new BasicEnemy(enemyData.Data);
-            _entities.Add(basicEnemy);
-            return basicEnemy;
-        }
-
         private void InitializePotionSystem(List<ItemDescriptor> itemDescriptors, BasicEntity player)
-        {
-            var depowerPotions = itemDescriptors.Where(descriptor => descriptor.ItemId == ItemId.DepowerPotion)
-                .Select(descriptor =>
-                    new Potion(descriptor as StatChangingItemDescriptor, player.Brain.StatsController)).ToList();
-            potionSystem.Setup(depowerPotions);
-            potionSystem.OnActive += () => IsPaused = true;
-            potionSystem.OnOptionSelected += _ => IsPaused = false;
-        }
-
+         {
+             var depowerPotions = itemDescriptors.Where(descriptor => descriptor.ItemId == ItemId.DepowerPotion)
+                 .Select(descriptor => new Potion(descriptor as StatChangingItemDescriptor, player.Brain.StatsController)).ToList();
+             potionSystem.Setup(depowerPotions);
+             potionSystem.OnActive += () => _isPaused = true;
+             potionSystem.OnOptionSelected += _ => _isPaused = false;
+         }
+         
         private void InitializeDropGenerator(List<ItemDescriptor> itemDescriptors)
         {
             _dropGenerator = new DropGenerator(playerData.DirectionalMover, _sceneItemStorage, itemDescriptors);
@@ -189,7 +179,7 @@ namespace Core
         private void InitializeWaveSystem()
         {
             var waves = waveStorage.Waves.Select(wave => wave.GetCopy()).ToDictionary(wave => wave);
-            _waveController = new WaveController(waves, waveData.Spawners, waveData.Enemies);
+            _waveController = new WaveController(waves, waveData.Spawners, waveData.Enemies, EnemySpawner);
             waveData.WaveBar.Setup(_waveController);
             potionSystem.OnOptionSelected += _waveController.OnPotionPicked;
         }
@@ -224,7 +214,7 @@ namespace Core
 
             _dropGenerator.Update();
 
-            foreach (var entity in _entities)
+            foreach (var entity in Entities)
             {
                 entity.Update();
             }
@@ -235,7 +225,7 @@ namespace Core
             if (IsPaused)
                 return;
 
-            foreach (var entity in _entities)
+            foreach (var entity in Entities)
             {
                 entity.FixedUpdate();
             }

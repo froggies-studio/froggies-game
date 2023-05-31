@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using WaveSystem.Enum;
 
@@ -8,16 +9,19 @@ namespace WaveSystem
     public class Wave
     {
         [field: SerializeField] public int Difficulty { get; private set; }
-        [field: SerializeField] public WaveEnemyType EnemyType { get; private set; }
+        [field: SerializeField] public List<EnemyTypeCounter> EnemyTypeCounter { get; private set; }
         [field: SerializeField] public int MaxAmountOfEnemies{ get; private set; }
 
-        public Wave(int difficulty, WaveEnemyType enemyType, int maxAmountOfEnemies)
+        public Wave(int difficulty, List<EnemyTypeCounter> enemyTypeCounter)
         {
             Difficulty = difficulty;
-            EnemyType = enemyType;
-            MaxAmountOfEnemies = maxAmountOfEnemies;
+            EnemyTypeCounter = enemyTypeCounter;
+            foreach (var enemyType in EnemyTypeCounter)
+            {
+                MaxAmountOfEnemies += enemyType.Amount;   
+            }
         }
 
-        public Wave GetCopy() => new Wave(Difficulty, EnemyType, MaxAmountOfEnemies);
+        public Wave GetCopy() => new(Difficulty, EnemyTypeCounter);
     }
 }

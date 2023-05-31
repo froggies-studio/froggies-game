@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core;
+using Core.Entities.Spawners;
 using StatsSystem.Health;
+using UnityEditor.TextCore.Text;
 using UnityEngine;
 using UnityEngine.Video;
 using Object = UnityEngine.Object;
@@ -23,12 +25,17 @@ namespace WaveSystem
         private GameObject _currentWaveSpawner;
         private bool _isNight;
         private int _currentAmountOfEnemies;
+        private EnemySpawner _enemySpawner;
 
-        public WaveController(Dictionary<Wave, Wave> availableWaves, List<GameObject> spawners, List<GameObject> enemies)
+        public WaveController(Dictionary<Wave, Wave> availableWaves, 
+            List<GameObject> spawners, 
+            List<GameObject> enemies,
+            EnemySpawner enemySpawner)
         {
             _spawners = spawners;
             _enemies = enemies;
             _availableWaves = availableWaves;
+            _enemySpawner = enemySpawner;
             OnEnemyKilled += EnemyChecker;
         }
 
@@ -36,13 +43,14 @@ namespace WaveSystem
         {
             _isNight = true;
             _currentWave = GetWave(numberOfPotions-1);
+            Debug.Assert(_currentWave!=null);
             SpawnEnemies();
             if (OnWaveStarted != null) OnWaveStarted.Invoke();
         }
 
         private Wave GetWave(int numberOfEnemy)
         {
-            return _availableWaves.FirstOrDefault(wave => (int)wave.Key.EnemyType == numberOfEnemy).Key;
+            return _availableWaves.FirstOrDefault(wave => wave.Key.Difficulty == numberOfEnemy).Key;
         }
 
         public int GetAmountOfEnemies()
@@ -53,13 +61,17 @@ namespace WaveSystem
         private void SpawnEnemies()
         {
              _currentWaveSpawner = _spawners[_currentWave.Difficulty];
-            var currentEnemy = _enemies[(int)_currentWave.EnemyType];
-            for (int i = 0; i < _currentWave.MaxAmountOfEnemies; i++)
+            
+            foreach (var enemyTypeCounter in _currentWave.EnemyTypeCounter)
             {
-                var enemy = GlobalSceneManager.Instance.InitializeEnemy(currentEnemy, out GameObject newEnemy);
-                newEnemy.transform.position = _currentWaveSpawner.transform.position;
-                newEnemy.transform.parent = _currentWaveSpawner.transform;
-                enemy.Brain.HealthSystem.OnDead += EnemyDeath;
+                var currentEnemy = _enemies[(int)enemyTypeCounter.EnemyType];
+                for (int i = 0; i < enemyTypeCounter.Amount; i++)
+                {
+                    var enemy = _enemySpawner.Spawn(currentEnemy, out GameObject newEnemy);
+                    newEnemy.transform.position = _currentWaveSpawner.transform.position;
+                    newEnemy.transform.parent = _currentWaveSpawner.transform;
+                    enemy.Brain.HealthSystem.OnDead += EnemyDeath;
+                }
             }
             _currentAmountOfEnemies = _currentWave.MaxAmountOfEnemies;
         }

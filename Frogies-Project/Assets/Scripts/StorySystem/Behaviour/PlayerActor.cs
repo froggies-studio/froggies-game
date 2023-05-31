@@ -19,7 +19,7 @@ namespace StorySystem.Behaviour
         
         public void Init()
         {
-            GlobalSceneManager.Instance.Input.Player.NextDialog.performed += ctx => ChoiceCallback?.Invoke(-1);
+            GlobalSceneManager.Instance.PlayerInputActions.Player.NextDialog.performed += ctx => ChoiceCallback?.Invoke(-1);
             ClearAct();
         }
         

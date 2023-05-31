@@ -44,9 +44,8 @@ namespace Core
 
         [SerializeField] private PlayerData playerData;
         [SerializeField] private WaveData waveData;
-        
-        [Header("Story")]
-        [SerializeField] private StoryTriggerManager storyTriggerManager;
+
+        [Header("Story")] [SerializeField] private StoryTriggerManager storyTriggerManager;
         [SerializeField] private PlayerActor playerActor;
         [Space(10)] [SerializeField] private GameObject deathPanel;
 
@@ -81,6 +80,19 @@ namespace Core
                 
                 Time.timeScale = value ? 0 : 1;
                 _isPaused = value;
+
+                if (value)
+                {
+                    OnPauseStarted?.Invoke();
+                }
+                else
+                {
+                    OnPauseFinished?.Invoke();
+                }
+            }
+        }
+        public event Action OnPauseStarted;
+        public event Action OnPauseFinished;
 
         public HashSet<BasicEntity> Entities { get; private set; }
 
@@ -149,7 +161,7 @@ namespace Core
             entityBrain.HealthSystem.OnDead += (_, _) => deathPanel.SetActive(true);
             return player;
         }
-        
+
         private void InitializePotionSystem(List<ItemDescriptor> itemDescriptors, BasicEntity player)
          {
              var depowerPotions = itemDescriptors.Where(descriptor => descriptor.ItemId == ItemId.DepowerPotion)
@@ -158,7 +170,7 @@ namespace Core
              potionSystem.OnActive += () => _isPaused = true;
              potionSystem.OnOptionSelected += _ => _isPaused = false;
          }
-        
+         
         private void InitializeDropGenerator(List<ItemDescriptor> itemDescriptors)
         {
             _dropGenerator = new DropGenerator(playerData.DirectionalMover, _sceneItemStorage, itemDescriptors);
@@ -201,7 +213,7 @@ namespace Core
             }
 
             _dropGenerator.Update();
-            
+
             foreach (var entity in Entities)
             {
                 entity.Update();

@@ -2,7 +2,8 @@
 {
     public enum StatModificatorType
     {
-        Additive=0,
-        Multiplier=1
+        Additive,
+        Multiplier,
+        Setter,
     }
 }

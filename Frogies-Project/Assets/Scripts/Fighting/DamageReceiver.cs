@@ -15,7 +15,7 @@ namespace Fighting
 
         public void ReceiveDamage(float damage)
         {
-             if (GlobalSceneManager.Instance.PlayerData.DirectionalMover.IsDashing) //if player is dashing he won't take damage
+             if (GlobalSceneManager.Instance.PlayerData.DirectionalMover.IsDashing)
              {
                   return;
              }

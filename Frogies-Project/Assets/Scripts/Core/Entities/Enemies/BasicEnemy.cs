@@ -1,7 +1,6 @@
 ﻿using System;
 using Animation;
 using Core.Entities.Data;
-using Extensions;
 using Fighting;
 using Movement;
 using UnityEngine;
@@ -44,8 +43,12 @@ namespace Core.Entities.Enemies
 
         public override void Update()
         {
-            _inputFightingInputProvider.CalculateAttackInput(IsInAttackRange);
-            _inputMoveProvider.CalculateHorizontalInput(IsInAttackRange);
+            if (!Brain.HealthSystem.IsDead)
+            {
+                _inputFightingInputProvider.CalculateAttackInput(IsInAttackRange);
+                _inputMoveProvider.CalculateHorizontalInput(IsInAttackRange);
+            }
+
             Brain.Update();
         }
 

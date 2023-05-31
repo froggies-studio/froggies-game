@@ -10,7 +10,8 @@
         MaxEndurance,
         EnduranceRechargeRate,
         MovementSpeed,
-        AttackSpeed,
-        JumpForce
+        AttackRecharge,
+        JumpVelocity,
+        DamageResistance,
     }
 }

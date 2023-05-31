@@ -7,13 +7,13 @@ namespace Fighting
     public struct AttackInfo
     {
         public PlayerAnimationState animationState;
-        public float rechargeTime;
         public float damageAmount;
+        public float rechargeTime;
         public float enduranceCost;
 
         public bool Equals(AttackInfo other)
         {
-            return animationState == other.animationState && rechargeTime.Equals(other.rechargeTime) && damageAmount.Equals(other.damageAmount);
+            return animationState == other.animationState && damageAmount.Equals(other.damageAmount);
         }
 
         public override bool Equals(object obj)
@@ -23,7 +23,7 @@ namespace Fighting
 
         public override int GetHashCode()
         {
-            return HashCode.Combine((int) animationState, rechargeTime, damageAmount);
+            return HashCode.Combine((int) animationState, damageAmount);
         }
     }
 }

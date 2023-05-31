@@ -14,7 +14,6 @@ using Items.Enum;
 using Items.Rarity;
 using Items.Scriptable;
 using Items.Storage;
-using JetBrains.Annotations;
 using Movement;
 using StorySystem;
 using StorySystem.Behaviour;
@@ -22,7 +21,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using WaveSystem;
 
 namespace Core
@@ -89,7 +87,7 @@ namespace Core
             _entities = new HashSet<BasicEntity>();
             var player = InitializePlayer(playerData);
             _entities.Add(player);
-            _entities.Add(InitializeEnemy(testEnemy, out _));
+            // _entities.Add(InitializeEnemy(testEnemy, out _));
 
             var descriptors = itemsStorage.ItemScriptables.Select(scriptable => scriptable.ItemDescriptor).ToList();
             

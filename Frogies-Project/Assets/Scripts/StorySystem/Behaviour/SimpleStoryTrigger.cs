@@ -8,6 +8,7 @@ namespace StorySystem.Behaviour
     {
         [SerializeField] private StoryActor actor;
         [SerializeField] private StoryNode startNode;
+        [SerializeField] private bool autoTrigger;
 
         private PlayerActor _playerActor;
         private StoryDirector _director;
@@ -22,6 +23,8 @@ namespace StorySystem.Behaviour
             _playerActor = playerActor;
 
             _isInitialized = true;
+            
+            if (autoTrigger) OnMouseDown();
         }
 
         private void OnMouseDown()

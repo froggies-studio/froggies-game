@@ -1043,7 +1043,7 @@ GameObject:
   m_Component:
   - component: {fileID: 535714941}
   - component: {fileID: 535714940}
-  - component: {fileID: 535714939}
+  - component: {fileID: 535714942}
   m_Layer: 0
   m_Name: CampSceneLoader
   m_TagString: Untagged
@@ -1051,20 +1051,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &535714939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 535714938}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94aaccf18cfd4e9bb74aa816dfaca969, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextScene: {fileID: 102900000, guid: 45ecc0c0916e9f14bb7fcbbc47065444, type: 3}
-  entityCollider: {fileID: 6237601160191852724}
 --- !u!61 &535714940
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1125,6 +1111,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &535714942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535714938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d05035c5f0614f2284820ef603e89d0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextScene: {fileID: 102900000, guid: 45ecc0c0916e9f14bb7fcbbc47065444, type: 3}
+  entityCollider: {fileID: 6237601160191852724}
 --- !u!4 &556075972 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5260572382779035084, guid: c5f8f079905bce04f945cd8ff4ba545a, type: 3}

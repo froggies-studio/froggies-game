@@ -103,6 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 6950198871445516116}
   startNode: {fileID: 11400000, guid: 2483360b01366134e8fb9f98676cd723, type: 2}
+  autoTrigger: 0
 --- !u!114 &6950198871445516116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,7 +335,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9941a508542522a42aff2cce901495bf, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b673115f4c298db4d92605c776fc0c8e, type: 2}
   m_sharedMaterial: {fileID: -3116497619795125456, guid: 9941a508542522a42aff2cce901495bf, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -398,7 +399,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &6899144377921509847

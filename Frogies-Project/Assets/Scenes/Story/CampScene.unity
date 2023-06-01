@@ -14418,6 +14418,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3965099575551295904, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4025312084592054161, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -14438,19 +14442,19 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 200780194}
-    - target: {fileID: 4721119291354859244, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: set_IsPaused
-      objectReference: {fileID: 0}
-    - target: {fileID: 4721119291354859244, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: LoadScene
-      objectReference: {fileID: 0}
     - target: {fileID: 5071361619907386867, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
       propertyPath: m_Name
       value: GameplayUI
       objectReference: {fileID: 0}
     - target: {fileID: 5144604231277892862, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5360776756452285898, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6000851641458722335, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -14542,10 +14546,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3325259469558304861}
-    - target: {fileID: 8710783422491290798, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: set_IsPaused
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

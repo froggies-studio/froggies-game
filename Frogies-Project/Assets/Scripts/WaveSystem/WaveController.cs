@@ -1,13 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core;
 using Core.Entities.Spawners;
-using StatsSystem.Health;
-using UnityEditor.TextCore.Text;
 using UnityEngine;
-using UnityEngine.Video;
-using Object = UnityEngine.Object;
 
 namespace WaveSystem
 {

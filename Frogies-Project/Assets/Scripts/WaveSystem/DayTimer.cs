@@ -11,11 +11,11 @@ namespace WaveSystem
         [SerializeField] private TMP_Text timeText;
         [SerializeField] private DayNightVisuals dayNightVisuals;
         [SerializeField] private bool isFixed;
+        [SerializeField] private float dayDuration = 0.5f * 60;
         
         public Action OnDayEnd;
         public bool isDay;
         
-        private readonly float _dayDuration = 0.5f * 60;
         private float _time;
         
         private void Start()
@@ -26,7 +26,7 @@ namespace WaveSystem
         public void ResetTimer()
         {
             gameObject.SetActive(true);
-            _time = _dayDuration;
+            _time = dayDuration;
             isDay = true;
         }
 
@@ -51,7 +51,7 @@ namespace WaveSystem
 
         private void UpdateVisuals(float time)
         {
-            float dayProgress = 1 - time / _dayDuration;
+            float dayProgress = 1 - time / dayDuration;
             dayNightVisuals.UpdateVisuals(dayProgress, isDay);
         }
 

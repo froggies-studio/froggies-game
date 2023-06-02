@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,6 +17,7 @@ namespace Core
                 Application.Quit();
                 return;
             }
+
 
             SceneManager.LoadScene(nextScene.name);
         }

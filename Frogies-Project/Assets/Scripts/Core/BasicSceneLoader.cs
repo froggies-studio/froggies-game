@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+using JetBrains.Annotations;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,10 +7,18 @@ namespace Core
 {
     public class BasicSceneLoader: MonoBehaviour
     {
-        [SerializeField] protected SceneAsset nextScene;
+        [SerializeField] [CanBeNull] protected SceneAsset nextScene;
 
-        protected void LoadScene()
+        public void LoadScene()
         {
+            if (!nextScene)
+            {
+                Debug.Log("Quiting Game!");
+                Application.Quit();
+                return;
+            }
+
+
             SceneManager.LoadScene(nextScene.name);
         }
     }

@@ -817,7 +817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94aaccf18cfd4e9bb74aa816dfaca969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: {fileID: 102900000, guid: 85859e7bffa3c5e4a9aaec8f9aff1bb0, type: 3}
+  nextSceneName: MenuScene
 --- !u!1001 &235575813
 PrefabInstance:
   m_ObjectHideFlags: 0

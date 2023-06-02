@@ -3066,7 +3066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94aaccf18cfd4e9bb74aa816dfaca969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: {fileID: 0}
+  nextSceneName: Quit
 --- !u!4 &1493207682
 Transform:
   m_ObjectHideFlags: 0
@@ -14611,7 +14611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94aaccf18cfd4e9bb74aa816dfaca969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: {fileID: 102900000, guid: 16734d24d27195446b065704c3e5b96e, type: 3}
+  nextSceneName: IntroForestScene
 --- !u!1001 &2085048965
 PrefabInstance:
   m_ObjectHideFlags: 0

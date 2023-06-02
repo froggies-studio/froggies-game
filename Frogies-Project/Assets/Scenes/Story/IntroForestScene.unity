@@ -884,7 +884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94aaccf18cfd4e9bb74aa816dfaca969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: {fileID: 102900000, guid: 85859e7bffa3c5e4a9aaec8f9aff1bb0, type: 3}
+  nextSceneName: MenuScene
 --- !u!4 &461910038 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 880520027387217216, guid: de570bfbf1a49ba4c9575930f7db6bae, type: 3}
@@ -1153,8 +1153,8 @@ Transform:
   m_LocalScale: {x: 10, y: 20, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 5148183065664167205}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &535714942
 MonoBehaviour:
@@ -1168,7 +1168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d05035c5f0614f2284820ef603e89d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: {fileID: 102900000, guid: 45ecc0c0916e9f14bb7fcbbc47065444, type: 3}
+  nextSceneName: CampScene
   entityCollider: {fileID: 6237601160191852724}
 --- !u!4 &556075972 stripped
 Transform:
@@ -24328,12 +24328,13 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 535714941}
   - {fileID: 5574179055305749222}
   - {fileID: 82098619}
   - {fileID: 918983916}
   - {fileID: 358698931}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5473730133705850303
 PrefabInstance:

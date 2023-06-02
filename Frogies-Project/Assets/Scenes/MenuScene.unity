@@ -1127,7 +1127,7 @@ PrefabInstance:
     - target: {fileID: 6901333507254546200, guid: 6af0f51ebfb048b469f3097465dbfe9f, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: 11400000, guid: b673115f4c298db4d92605c776fc0c8e, type: 2}
     - target: {fileID: 6901333507254546200, guid: 6af0f51ebfb048b469f3097465dbfe9f, type: 3}
       propertyPath: m_fontStyle
       value: 1
@@ -1139,7 +1139,7 @@ PrefabInstance:
     - target: {fileID: 6901333507254546200, guid: 6af0f51ebfb048b469f3097465dbfe9f, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: -5991373494283720625, guid: b673115f4c298db4d92605c776fc0c8e, type: 2}
     - target: {fileID: 6901333507254546200, guid: 6af0f51ebfb048b469f3097465dbfe9f, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
@@ -2234,15 +2234,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Through The Dark Woods
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b673115f4c298db4d92605c776fc0c8e, type: 2}
+  m_sharedMaterial: {fileID: -5991373494283720625, guid: b673115f4c298db4d92605c776fc0c8e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4279839850
-  m_fontColor: {r: 0.41509432, g: 0.17215598, b: 0.09985758, a: 1}
+    rgba: 4280038788
+  m_fontColor: {r: 0.5188679, g: 0.2060122, b: 0.110137075, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2259,8 +2259,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 70
-  m_fontSizeBase: 70
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2634,7 +2634,7 @@ PrefabInstance:
     - target: {fileID: 6901333507254546200, guid: 6af0f51ebfb048b469f3097465dbfe9f, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: 11400000, guid: b673115f4c298db4d92605c776fc0c8e, type: 2}
     - target: {fileID: 6901333507254546200, guid: 6af0f51ebfb048b469f3097465dbfe9f, type: 3}
       propertyPath: m_fontStyle
       value: 1
@@ -2646,7 +2646,7 @@ PrefabInstance:
     - target: {fileID: 6901333507254546200, guid: 6af0f51ebfb048b469f3097465dbfe9f, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: -5991373494283720625, guid: b673115f4c298db4d92605c776fc0c8e, type: 2}
     - target: {fileID: 6901333507254546200, guid: 6af0f51ebfb048b469f3097465dbfe9f, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0

@@ -2,6 +2,7 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace WaveSystem
 {
@@ -9,11 +10,12 @@ namespace WaveSystem
     {
         [SerializeField] private TMP_Text timeText;
         [SerializeField] private DayNightVisuals dayNightVisuals;
+        [SerializeField] private bool isFixed;
+        [SerializeField] private float dayDuration = 0.5f * 60;
         
         public Action OnDayEnd;
-        public bool _isDay;
+        public bool isDay;
         
-        private float _dayDuration = 0.5f * 60;
         private float _time;
         
         private void Start()
@@ -24,19 +26,22 @@ namespace WaveSystem
         public void ResetTimer()
         {
             gameObject.SetActive(true);
-            _time = _dayDuration;
-            _isDay = true;
+            _time = dayDuration;
+            isDay = true;
         }
 
         public void UpdateTimer()
         {
+            if (isFixed)
+                return;
+            
             if (_time > 0)
             {
                 _time -= Time.deltaTime;
                 UpdateTimerDisplay(_time);
                 UpdateVisuals(_time);
             }
-            else if (_isDay)
+            else if (isDay)
             {
                 ClearTimer();
                 dayNightVisuals.TransitionToNight();
@@ -46,14 +51,14 @@ namespace WaveSystem
 
         private void UpdateVisuals(float time)
         {
-            float dayProgress = 1 - time / _dayDuration;
-            dayNightVisuals.UpdateVisuals(dayProgress, _isDay);
+            float dayProgress = 1 - time / dayDuration;
+            dayNightVisuals.UpdateVisuals(dayProgress, isDay);
         }
 
         public void ClearTimer()
         {
             gameObject.SetActive(false);
-            _isDay = false;
+            isDay = false;
         }
 
         private void UpdateTimerDisplay(float time)

@@ -89,7 +89,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -100,7 +100,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""OnScreen"",
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -122,7 +122,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""HorizontalMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -133,7 +133,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""HorizontalMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -155,7 +155,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": ""Mouse"",
                     ""action"": ""BasicAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -166,7 +166,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/o"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""BasicAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -188,7 +188,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": ""Mouse"",
                     ""action"": ""StrongAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -199,7 +199,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/p"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""StrongAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -221,7 +221,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/leftCtrl"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""RollOver"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -243,26 +243,296 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""NextDialog"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Debug"",
+            ""id"": ""7f59de0a-2ffe-490c-9562-7931b4ea0d43"",
+            ""actions"": [
+                {
+                    ""name"": ""DisableMouseScheme"",
+                    ""type"": ""Button"",
+                    ""id"": ""a39a8871-accc-42ea-b68a-21f715e19fca"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""KillPlayer"",
+                    ""type"": ""Button"",
+                    ""id"": ""5e1f5fc2-b001-4a78-a01e-971ae960da65"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InfHealthAndEndurance"",
+                    ""type"": ""Button"",
+                    ""id"": ""e0b31abd-6178-4574-b4f8-3e7380f056b1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Damage1k"",
+                    ""type"": ""Button"",
+                    ""id"": ""83503c61-51b1-4035-91a5-003139378934"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""Keyboard"",
+                    ""id"": ""9dd8341b-3491-4a56-ba23-25588991b1cc"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DisableMouseScheme"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""c43c9c23-caa4-4045-9104-8324604e54bd"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""DisableMouseScheme"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""bebdab1d-9666-40f7-a0c9-e22ce4614602"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""DisableMouseScheme"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""25413d4e-3a51-40b3-9f10-acf816ac535a"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""KillPlayer"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""105f88b6-08db-4a50-a1ea-95fd6e6de6c5"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""KillPlayer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""37f1f2c5-126b-44a4-955a-51a1a84926ef"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""KillPlayer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""b1a8baa3-7ba9-4aa7-8f54-a73c9fc0bbab"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InfHealthAndEndurance"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""6f98e892-929d-4af4-aed2-dc6ec5abdad1"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""InfHealthAndEndurance"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""a8b8df92-9f17-4b97-8aa2-c21f4633d44a"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""InfHealthAndEndurance"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""e9db826c-8282-40f9-a248-d75a5d272734"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Damage1k"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""892c29ce-c29d-44ad-a07c-23df42a35897"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Damage1k"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""70715327-086f-45db-9ec8-4e544ff1e55a"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Damage1k"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""OnScreen"",
+                    ""id"": ""3191cdd7-8fe5-4631-a64f-2a242c70bc9c"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""KillPlayer"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""aa345daa-485d-4bd0-9ae1-c4c43d89980b"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""KillPlayer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""27553297-6bcd-4925-8f4e-b0042f34d191"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""KillPlayer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""OnScreen"",
+                    ""id"": ""eb68559b-3498-4369-a945-122f6092c883"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InfHealthAndEndurance"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""422f54cd-93e1-4c5c-822a-9f943a235ad7"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""InfHealthAndEndurance"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""0b6d8129-3e33-4e61-88c9-e3c9f8aea1da"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""InfHealthAndEndurance"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""OnScreen"",
+                    ""id"": ""581900b3-62e6-4702-b989-9dd939870908"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Damage1k"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""540e4e7f-37bd-43cb-84d7-541cdca96be4"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Damage1k"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""a41e4667-6fe7-4101-9012-fab7869afc7e"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Damage1k"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
     ],
     ""controlSchemes"": [
         {
-            ""name"": ""KeyboardMouse"",
-            ""bindingGroup"": ""KeyboardMouse"",
+            ""name"": ""Keyboard"",
+            ""bindingGroup"": ""Keyboard"",
             ""devices"": [
                 {
                     ""devicePath"": ""<Keyboard>"",
-                    ""isOptional"": false,
-                    ""isOR"": false
-                },
-                {
-                    ""devicePath"": ""<Mouse>"",
                     ""isOptional"": false,
                     ""isOR"": false
                 }
@@ -271,7 +541,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         {
             ""name"": ""OnScreen"",
             ""bindingGroup"": ""OnScreen"",
-            ""devices"": []
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Touchscreen>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Mouse"",
+            ""bindingGroup"": ""Mouse"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Mouse>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
         }
     ]
 }");
@@ -283,6 +570,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_StrongAttack = m_Player.FindAction("StrongAttack", throwIfNotFound: true);
         m_Player_RollOver = m_Player.FindAction("RollOver", throwIfNotFound: true);
         m_Player_NextDialog = m_Player.FindAction("NextDialog", throwIfNotFound: true);
+        // Debug
+        m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
+        m_Debug_DisableMouseScheme = m_Debug.FindAction("DisableMouseScheme", throwIfNotFound: true);
+        m_Debug_KillPlayer = m_Debug.FindAction("KillPlayer", throwIfNotFound: true);
+        m_Debug_InfHealthAndEndurance = m_Debug.FindAction("InfHealthAndEndurance", throwIfNotFound: true);
+        m_Debug_Damage1k = m_Debug.FindAction("Damage1k", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -426,13 +719,83 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
-    private int m_KeyboardMouseSchemeIndex = -1;
-    public InputControlScheme KeyboardMouseScheme
+
+    // Debug
+    private readonly InputActionMap m_Debug;
+    private List<IDebugActions> m_DebugActionsCallbackInterfaces = new List<IDebugActions>();
+    private readonly InputAction m_Debug_DisableMouseScheme;
+    private readonly InputAction m_Debug_KillPlayer;
+    private readonly InputAction m_Debug_InfHealthAndEndurance;
+    private readonly InputAction m_Debug_Damage1k;
+    public struct DebugActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public DebugActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @DisableMouseScheme => m_Wrapper.m_Debug_DisableMouseScheme;
+        public InputAction @KillPlayer => m_Wrapper.m_Debug_KillPlayer;
+        public InputAction @InfHealthAndEndurance => m_Wrapper.m_Debug_InfHealthAndEndurance;
+        public InputAction @Damage1k => m_Wrapper.m_Debug_Damage1k;
+        public InputActionMap Get() { return m_Wrapper.m_Debug; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DebugActions set) { return set.Get(); }
+        public void AddCallbacks(IDebugActions instance)
+        {
+            if (instance == null || m_Wrapper.m_DebugActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_DebugActionsCallbackInterfaces.Add(instance);
+            @DisableMouseScheme.started += instance.OnDisableMouseScheme;
+            @DisableMouseScheme.performed += instance.OnDisableMouseScheme;
+            @DisableMouseScheme.canceled += instance.OnDisableMouseScheme;
+            @KillPlayer.started += instance.OnKillPlayer;
+            @KillPlayer.performed += instance.OnKillPlayer;
+            @KillPlayer.canceled += instance.OnKillPlayer;
+            @InfHealthAndEndurance.started += instance.OnInfHealthAndEndurance;
+            @InfHealthAndEndurance.performed += instance.OnInfHealthAndEndurance;
+            @InfHealthAndEndurance.canceled += instance.OnInfHealthAndEndurance;
+            @Damage1k.started += instance.OnDamage1k;
+            @Damage1k.performed += instance.OnDamage1k;
+            @Damage1k.canceled += instance.OnDamage1k;
+        }
+
+        private void UnregisterCallbacks(IDebugActions instance)
+        {
+            @DisableMouseScheme.started -= instance.OnDisableMouseScheme;
+            @DisableMouseScheme.performed -= instance.OnDisableMouseScheme;
+            @DisableMouseScheme.canceled -= instance.OnDisableMouseScheme;
+            @KillPlayer.started -= instance.OnKillPlayer;
+            @KillPlayer.performed -= instance.OnKillPlayer;
+            @KillPlayer.canceled -= instance.OnKillPlayer;
+            @InfHealthAndEndurance.started -= instance.OnInfHealthAndEndurance;
+            @InfHealthAndEndurance.performed -= instance.OnInfHealthAndEndurance;
+            @InfHealthAndEndurance.canceled -= instance.OnInfHealthAndEndurance;
+            @Damage1k.started -= instance.OnDamage1k;
+            @Damage1k.performed -= instance.OnDamage1k;
+            @Damage1k.canceled -= instance.OnDamage1k;
+        }
+
+        public void RemoveCallbacks(IDebugActions instance)
+        {
+            if (m_Wrapper.m_DebugActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IDebugActions instance)
+        {
+            foreach (var item in m_Wrapper.m_DebugActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_DebugActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public DebugActions @Debug => new DebugActions(this);
+    private int m_KeyboardSchemeIndex = -1;
+    public InputControlScheme KeyboardScheme
     {
         get
         {
-            if (m_KeyboardMouseSchemeIndex == -1) m_KeyboardMouseSchemeIndex = asset.FindControlSchemeIndex("KeyboardMouse");
-            return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
+            if (m_KeyboardSchemeIndex == -1) m_KeyboardSchemeIndex = asset.FindControlSchemeIndex("Keyboard");
+            return asset.controlSchemes[m_KeyboardSchemeIndex];
         }
     }
     private int m_OnScreenSchemeIndex = -1;
@@ -444,6 +807,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             return asset.controlSchemes[m_OnScreenSchemeIndex];
         }
     }
+    private int m_MouseSchemeIndex = -1;
+    public InputControlScheme MouseScheme
+    {
+        get
+        {
+            if (m_MouseSchemeIndex == -1) m_MouseSchemeIndex = asset.FindControlSchemeIndex("Mouse");
+            return asset.controlSchemes[m_MouseSchemeIndex];
+        }
+    }
     public interface IPlayerActions
     {
         void OnJump(InputAction.CallbackContext context);
@@ -452,5 +824,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnStrongAttack(InputAction.CallbackContext context);
         void OnRollOver(InputAction.CallbackContext context);
         void OnNextDialog(InputAction.CallbackContext context);
+    }
+    public interface IDebugActions
+    {
+        void OnDisableMouseScheme(InputAction.CallbackContext context);
+        void OnKillPlayer(InputAction.CallbackContext context);
+        void OnInfHealthAndEndurance(InputAction.CallbackContext context);
+        void OnDamage1k(InputAction.CallbackContext context);
     }
 }

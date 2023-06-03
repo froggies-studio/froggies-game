@@ -14301,6 +14301,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 472558959060461250, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
+      propertyPath: m_fontSize
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 821098427021934327, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
+      propertyPath: m_fontSize
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 1324553045523885688, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -14380,6 +14388,14 @@ PrefabInstance:
     - target: {fileID: 4025312084592054161, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4026225665845592392, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
+      propertyPath: m_fontSize
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4182713328930756989, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
+      propertyPath: m_fontSize
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 4428330507813464575, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
       propertyPath: dayNightVisuals
@@ -14481,6 +14497,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3325259469558304861}
+    - target: {fileID: 8610929998583231569, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
+      propertyPath: m_fontSize
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 8710783422491290798, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -15061,7 +15081,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4505102131723169295, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
       propertyPath: orthographic size
-      value: 2.6757812
+      value: 2.8125
       objectReference: {fileID: 0}
     - target: {fileID: 6956099021825678346, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
       propertyPath: m_Follow

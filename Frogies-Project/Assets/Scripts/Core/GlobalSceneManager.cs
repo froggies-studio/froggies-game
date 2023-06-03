@@ -21,6 +21,7 @@ using StorySystem.Behaviour;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using WaveSystem;
 
@@ -102,8 +103,7 @@ namespace Core
             Instance = this;
             
             GlobalCamera = camera.GetComponent<PixelPerfectCamera>();
-            PlayerInputActions = new PlayerInputActions();
-            PlayerInputActions.Enable();
+            InitializeInput();
 
             deathPanel.SetActive(false);
 
@@ -123,6 +123,23 @@ namespace Core
             InitializeDayTimer();
         }
 
+        private void InitializeInput()
+        {
+            PlayerInputActions = new PlayerInputActions();
+            PlayerInputActions.Enable();
+            
+            //TODO disable on release
+            //PlayerInputActions.Debug.Disable();
+            bool isMouseSchemeEnabled = true;
+            PlayerInputActions.Debug.DisableMouseScheme.performed += context =>
+            {
+                PlayerInputActions.bindingMask = isMouseSchemeEnabled
+                    ? InputBinding.MaskByGroups(PlayerInputActions.KeyboardScheme.bindingGroup, PlayerInputActions.OnScreenScheme.bindingGroup)
+                    : null;
+                isMouseSchemeEnabled = !isMouseSchemeEnabled;
+            };
+        }
+        
         private void InitializeDayTimer()
         {
             dayTimer.OnDayEnd += potionSystem.OpenPotionMenu;

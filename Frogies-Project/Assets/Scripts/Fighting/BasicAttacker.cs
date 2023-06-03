@@ -1,3 +1,4 @@
+using Core;
 using StatsSystem;
 using UnityEngine;
 using StatsSystem.Endurance;
@@ -45,7 +46,8 @@ namespace Fighting
         {
             return attackIndex != -1
                    && _attackRechargeTimer <= 0
-                   && _enduranceSystem.CheckEnduranceAbility(_attacksData.Attacks[attackIndex].enduranceCost);
+                   && _enduranceSystem.CheckEnduranceAbility(_attacksData.Attacks[attackIndex].enduranceCost)
+                   && !GlobalSceneManager.Instance.PlayerData.DirectionalMover.IsDashing;
         }
 
         public void UpdateRechargeTimer()

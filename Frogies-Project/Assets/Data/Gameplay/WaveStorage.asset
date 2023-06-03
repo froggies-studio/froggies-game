@@ -17,4 +17,6 @@ MonoBehaviour:
     <EnemyTypeCounter>k__BackingField:
     - EnemyType: 0
       Amount: 2
+    - EnemyType: 1
+      Amount: 1
     <MaxAmountOfEnemies>k__BackingField: 0

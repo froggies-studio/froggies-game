@@ -70,6 +70,8 @@ namespace Core.Entities.Enemies
                 data.DirectionalMover, animationController, data.StatsStorage, data.AttackColliders);
 
             data.DamageReceiver.Initialize(Brain.HealthSystem.TakeDamage);
+            data.DamageReceiver.Initialize(data.DirectionalMover.Knockback);
+            
             Brain.HealthSystem.OnDead += TurnToDeadState;
         }
 

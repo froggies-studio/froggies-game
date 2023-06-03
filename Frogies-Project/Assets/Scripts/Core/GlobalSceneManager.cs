@@ -174,6 +174,7 @@ namespace Core
             player.Initialize(entityBrain);
 
             entityData.DamageReceiver.Initialize(entityBrain.HealthSystem.TakeDamage);
+            entityData.DamageReceiver.Initialize(entityData.DirectionalMover.Knockback);
 
             entityBrain.HealthSystem.OnDead += (_, _) => deathPanel.SetActive(true);
             return player;

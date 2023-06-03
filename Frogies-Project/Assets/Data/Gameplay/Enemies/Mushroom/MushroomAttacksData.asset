@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attacks:
   - animationState: 3
-    damageAmount: 30
+    damageAmount: 20
     rechargeTime: 1
     enduranceCost: 0
   - animationState: 4

@@ -15,7 +15,7 @@ MonoBehaviour:
   attacks:
   - animationState: 3
     damageAmount: 30
-    rechargeTime: 1
+    rechargeTime: 1.5
     enduranceCost: 0
   - animationState: 4
     damageAmount: 27

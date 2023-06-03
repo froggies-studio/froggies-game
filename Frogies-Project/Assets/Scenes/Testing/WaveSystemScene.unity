@@ -14720,7 +14720,7 @@ PrefabInstance:
       objectReference: {fileID: 2442143797508405509}
     - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
       propertyPath: waveData.<Enemies>k__BackingField.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
       propertyPath: _waveData.<Enemies>k__BackingField.Array.size
@@ -14746,6 +14746,10 @@ PrefabInstance:
       propertyPath: waveData.<Enemies>k__BackingField.Array.data[1]
       value: 
       objectReference: {fileID: 5634132030223560505, guid: 5d809c2ff7f0bc94da6dbde204ccdef9, type: 3}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: waveData.<Enemies>k__BackingField.Array.data[2]
+      value: 
+      objectReference: {fileID: 5634132030223560505, guid: 62948deff1c5ea743a155d2dfdc4c6ee, type: 3}
     - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
       propertyPath: _waveData.<Enemies>k__BackingField.Array.data[0]
       value: 

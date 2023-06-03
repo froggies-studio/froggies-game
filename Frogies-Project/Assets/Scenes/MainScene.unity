@@ -14309,10 +14309,6 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 18
       objectReference: {fileID: 0}
-    - target: {fileID: 1199656460717195230, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
-      propertyPath: m_ControlPath
-      value: <Gamepad>/buttonEast
-      objectReference: {fileID: 0}
     - target: {fileID: 1324553045523885688, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -14352,10 +14348,6 @@ PrefabInstance:
     - target: {fileID: 1982874510842038658, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119720696541780129, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
-      propertyPath: m_ControlPath
-      value: <Gamepad>/buttonSouth
       objectReference: {fileID: 0}
     - target: {fileID: 3378901961825091429, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -14440,10 +14432,6 @@ PrefabInstance:
     - target: {fileID: 6630981829437398731, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6777138566843351506, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
-      propertyPath: m_ControlPath
-      value: <Gamepad>/buttonNorth
       objectReference: {fileID: 0}
     - target: {fileID: 7505640187505510857, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
       propertyPath: m_RootOrder

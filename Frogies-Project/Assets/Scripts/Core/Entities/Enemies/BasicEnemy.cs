@@ -93,7 +93,7 @@ namespace Core.Entities.Enemies
             }
 
             _data.DamageReceiver.enabled = false;
-            GlobalSceneManager.Instance.DropGenerator.DropRandomItemWithChance((ItemRarity)_waveDifficulty, 1.0/(_waveDifficulty+2));
+            GlobalSceneManager.Instance.DropGenerator.DropRandomItemWithChance((ItemRarity)_waveDifficulty, 1.0f/(_waveDifficulty+2));
         }
     }
 }

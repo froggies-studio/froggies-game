@@ -20,10 +20,9 @@ namespace Items
             _itemDescriptors = itemDescriptors;
         }
 
-        public void DropRandomItemWithChance(ItemRarity rarity, double chance)
+        public void DropRandomItemWithChance(ItemRarity rarity, float chance)
         {
-            System.Random random = new System.Random();
-            if (random.NextDouble() <= chance)
+            if (Random.Range(0, 1) <= chance)
             {
                 DropRandomItem(rarity);
             }

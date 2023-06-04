@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: _3
   m_EditorClassIdentifier: 
   line:
-    line: This, dear adventurer, is the beginning of your journey, where the path
+    line: 'This, dear adventurer, is the beginning of your journey, where the path
       ahead is fraught with peril, sacrifice, and the untold secrets of a forgotten
       realm. Brace yourself, for the misty forest awaits, ready to reveal its darkest
       enigmas, and only your bravery and cunning can pierce the veil of the unknown.
+
+
+      Tap
+      to continue...'
   nextNode: {fileID: 11400000, guid: 733f55081dc2bfd46b2984de10d19663, type: 2}
   switchActor: 0

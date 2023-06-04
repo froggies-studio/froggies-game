@@ -9,22 +9,30 @@ namespace Items
 {
     public class DropGenerator
     {
-        private readonly DirectionalMover _player;
+        private readonly DirectionalMover _entity;
         private readonly ItemSystem _itemSystem;
         private readonly List<ItemDescriptor> _itemDescriptors;
         
-        public DropGenerator(DirectionalMover player, ItemSystem itemSystem, List<ItemDescriptor> itemDescriptors)
+        public DropGenerator(DirectionalMover entity, ItemSystem itemSystem, List<ItemDescriptor> itemDescriptors)
         {
-            _player = player;
+            _entity = entity;
             _itemSystem = itemSystem;
             _itemDescriptors = itemDescriptors;
         }
 
-        private void DropRandomItem(ItemRarity rarity)
+        public void DropRandomItemWithChance(ItemRarity rarity, float chance)
+        {
+            if (Random.Range(0, 1) <= chance)
+            {
+                DropRandomItem(rarity);
+            }
+        }
+
+        public void DropRandomItem(ItemRarity rarity)
         {
             var items = _itemDescriptors.Where(item => item.ItemRarity == rarity).ToList();
             var itemDescriptor =  items[Random.Range(0, items.Count)];
-            _itemSystem.DropItem(itemDescriptor, (Vector2)_player.transform.position + Vector2.one);
+            _itemSystem.DropItem(itemDescriptor, (Vector2)_entity.transform.position + Vector2.one);
         }
         
         private ItemRarity GetDropRarity()

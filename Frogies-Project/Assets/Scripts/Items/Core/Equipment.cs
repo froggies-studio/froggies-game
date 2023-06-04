@@ -10,11 +10,11 @@ namespace Items.Core
         private bool _equipped;
         
         public EquipmentType EquipmentType { get; }
-        private StatsController _statsController;
-        
+        public StatsController StatsController { get; }
+
         public Equipment(StatChangingItemDescriptor descriptor, StatsController statsController) : base(descriptor)
         {
-            _statsController = statsController;
+            StatsController = statsController;
             if (descriptor.Type == ItemType.Weapon)
                 EquipmentType = EquipmentType.Weapon;
         }
@@ -26,7 +26,7 @@ namespace Items.Core
             _equipped = true;
             foreach (var modifier in ((StatChangingItemDescriptor)Descriptor).StatModifiers)
             {
-                _statsController.ProcessModifier(modifier);
+                StatsController.ProcessModifier(modifier);
             }
         }
     }

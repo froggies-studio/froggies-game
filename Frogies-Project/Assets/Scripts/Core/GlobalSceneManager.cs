@@ -61,8 +61,8 @@ namespace Core
 
         public BasePrefabsStorage PrefabsStorage => prefabsStorage;
         public PlayerData PlayerData => playerData;
-
         public StoryDirector StoryDirector => _storyDirector;
+        public DropGenerator DropGenerator => _dropGenerator;
 
         private ItemSystem _sceneItemStorage;
         private DropGenerator _dropGenerator;

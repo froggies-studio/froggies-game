@@ -184,8 +184,8 @@ namespace Core
              var depowerPotions = itemDescriptors.Where(descriptor => descriptor.ItemId == ItemId.DepowerPotion)
                  .Select(descriptor => new Potion(descriptor as StatChangingItemDescriptor, player.Brain.StatsController)).ToList();
              potionSystem.Setup(depowerPotions);
-             potionSystem.OnActive += () => _isPaused = true;
-             potionSystem.OnOptionSelected += _ => _isPaused = false;
+             potionSystem.OnActive += () => IsPaused = true;
+             potionSystem.OnOptionSelected += _ => IsPaused = false;
          }
          
         private void InitializeDropGenerator(List<ItemDescriptor> itemDescriptors)
@@ -206,6 +206,8 @@ namespace Core
             playerActor.Init();
 
             _storyDirector = new StoryDirector();
+            _storyDirector.StoryStarted += () => IsPaused = true;
+            _storyDirector.StoryFinished += () => IsPaused = false;
             storyTriggerManager.InitTriggers(playerActor, _storyDirector);
         }
 

@@ -69,7 +69,6 @@ namespace Items
                 return;
             
             var item = _itemsOnScene[sceneItem];
-            Debug.Log($"Picked item: {item.Descriptor.ItemId}");
             _itemsOnScene.Remove(sceneItem);
             sceneItem.ItemClicked -= OnItemClicked;
             Object.Destroy(sceneItem.gameObject);

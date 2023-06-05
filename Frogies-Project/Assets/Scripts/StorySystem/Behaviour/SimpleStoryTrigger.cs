@@ -1,3 +1,4 @@
+using Animation;
 using StorySystem.Data;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -12,8 +13,8 @@ namespace StorySystem.Behaviour
 
         private PlayerActor _playerActor;
         private StoryDirector _director;
-        private bool _isInitialized;
-        private bool _isTriggered;
+        [SerializeField] private bool _isInitialized;
+        [SerializeField] private bool _isTriggered;
 
         public void InitTrigger(StoryDirector director, PlayerActor playerActor)
         {
@@ -23,7 +24,6 @@ namespace StorySystem.Behaviour
             _playerActor = playerActor;
 
             _isInitialized = true;
-            
             if (autoTrigger) OnMouseDown();
         }
 
@@ -38,6 +38,11 @@ namespace StorySystem.Behaviour
             
             _isTriggered = true;
             _director.StartStory(startNode, actor, _playerActor, _playerActor);
+        }
+
+        public void SpawnActor(PlayerActor playerActor, StoryDirector storyDirector)
+        {
+            InitTrigger(storyDirector, playerActor);
         }
     }
 }

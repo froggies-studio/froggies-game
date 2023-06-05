@@ -13,13 +13,12 @@ namespace StorySystem.Behaviour
     {
         [SerializeField] protected Transform textPanel;
         [SerializeField] protected TMP_Text text;
-        [SerializeField] protected AnimationStateManager actorAnimator;
-        
+        [SerializeField] protected bool isDeath;
+
         [CanBeNull] private Tween _textTween;
-        
+
         public void Act(StoryLine line, Action finishCallback)
         {
-            actorAnimator.ApplyAnimationState(PlayerAnimationState.Idle);
             textPanel.gameObject.SetActive(true);
             DOTweenTMPAnimator tweenTMPAnimator = new DOTweenTMPAnimator(text);
             _textTween = tweenTMPAnimator.DOText(line.Line, .65f).OnComplete(() =>
@@ -35,9 +34,13 @@ namespace StorySystem.Behaviour
         
         public void Deactivate()
         {
+            if (isDeath)
+            {
+                var deathActor = GetComponent<DeathActor>();
+                deathActor.HideDeath();
+            }
             text.text = "";
             textPanel.gameObject.SetActive(false);
-//            actorAnimator.TriggerAnimationState(PlayerAnimationState.Death);
         }
     }
 }

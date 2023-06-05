@@ -1,4 +1,5 @@
 using System;
+using Animation;
 using DG.Tweening;
 using JetBrains.Annotations;
 using StorySystem.Data;
@@ -12,11 +13,13 @@ namespace StorySystem.Behaviour
     {
         [SerializeField] protected Transform textPanel;
         [SerializeField] protected TMP_Text text;
+        [SerializeField] protected AnimationStateManager actorAnimator;
         
         [CanBeNull] private Tween _textTween;
         
         public void Act(StoryLine line, Action finishCallback)
         {
+            actorAnimator.ApplyAnimationState(PlayerAnimationState.Idle);
             textPanel.gameObject.SetActive(true);
             DOTweenTMPAnimator tweenTMPAnimator = new DOTweenTMPAnimator(text);
             _textTween = tweenTMPAnimator.DOText(line.Line, .65f).OnComplete(() =>
@@ -34,6 +37,7 @@ namespace StorySystem.Behaviour
         {
             text.text = "";
             textPanel.gameObject.SetActive(false);
+//            actorAnimator.TriggerAnimationState(PlayerAnimationState.Death);
         }
     }
 }

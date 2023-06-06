@@ -34,11 +34,11 @@ namespace StorySystem.Behaviour
         
         public void Deactivate()
         {
-            if (isDeath)
-            {
-                var deathActor = GetComponent<DeathActor>();
-                deathActor.HideDeath();
-            }
+            // if (isDeath)
+            // {
+            //     var deathActor = GetComponent<ActorSpawner>();
+            //     deathActor.HideActor();
+            // }
             text.text = "";
             textPanel.gameObject.SetActive(false);
         }

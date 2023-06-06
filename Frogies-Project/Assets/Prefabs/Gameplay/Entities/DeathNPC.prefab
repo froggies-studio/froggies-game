@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4317489963332532876}
   - component: {fileID: 8412592317500885880}
   - component: {fileID: 1456352607181326975}
-  - component: {fileID: 7351549068758929818}
   m_Layer: 0
   m_Name: DeathNPC
   m_TagString: Untagged
@@ -51,6 +50,8 @@ MonoBehaviour:
   actor: {fileID: 1456352607181326975}
   startNode: {fileID: 11400000, guid: 41db801497d20cd4ba197eebb9d226c2, type: 2}
   autoTrigger: 1
+  _isInitialized: 0
+  _isTriggered: 0
 --- !u!114 &1456352607181326975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,20 +67,6 @@ MonoBehaviour:
   textPanel: {fileID: 8254603874705094644}
   text: {fileID: 6096236877406025297}
   isDeath: 1
---- !u!114 &7351549068758929818
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 787499581980646893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a177c2ecab04adea9fec95c6675fc21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actorObject: {fileID: 787499581980646893}
-  actorAnimator: {fileID: 7250613004726269332}
 --- !u!1 &4209702673058739570
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,7 +145,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &6096236877406025297
 MonoBehaviour:
@@ -324,7 +311,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.81280404, g: 0.9716981, b: 0.96084154, a: 0.23921569}
   m_FlipX: 0

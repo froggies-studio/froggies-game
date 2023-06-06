@@ -265,6 +265,7 @@ GameObject:
   m_Component:
   - component: {fileID: 82098619}
   - component: {fileID: 82098618}
+  - component: {fileID: 82098620}
   m_Layer: 0
   m_Name: StoryTriggerManager
   m_TagString: Untagged
@@ -300,6 +301,19 @@ Transform:
   m_Father: {fileID: 5148183065664167205}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &82098620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82098617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a177c2ecab04adea9fec95c6675fc21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerActor: {fileID: 3601330050849250693}
 --- !u!1001 &83001485
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14629,13 +14643,17 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 8451310161750463620}
+    - target: {fileID: 6338259889649380791, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7613341577719454282, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 1.67
       objectReference: {fileID: 0}
     - target: {fileID: 7613341577719454282, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1.2
+      value: 0.31
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14703,9 +14721,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6059048765685999033}
     - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: _actorSpawner
+      value: 
+      objectReference: {fileID: 82098620}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
       propertyPath: storyTriggerManager
       value: 
       objectReference: {fileID: 82098618}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: deathActorSpawnerData
+      value: 
+      objectReference: {fileID: 11400000, guid: 0f1368aa44a26234ebc04325f61703b3, type: 2}
     - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
       propertyPath: waveData.<WaveBar>k__BackingField
       value: 

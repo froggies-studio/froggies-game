@@ -47,7 +47,8 @@ namespace Core
 
         [Header("Story")] [SerializeField] private StoryTriggerManager storyTriggerManager;
         [SerializeField] private PlayerActor playerActor;
-        [SerializeField] private DeathActor deathActor;
+        [SerializeField] private ActorSpawner _actorSpawner;
+        [SerializeField] private ActorSpawnerData deathActorSpawnerData;
         [Space(10)] [SerializeField] private GameObject deathPanel;
 
         private WaveController _waveController;
@@ -126,8 +127,8 @@ namespace Core
 
         private void InitializeDayTimer()
         {
-            dayTimer.OnDayEnd += deathActor.SpawnDeath;
-            deathActor.deathDialogfinished += potionSystem.OpenPotionMenu;
+            dayTimer.OnDayEnd += _actorSpawner.SpawnActor;
+            _actorSpawner.onActorDialogFinished += potionSystem.OpenPotionMenu;
             _waveController.OnWaveCleared += dayTimer.ResetTimer;
             potionSystem.OnActive += dayTimer.ClearTimer;
         }
@@ -190,7 +191,7 @@ namespace Core
         {
             playerActor.Init();
             _storyDirector = new StoryDirector();
-            deathActor.Init(playerActor,_storyDirector);
+            _actorSpawner.Init(_storyDirector, deathActorSpawnerData);
             storyTriggerManager.InitTriggers(playerActor, _storyDirector);
         }
 

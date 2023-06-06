@@ -19,7 +19,7 @@ namespace StorySystem.Behaviour
         public void InitTrigger(StoryDirector director, PlayerActor playerActor)
         {
             Debug.Assert(!_isInitialized, "Trigger is already initialized");
-
+            _isTriggered = false;
             _director = director;
             _playerActor = playerActor;
 

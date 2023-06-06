@@ -1,4 +1,5 @@
 ﻿using System;
+using Fighting;
 using StatsSystem.Enum;
 using UnityEngine;
 
@@ -22,10 +23,10 @@ namespace StatsSystem.Health
         public float GetHealthPercent() =>  GetHealth() / _statsController.GetStatsValue(StatType.MaxHealth);
         public bool IsDead => GetHealth() <= 0;
         
-        public void TakeDamage(float damage)
+        public void TakeDamage(DamageInfo damageInfo)
         {
             float maxDamage = GetHealth();
-            damage -= _statsController.GetStatsValue(StatType.DamageResistance);
+            float damage = damageInfo.DamageAmount - _statsController.GetStatsValue(StatType.DamageResistance);
             damage = Math.Clamp(damage, 0, maxDamage);
 
             _statsController.ProcessModifier(new StatModifier(

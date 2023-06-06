@@ -51,7 +51,7 @@ namespace Core.Entities.Enemies
             if (!Brain.HealthSystem.IsDead)
             {
                 _inputFightingInputProvider.CalculateAttackInput(IsInAttackRange);
-                _inputMoveProvider.CalculateHorizontalInput(IsInAttackRange);
+                _inputMoveProvider.CalculateHorizontalInput(Brain.Attacker.IsAttacking);
             }
 
             Brain.Update();

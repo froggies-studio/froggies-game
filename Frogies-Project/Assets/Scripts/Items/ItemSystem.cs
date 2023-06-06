@@ -69,11 +69,14 @@ namespace Items
                 return;
             
             var item = _itemsOnScene[sceneItem];
-            Debug.Log($"Picked item: {item.Descriptor.ItemId}");
             _itemsOnScene.Remove(sceneItem);
             sceneItem.ItemClicked -= OnItemClicked;
             Object.Destroy(sceneItem.gameObject);
-            _inventory.AddNewItem(item);
+            Item droppedItem = _inventory.AddNewItem(item);
+            if (droppedItem != null)
+            {
+                DropItem(droppedItem, itemPosition+new Vector2(0, 1));
+            }
         }
     }
 }

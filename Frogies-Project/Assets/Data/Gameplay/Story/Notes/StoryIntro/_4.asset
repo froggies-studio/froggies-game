@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: _4
   m_EditorClassIdentifier: 
   line:
-    line: With the weight of the gathered sticks in your grasp, you make your way
+    line: 'With the weight of the gathered sticks in your grasp, you make your way
       back through the dimly lit forest. The crunch of leaves beneath your boots
-      is a steady rhythm, harmonizing with the distant sounds of nature. The campfire's
+      is a steady rhythm, harmonizing with the distant sounds of nature. The campfire''s
       warmth dances in your mind, beckoning you forward...
+
+
+      Tap to continue...'
   nextNode: {fileID: 0}
   switchActor: 0

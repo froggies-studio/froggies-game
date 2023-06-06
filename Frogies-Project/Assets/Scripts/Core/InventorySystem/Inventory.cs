@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Items.Core;
+using Items.Data;
 using Items.Enum;
 using TMPro;
 using UnityEngine;
@@ -14,23 +15,25 @@ namespace Core.InventorySystem
         [SerializeField] private Image weaponIcon;
         [SerializeField] private Button potionUseButton;
         [SerializeField] private TMP_Text potionCountText;
-        private Equipment _armor;
-        private Equipment _weapon;
+        [SerializeField] private StatChangingItemDescriptor weaponDescriptor;
+        [SerializeField] private StatChangingItemDescriptor armorDescriptor;
+        
         private List<Potion> _potions;
 
         private void Awake()
         {
+            armorIcon.sprite = armorDescriptor.ItemSprite;
+            weaponIcon.sprite = weaponDescriptor.ItemSprite;
             potionUseButton.onClick.AddListener(UsePotion);
             _potions = new List<Potion>();
         }
 
-        public void AddNewItem(Item item)
+        public Item AddNewItem(Item item)
         {
             switch (item)
             {
                 case Equipment equipment:
-                    AddNewEquipment(equipment);
-                    break;
+                    return AddNewEquipment(equipment);
                 case Potion potion:
                     if (potion.Descriptor.ItemId == ItemId.PowerPotion)
                     {
@@ -41,28 +44,35 @@ namespace Core.InventorySystem
                 default:
                     throw new NotSupportedException();
             }
+
+            return null;
         }
 
-        private void AddNewEquipment(Equipment newEquipment)
+        private Item AddNewEquipment(Equipment newEquipment)
         {
             switch (newEquipment.EquipmentType)
             {
                 case EquipmentType.Body:
                     if (newEquipment.Descriptor.ItemId == ItemId.Breastplate)
                     {
-                        _armor = newEquipment;
-                        armorIcon.sprite = _armor.Descriptor.ItemSprite;
+                        Equipment oldArmor = new Equipment(armorDescriptor, newEquipment.StatsController);
+                        armorDescriptor = (StatChangingItemDescriptor)newEquipment.Descriptor;
+                        armorIcon.sprite = armorDescriptor.ItemSprite;
                         newEquipment.Use();
+                        return oldArmor;
                     }
                     break;
                 case EquipmentType.Weapon:
-                    _weapon = newEquipment;
-                    weaponIcon.sprite = _weapon.Descriptor.ItemSprite;
+                    Item oldWeapon = new Equipment(weaponDescriptor, newEquipment.StatsController);
+                    weaponDescriptor = (StatChangingItemDescriptor)newEquipment.Descriptor;
+                    weaponIcon.sprite = weaponDescriptor.ItemSprite;
                     newEquipment.Use();
-                    break;
+                    return oldWeapon;
                 default:
                     throw new NotSupportedException();
             }
+
+            return null;
         }
 
         private void UsePotion()

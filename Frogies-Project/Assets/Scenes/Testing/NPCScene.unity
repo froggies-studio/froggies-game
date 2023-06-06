@@ -13520,6 +13520,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f097c82d3173c00459103b80e31149c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1715661655 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7323597499736978895, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
+  m_PrefabInstance: {fileID: 1068312363919867541}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1715661657 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8388443429222340488, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
+  m_PrefabInstance: {fileID: 1068312363919867541}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1774216815
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14339,6 +14361,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1766261617821956497, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
+      propertyPath: potionUseButton
+      value: 
+      objectReference: {fileID: 1715661657}
     - target: {fileID: 1982874510842038658, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -14499,6 +14525,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3325259469558304861}
+    - target: {fileID: 8388443429222340488, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 1715661655}
     - target: {fileID: 8710783422491290798, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -14635,6 +14665,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2185727888614771785, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185727888614771785, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
+      propertyPath: m_fontSize
+      value: 0.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185727888614771785, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 0.21
+      objectReference: {fileID: 0}
     - target: {fileID: 3747304625260526174, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
       propertyPath: m_Name
       value: Player
@@ -14732,6 +14774,10 @@ PrefabInstance:
       propertyPath: deathActorSpawnerData
       value: 
       objectReference: {fileID: 11400000, guid: 0f1368aa44a26234ebc04325f61703b3, type: 2}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: _deathActorSpawnerDataComponent
+      value: 
+      objectReference: {fileID: 2719495180452194969, guid: 6c39c707c1099f34a8896cc292bc865f, type: 3}
     - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
       propertyPath: waveData.<WaveBar>k__BackingField
       value: 

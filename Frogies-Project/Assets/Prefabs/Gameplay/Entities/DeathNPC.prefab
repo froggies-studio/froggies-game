@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4317489963332532876}
   - component: {fileID: 8412592317500885880}
   - component: {fileID: 1456352607181326975}
+  - component: {fileID: 2719495180452194969}
   m_Layer: 0
   m_Name: DeathNPC
   m_TagString: Untagged
@@ -67,6 +68,22 @@ MonoBehaviour:
   textPanel: {fileID: 8254603874705094644}
   text: {fileID: 6096236877406025297}
   isDeath: 1
+--- !u!114 &2719495180452194969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 787499581980646893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01dfac5a8b0148619cc56d657b09dcc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    playerSpawnPoint: {fileID: 3747304625260526174, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
+    actorPrefab: {fileID: 787499581980646893}
+    actorAnimator: {fileID: 7250613004726269332}
 --- !u!1 &4209702673058739570
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,8 +119,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1.9, y: 0.9}
+  m_AnchoredPosition: {x: 1.08, y: -0.06}
+  m_SizeDelta: {x: 3.7119, y: 1.0342}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &4986194735461891601
 MeshRenderer:
@@ -264,8 +281,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5413043988623040794}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 1}
+  m_LocalPosition: {x: 1.1185, y: 0.0335, z: 0}
+  m_LocalScale: {x: 4.237036, y: 1.0670505, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8254603874705094644}
@@ -454,7 +471,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: f7f9ce5e63877134cac37dcae29c9ba7, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0

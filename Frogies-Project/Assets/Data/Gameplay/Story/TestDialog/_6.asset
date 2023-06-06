@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 410a29ca5e8949d3b92b2d0ea39d23fb, type: 3}
-  m_Name: _5 Multiple
+  m_Name: _6
   m_EditorClassIdentifier: 
   line:
     line: 
   nextNodes:
   - Line:
-      line: You are living here
-    Node: {fileID: 11400000, guid: c85d8a1f196a174498f9ea88ba05dbf5, type: 2}
+      line: Yes I am!
+    Node: {fileID: 11400000, guid: 2146de17fa2263b4ea3313f1d1534e4b, type: 2}
   - Line:
-      line: You have lost in the forest
-    Node: {fileID: 11400000, guid: f52815045e982b148923c0c181534ccc, type: 2}
+      line: I have no choice, I guess
+    Node: {fileID: 11400000, guid: 8c85684385476ec48a625122c3f5d8ec, type: 2}

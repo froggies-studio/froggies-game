@@ -9,10 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0552e28aca9e4a1ab02a1da0d56afb5d, type: 3}
+  m_Script: {fileID: 11500000, guid: 410a29ca5e8949d3b92b2d0ea39d23fb, type: 3}
   m_Name: _4
   m_EditorClassIdentifier: 
   line:
-    line: What do you think Im doing?
-  nextNode: {fileID: 11400000, guid: 3ad950b40951cb442a16216353872b4a, type: 2}
-  switchActor: 1
+    line: 
+  nextNodes:
+  - Line:
+      line: That can't be true! I am alive!
+    Node: {fileID: 11400000, guid: 2146de17fa2263b4ea3313f1d1534e4b, type: 2}
+  - Line:
+      line: I have no choice I guess
+    Node: {fileID: 11400000, guid: 8c85684385476ec48a625122c3f5d8ec, type: 2}

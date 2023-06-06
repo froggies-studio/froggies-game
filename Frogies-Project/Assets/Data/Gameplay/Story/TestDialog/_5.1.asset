@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0552e28aca9e4a1ab02a1da0d56afb5d, type: 3}
-  m_Name: _6_1
+  m_Name: _5.1
   m_EditorClassIdentifier: 
   line:
-    line: Im a cube, Im not alive
-  nextNode: {fileID: 11400000, guid: aed7e9586eb8e6e4a8fd8d3dfa8feec9, type: 2}
+    line: NO YOU ARE NOT
+  nextNode: {fileID: 11400000, guid: 7ded69852194de8428e8647985f1fc3a, type: 2}
   switchActor: 0

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0552e28aca9e4a1ab02a1da0d56afb5d, type: 3}
-  m_Name: _7
+  m_Name: _5.2
   m_EditorClassIdentifier: 
   line:
-    line: Anyway...
+    line: DEFEATE THOSE FORCES OF EVIL, SEE YOU NEXT DAY
   nextNode: {fileID: 0}
-  switchActor: 1
+  switchActor: 0

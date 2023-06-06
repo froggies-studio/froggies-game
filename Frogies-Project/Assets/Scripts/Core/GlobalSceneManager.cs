@@ -49,7 +49,7 @@ namespace Core
         [Header("Story")] [SerializeField] private StoryTriggerManager storyTriggerManager;
         [SerializeField] private PlayerActor playerActor;
         [SerializeField] private ActorSpawner _actorSpawner;
-        [SerializeField] private ActorSpawnerData deathActorSpawnerData;
+        [SerializeField] private ActorSpawnerDataComponent _deathActorSpawnerDataComponent;
         [Space(10)] [SerializeField] private GameObject deathPanel;
 
         private WaveController _waveController;
@@ -208,9 +208,10 @@ namespace Core
         {
             playerActor.Init();
             _storyDirector = new StoryDirector();
-            _actorSpawner.Init(_storyDirector, deathActorSpawnerData);
+            _actorSpawner.Init(_storyDirector, _deathActorSpawnerDataComponent);
             _storyDirector.StoryStarted += () => IsPaused = true;
             _storyDirector.StoryFinished += () => IsPaused = false;
+            _storyDirector.StoryFinished += _actorSpawner.HideActor;
             storyTriggerManager.InitTriggers(playerActor, _storyDirector);
         }
 

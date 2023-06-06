@@ -30,8 +30,12 @@ namespace Items
 
         public void DropRandomItem(ItemRarity rarity)
         {
-            var items = _itemDescriptors.Where(item => item.ItemRarity == rarity).ToList();
+            var items = _itemDescriptors.Where(item => item.ItemRarity <= rarity).ToList();
             var itemDescriptor =  items[Random.Range(0, items.Count)];
+            
+            if(itemDescriptor.ItemId != ItemId.PowerPotion)
+                _itemDescriptors.Remove(itemDescriptor);
+            
             _itemSystem.DropItem(itemDescriptor, (Vector2)_entity.transform.position + Vector2.one);
         }
         

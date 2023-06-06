@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1defda09bc064f5093b9e7c580791610, type: 3}
+  m_Name: MushroomAttacksData
+  m_EditorClassIdentifier: 
+  attacks:
+  - animationState: 3
+    damageAmount: 20
+    attackerKnockbackAmount: 15
+    receiverKnockbackAmount: 15
+    rechargeTime: 1
+    enduranceCost: 0
+  - animationState: 4
+    damageAmount: 27
+    attackerKnockbackAmount: 0
+    receiverKnockbackAmount: 0
+    rechargeTime: 0.2
+    enduranceCost: 0
+  rechargeTimerMultiplayer: 1
+  attackBuffer: 1.2
+  attackLayerMask:
+    serializedVersion: 2
+    m_Bits: 8

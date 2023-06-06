@@ -6,19 +6,18 @@ namespace Fighting
 {
     public class DamageReceiver : MonoBehaviour
     {
-        private Action<float> OnDamageReceived { get; set; }
+        private Action<DamageInfo> OnDamageReceived { get; set; }
 
-        public void Initialize(Action<float> onDamageReceived)
+        public void Initialize(Action<DamageInfo> onDamageReceived)
         {
             OnDamageReceived += onDamageReceived;
         }
 
-        public void ReceiveDamage(float damage)
+        public void ReceiveDamage(DamageInfo damage)
         {
              if (GlobalSceneManager.Instance.PlayerData.DirectionalMover.IsDashing)
-             {
-                  return;
-             }
+                 return;
+             
              OnDamageReceived?.Invoke(damage);
         }
     }

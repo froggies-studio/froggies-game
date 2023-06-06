@@ -15,9 +15,15 @@ MonoBehaviour:
   attacks:
   - animationState: 3
     damageAmount: 12
+    attackerKnockbackAmount: 4
+    receiverKnockbackAmount: 23
+    rechargeTime: 0.4
     enduranceCost: 5
   - animationState: 4
-    damageAmount: 20
+    damageAmount: 24
+    attackerKnockbackAmount: 7
+    receiverKnockbackAmount: 35
+    rechargeTime: 0.8
     enduranceCost: 10
   rechargeTimerMultiplayer: 1
   attackBuffer: 1.2

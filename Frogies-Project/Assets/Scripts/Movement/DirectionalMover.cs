@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using Fighting;
 using StatsSystem;
 using StatsSystem.Endurance;
 using StatsSystem.Enum;
@@ -204,5 +205,15 @@ namespace Movement
             rigidbody.velocity = new Vector2(_originalVelocity, rigidbody.velocity.y);
         }
         #endregion
+
+        public void Knockback(DamageInfo damageInfo)
+        {
+            Knockback(damageInfo.KnockbackInfo);
+        }
+        
+        public void Knockback(KnockbackInfo knockback)
+        {
+            rigidbody.AddForce(new Vector2(Mathf.Sign(knockback.KnockbackDirection.x), 0.0f) * knockback.KnockbackAmount, ForceMode2D.Impulse);
+        }
     }
 }

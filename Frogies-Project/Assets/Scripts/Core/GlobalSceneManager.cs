@@ -21,6 +21,7 @@ using StorySystem.Behaviour;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using WaveSystem;
 
@@ -62,8 +63,8 @@ namespace Core
 
         public BasePrefabsStorage PrefabsStorage => prefabsStorage;
         public PlayerData PlayerData => playerData;
-
         public StoryDirector StoryDirector => _storyDirector;
+        public DropGenerator DropGenerator => _dropGenerator;
 
         private ItemSystem _sceneItemStorage;
         private DropGenerator _dropGenerator;
@@ -104,8 +105,7 @@ namespace Core
             Instance = this;
             
             GlobalCamera = camera.GetComponent<PixelPerfectCamera>();
-            PlayerInputActions = new PlayerInputActions();
-            PlayerInputActions.Enable();
+            InitializeInput();
 
             deathPanel.SetActive(false);
 
@@ -125,6 +125,23 @@ namespace Core
             InitializeDayTimer();
         }
 
+        private void InitializeInput()
+        {
+            PlayerInputActions = new PlayerInputActions();
+            PlayerInputActions.Enable();
+            
+            //TODO disable on release
+            //PlayerInputActions.Debug.Disable();
+            bool isMouseSchemeEnabled = true;
+            PlayerInputActions.Debug.DisableMouseScheme.performed += context =>
+            {
+                PlayerInputActions.bindingMask = isMouseSchemeEnabled
+                    ? InputBinding.MaskByGroups(PlayerInputActions.KeyboardScheme.bindingGroup, PlayerInputActions.OnScreenScheme.bindingGroup)
+                    : null;
+                isMouseSchemeEnabled = !isMouseSchemeEnabled;
+            };
+        }
+        
         private void InitializeDayTimer()
         {
             dayTimer.OnDayEnd += _actorSpawner.SpawnActor;
@@ -170,8 +187,8 @@ namespace Core
              var depowerPotions = itemDescriptors.Where(descriptor => descriptor.ItemId == ItemId.DepowerPotion)
                  .Select(descriptor => new Potion(descriptor as StatChangingItemDescriptor, player.Brain.StatsController)).ToList();
              potionSystem.Setup(depowerPotions);
-             potionSystem.OnActive += () => _isPaused = true;
-             potionSystem.OnOptionSelected += _ => _isPaused = false;
+             potionSystem.OnActive += () => IsPaused = true;
+             potionSystem.OnOptionSelected += _ => IsPaused = false;
          }
          
         private void InitializeDropGenerator(List<ItemDescriptor> itemDescriptors)
@@ -192,6 +209,8 @@ namespace Core
             playerActor.Init();
             _storyDirector = new StoryDirector();
             _actorSpawner.Init(_storyDirector, deathActorSpawnerData);
+            _storyDirector.StoryStarted += () => IsPaused = true;
+            _storyDirector.StoryFinished += () => IsPaused = false;
             storyTriggerManager.InitTriggers(playerActor, _storyDirector);
         }
 

@@ -41,7 +41,7 @@ TagManager:
   - name: ParalaxBg
     uniqueID: 837515739
     locked: 0
-  - name: EnemiesSortingLayer
+  - name: Enemies
     uniqueID: 690128339
     locked: 0
   - name: Default

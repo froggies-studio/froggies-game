@@ -2,7 +2,10 @@
 using Animation;
 using Core.Entities.Data;
 using Fighting;
+using Items;
+using Items.Enum;
 using Movement;
+using StatsSystem.Enum;
 using UnityEngine;
 
 namespace Core.Entities.Enemies
@@ -15,6 +18,7 @@ namespace Core.Entities.Enemies
 
         private readonly Collider2D[] _colliders = new Collider2D[10];
         private readonly ContactFilter2D _contactFilter2D;
+        private readonly int _waveDifficulty;
 
         private bool IsInAttackRange
         {
@@ -33,12 +37,13 @@ namespace Core.Entities.Enemies
             }
         }
 
-        public BasicEnemy(EnemyData data)
+        public BasicEnemy(EnemyData data, int wave)
         {
             _data = data;
             InitializeBrain(data);
             _contactFilter2D = new ContactFilter2D();
             _contactFilter2D.SetLayerMask(data.AttacksData.AttackLayerMask);
+            _waveDifficulty = wave;
         }
 
         public override void Update()
@@ -88,6 +93,7 @@ namespace Core.Entities.Enemies
             }
 
             _data.DamageReceiver.enabled = false;
+            GlobalSceneManager.Instance.DropGenerator.DropRandomItemWithChance((ItemRarity)_waveDifficulty, 1.0f/(_waveDifficulty+2));
         }
     }
 }

@@ -10,15 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0552e28aca9e4a1ab02a1da0d56afb5d, type: 3}
-  m_Name: _2
+  m_Name: Inventory 2
   m_EditorClassIdentifier: 
   line:
-    line: 'Among them, you, a renowned knight, the embodiment of valour, set out
-      on a seemingly mundane task. You venture into the thick woods, leaving his
-      comrades behind, in search of nothing more than a few sticks to stoke the campfire''s
-      flickering flames.
+    line: 'Also you can pick up unlimited count of healing potions and use each at
+      any time by clicking on "Use" button under the icon.
 
 
       Tap to continue...'
-  nextNode: {fileID: 11400000, guid: b6e63cfbb5099924eb3c82c3c7fef4cc, type: 2}
+  nextNode: {fileID: 11400000, guid: e5cba4f415ebf0d4f85ef4058092af14, type: 2}
   switchActor: 0

@@ -62,7 +62,7 @@ namespace WaveSystem
                 var currentEnemy = _enemies[(int)enemyTypeCounter.EnemyType];
                 for (int i = 0; i < enemyTypeCounter.Amount; i++)
                 {
-                    var enemy = _enemySpawner.Spawn(currentEnemy, out GameObject newEnemy);
+                    var enemy = _enemySpawner.Spawn(currentEnemy, out GameObject newEnemy, _currentWave.Difficulty);
                     newEnemy.transform.position = _currentWaveSpawner.transform.position;
                     newEnemy.transform.parent = _currentWaveSpawner.transform;
                     enemy.Brain.HealthSystem.OnDead += EnemyDeath;

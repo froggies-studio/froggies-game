@@ -31,7 +31,7 @@ namespace Items
 
         public void DropRandomItem(ItemRarity rarity)
         {
-            var items = _itemDescriptors.Where(item => item.ItemRarity <= rarity).ToList();
+            var items = _itemDescriptors.Where(item => item.ItemRarity == rarity).ToList();
             if (items.Count == 0)
                 return;
             

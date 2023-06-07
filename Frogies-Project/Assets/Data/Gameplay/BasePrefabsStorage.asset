@@ -15,3 +15,5 @@ MonoBehaviour:
   _sceneItemPrefab: {fileID: 6391923034100640838, guid: 53dc34411a2eb3b4c929da0e5db43260, type: 3}
   _statsStorage: {fileID: 11400000, guid: 2d38fb8f865369b44a30beb250ce2645, type: 2}
   _waveStorage: {fileID: 11400000, guid: adff7781b2e8f134e9abb62ff14deb43, type: 2}
+  hitBloodParticlesSystem: {fileID: 5349974536271609510, guid: d56065986b76bff4d893fe04cb2ce6d2, type: 3}
+  hitDecalsParticlesSystem: {fileID: 734034206552470544, guid: 91285e4dea645654eaa866db9862dd4d, type: 3}

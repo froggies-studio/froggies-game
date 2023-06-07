@@ -3,8 +3,8 @@
     public enum WaveEnemyType
     {
         Goblin=0,
-        Skeleton=1,
-        Flying=2,
-        Mushroom=3
+        Mushroom=1,
+        Skeleton=2,
+        Flying=3,
     }
 }

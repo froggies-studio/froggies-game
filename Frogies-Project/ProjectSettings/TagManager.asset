@@ -41,7 +41,13 @@ TagManager:
   - name: ParalaxBg
     uniqueID: 837515739
     locked: 0
-  - name: EnemiesSortingLayer
+  - name: Props
+    uniqueID: 2113512667
+    locked: 0
+  - name: Effects
+    uniqueID: 3087184181
+    locked: 0
+  - name: Enemies
     uniqueID: 690128339
     locked: 0
   - name: Default
@@ -49,4 +55,7 @@ TagManager:
     locked: 0
   - name: ParalaxFg
     uniqueID: 3478511029
+    locked: 0
+  - name: UI
+    uniqueID: 2398249623
     locked: 0

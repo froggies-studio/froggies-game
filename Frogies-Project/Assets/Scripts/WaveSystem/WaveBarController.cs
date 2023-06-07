@@ -30,7 +30,6 @@ namespace WaveSystem
         private void Hide()
         {
             _waveBar.SetActive(false);
-            Debug.Log("The wave was cleared!");
         }
 
         private void UpdateWaveCounter()

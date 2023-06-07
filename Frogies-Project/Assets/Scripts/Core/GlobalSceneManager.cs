@@ -47,12 +47,18 @@ namespace Core
         [SerializeField] private PotionSystem.PotionSystem potionSystem;
         [SerializeField] private Inventory inventory;
         [SerializeField] private DayTimer dayTimer;
+        [SerializeField] private Transform playerSpawner;
 
         [SerializeField] private PlayerData playerData;
         [SerializeField] private WaveData waveData;
 
+        [SerializeField] private Transform[] deathSpawnPoints;
+        [SerializeField] private LayerMask deathSpawnPointsLayerMask;
+        
         [Header("Story")] [SerializeField] private StoryTriggerManager storyTriggerManager;
         [SerializeField] private PlayerActor playerActor;
+        [SerializeField] [CanBeNull] private ActorSpawner _actorSpawner;
+        [SerializeField] private ActorSpawnerDataComponent _deathActorSpawnerDataComponent;
         [Space(10)] [SerializeField] [CanBeNull] private GameObject deathPanel;
         [Space(10)] [SerializeField] [CanBeNull] private GameObject winPanel;
 
@@ -70,6 +76,7 @@ namespace Core
         public PlayerData PlayerData => playerData;
         public StoryDirector StoryDirector => _storyDirector;
         public DropGenerator DropGenerator => _dropGenerator;
+        public PotionSystem.PotionSystem PotionSystem => potionSystem;
 
         private ItemSystem _sceneItemStorage;
         private DropGenerator _dropGenerator;
@@ -115,7 +122,7 @@ namespace Core
 
             if (deathPanel != null) deathPanel.SetActive(false);
                 
-            ObjectPooler.Instance.AddPooler(new ObjectPooler.Pool()
+            ObjectPooler.Instance.AddOrUpdatePooler(new ObjectPooler.Pool()
             {
                 Tag = ObjectPoolTags.HIT_BLOOD_PARTICLE_EFFECTS,
                 Prefab = prefabsStorage.HitBloodParticlesSystem.gameObject,
@@ -123,7 +130,7 @@ namespace Core
                 Parent = particleEffectsPoller
             });
             
-            ObjectPooler.Instance.AddPooler(new ObjectPooler.Pool()
+            ObjectPooler.Instance.AddOrUpdatePooler(new ObjectPooler.Pool()
             {
                 Tag = ObjectPoolTags.DECAL_BLOOD_PARTICLE_EFFECTS,
                 Prefab = prefabsStorage.HitDecalsParticlesSystem.gameObject,
@@ -170,7 +177,11 @@ namespace Core
 
         private void InitializeDayTimer()
         {
-            dayTimer.OnDayEnd += potionSystem.OpenPotionMenu;
+            if (_actorSpawner != null)
+            {
+                dayTimer.OnDayEnd += ()=> _actorSpawner.SpawnActor((PlayerTransform.position+new Vector3(1, 0)));
+                _actorSpawner.onActorDialogFinished += potionSystem.OpenPotionMenu;
+            }
             _waveController.OnWaveCleared += dayTimer.ResetTimer;
             potionSystem.OnActive += dayTimer.ClearTimer;
         }
@@ -253,6 +264,7 @@ namespace Core
             _waveController = new WaveController(waves, waveData.Spawners, waveData.Enemies, EnemySpawner);
             waveData.WaveBar.Setup(_waveController);
             potionSystem.OnOptionSelected += _waveController.OnPotionPicked;
+            potionSystem.OnOptionSelected += (_,_) => PlayerTransform.position = playerSpawner.position;
             _waveController.OnLastWaveCleared += PerformEndGameLogic;
         }
 
@@ -276,10 +288,16 @@ namespace Core
         private void InitializeStoryDirector()
         {
             playerActor.Init();
-
             _storyDirector = new StoryDirector();
             _storyDirector.StoryStarted += () => IsPaused = true;
             _storyDirector.StoryFinished += () => IsPaused = false;
+            
+            if (_actorSpawner != null)
+            {
+                _actorSpawner.Init(_storyDirector, _deathActorSpawnerDataComponent);
+                _storyDirector.StoryFinished += _actorSpawner.HideActor;
+            }
+
             storyTriggerManager.InitTriggers(playerActor, _storyDirector);
         }
 
@@ -304,6 +322,7 @@ namespace Core
             }
 
             _dropGenerator.Update();
+            _deathActorSpawnerDataComponent.Data.UpdateStartNodeNumber();
 
             foreach (var entity in Entities)
             {

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0552e28aca9e4a1ab02a1da0d56afb5d, type: 3}
-  m_Name: _6_2
+  m_Name: npc 1
   m_EditorClassIdentifier: 
   line:
-    line: Im look like some who is lost?
-  nextNode: {fileID: 11400000, guid: aed7e9586eb8e6e4a8fd8d3dfa8feec9, type: 2}
+    line: GREETINGS, ADVENTURER...
+  nextNode: {fileID: 11400000, guid: d18446bc2c9ffc7419f9c093dde0aa37, type: 2}
   switchActor: 0

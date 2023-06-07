@@ -9,7 +9,7 @@ namespace Core.PotionSystem
     {
         [SerializeField] private GameObject optionPrefab;
         [SerializeField] private Transform body;
-        private List<PotionOption> _options;
+        public List<PotionOption> _options;
         private int _potionCount;
         public event Action<int,bool> OnOptionSelected;
         public event Action OnActive;

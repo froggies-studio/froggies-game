@@ -35,6 +35,27 @@ namespace Core.ObjectPoolers
             _poolDictionary.Add(pool.Tag, objectPool);
         }
 
+        public void AddOrUpdatePooler(Pool pool)
+        {
+            if (_poolDictionary.ContainsKey(pool.Tag))
+            {
+                _poolDictionary.Remove(pool.Tag);
+            }
+            
+            var objectPool = new Queue<GameObject>();
+            for (int i = 0; i < pool.Size; i++)
+            {
+                var obj = pool.Parent != null 
+                    ? Object.Instantiate(pool.Prefab, pool.Parent.transform) 
+                    : Object.Instantiate(pool.Prefab);
+                    
+                obj.SetActive(false);
+                objectPool.Enqueue(obj);
+            }
+
+            _poolDictionary.Add(pool.Tag, objectPool);
+        }
+        
         public GameObject SpawnFromPool(string objectPoolTag)
         {
             return SpawnFromPool(objectPoolTag, Vector3.zero, Quaternion.identity);

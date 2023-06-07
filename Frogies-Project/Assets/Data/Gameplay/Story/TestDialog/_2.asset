@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: _2
   m_EditorClassIdentifier: 
   line:
-    line: Im a lost knight
+    line: I AM HERE TO INFORM YOU THAT YOU DIED
   nextNode: {fileID: 11400000, guid: 537485e9ccba6b44eb25ca6eabfb7eea, type: 2}
-  switchActor: 1
+  switchActor: 0

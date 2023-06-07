@@ -1,10 +1,12 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Animation;
 using Core.InventorySystem;
 using Core.Entities;
 using Core.Entities.Data;
+using Core.Entities.Player;
 using Core.Entities.Spawners;
 using Fighting;
 using Items;
@@ -15,6 +17,7 @@ using Items.Enum;
 using Items.Rarity;
 using Items.Scriptable;
 using Items.Storage;
+using JetBrains.Annotations;
 using Movement;
 using StorySystem;
 using StorySystem.Behaviour;
@@ -51,7 +54,8 @@ namespace Core
         [SerializeField] private PlayerActor playerActor;
         [SerializeField] private ActorSpawner _actorSpawner;
         [SerializeField] private ActorSpawnerDataComponent _deathActorSpawnerDataComponent;
-        [Space(10)] [SerializeField] private GameObject deathPanel;
+        [Space(10)] [SerializeField] [CanBeNull] private GameObject deathPanel;
+        [Space(10)] [SerializeField] [CanBeNull] private GameObject winPanel;
 
         private WaveController _waveController;
         public EnemySpawner EnemySpawner { get; private set; }
@@ -100,6 +104,7 @@ namespace Core
         public event Action OnPauseFinished;
 
         public HashSet<BasicEntity> Entities { get; private set; }
+        public Player Player { get; private set; }
 
         private void Awake()
         {
@@ -109,12 +114,13 @@ namespace Core
             GlobalCamera = camera.GetComponent<PixelPerfectCamera>();
             InitializeInput();
 
-            deathPanel.SetActive(false);
+            if (deathPanel != null) deathPanel.SetActive(false);
 
             EnemySpawner = new EnemySpawner(this);
             
             Entities = new HashSet<BasicEntity>();
             var player = InitializePlayer(playerData);
+            Player = (Player)player;
             Entities.Add(player);
 
             var descriptors = itemsStorage.ItemScriptables.Select(scriptable => scriptable.ItemDescriptor).ToList();
@@ -143,7 +149,7 @@ namespace Core
                 isMouseSchemeEnabled = !isMouseSchemeEnabled;
             };
         }
-        
+
         private void InitializeDayTimer()
         {
             dayTimer.OnDayEnd += ()=> _actorSpawner.SpawnActor((PlayerTransform.position+new Vector3(1, 0)));
@@ -179,9 +185,15 @@ namespace Core
             player.Initialize(entityBrain);
 
             entityData.DamageReceiver.Initialize(entityBrain.HealthSystem.TakeDamage);
+            entityData.DamageReceiver.Initialize(entityData.DirectionalMover.Knockback);
 
-            entityBrain.HealthSystem.OnDead += (_, _) => deathPanel.SetActive(true);
+            entityBrain.HealthSystem.OnDead += OnHealthSystemOnOnDead;
             return player;
+        }
+
+        private void OnHealthSystemOnOnDead(object o, EventArgs eventArgs)
+        {
+            deathPanel.SetActive(true);
         }
 
         private void InitializePotionSystem(List<ItemDescriptor> itemDescriptors, BasicEntity player)
@@ -190,7 +202,7 @@ namespace Core
                  .Select(descriptor => new Potion(descriptor as StatChangingItemDescriptor, player.Brain.StatsController)).ToList();
              potionSystem.Setup(depowerPotions);
              potionSystem.OnActive += () => IsPaused = true;
-             potionSystem.OnOptionSelected += _ => IsPaused = false;
+             potionSystem.OnOptionSelected += (_,_) => IsPaused = false;
          }
          
         private void InitializeDropGenerator(List<ItemDescriptor> itemDescriptors)
@@ -205,6 +217,23 @@ namespace Core
             waveData.WaveBar.Setup(_waveController);
             potionSystem.OnOptionSelected += _waveController.OnPotionPicked;
             potionSystem.OnOptionSelected += _ => PlayerTransform.position = playerSpawner.position;
+            _waveController.OnLastWaveCleared += PerformEndGameLogic;
+        }
+
+        private void PerformEndGameLogic()
+        {
+            StartCoroutine(DeathWithDelay());
+            if (winPanel != null) winPanel.SetActive(true);
+        }
+
+        private IEnumerator DeathWithDelay()
+        {
+            yield return new WaitForSeconds(2f);
+
+            Player.Brain.HealthSystem.OnDead -= OnHealthSystemOnOnDead;
+            Player.Brain.HealthSystem.TakeDamage
+                (new DamageInfo(float.MaxValue,
+                    new KnockbackInfo(0)));
         }
 
         private void InitializeStoryDirector()
@@ -235,7 +264,7 @@ namespace Core
             // TODO: remove
             if (UnityEngine.Input.GetKeyDown(KeyCode.K)) // for testing purpose only
             {
-                _waveController.OnPotionPicked(0);
+                _waveController.OnPotionPicked(1, true);
             }
 
             _dropGenerator.Update();

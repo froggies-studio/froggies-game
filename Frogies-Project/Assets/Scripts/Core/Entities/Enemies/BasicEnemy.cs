@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Animation;
 using Core.Entities.Data;
 using Fighting;
@@ -37,13 +37,13 @@ namespace Core.Entities.Enemies
             }
         }
 
-        public BasicEnemy(EnemyData data, int wave)
+        public BasicEnemy(EnemyData data, int waveNumber)
         {
             _data = data;
             InitializeBrain(data);
             _contactFilter2D = new ContactFilter2D();
             _contactFilter2D.SetLayerMask(data.AttacksData.AttackLayerMask);
-            _waveDifficulty = wave;
+            _waveDifficulty = waveNumber+1;
         }
 
         public override void Update()
@@ -51,7 +51,7 @@ namespace Core.Entities.Enemies
             if (!Brain.HealthSystem.IsDead)
             {
                 _inputFightingInputProvider.CalculateAttackInput(IsInAttackRange);
-                _inputMoveProvider.CalculateHorizontalInput(IsInAttackRange);
+                _inputMoveProvider.CalculateHorizontalInput(Brain.Attacker.IsAttacking);
             }
 
             Brain.Update();
@@ -64,9 +64,11 @@ namespace Core.Entities.Enemies
 
         private void InitializeBrain(EnemyData data)
         {
+            var transform = data.DirectionalMover.transform;
             _inputMoveProvider = new EnemyMovementInput(data.Player,
-                data.DirectionalMover.transform);
-            _inputFightingInputProvider = new EnemyInputFightingProvider();
+                transform);
+            _inputFightingInputProvider = new EnemyInputFightingProvider(data.MinAttackRange
+                , data.Player, transform);
 
             var animationController = new PlayerAnimationController(data.AnimationStateManager, data.SpriteFlipper);
 
@@ -75,6 +77,8 @@ namespace Core.Entities.Enemies
                 data.DirectionalMover, animationController, data.StatsStorage, data.AttackColliders);
 
             data.DamageReceiver.Initialize(Brain.HealthSystem.TakeDamage);
+            data.DamageReceiver.Initialize(data.DirectionalMover.Knockback);
+            
             Brain.HealthSystem.OnDead += TurnToDeadState;
         }
 

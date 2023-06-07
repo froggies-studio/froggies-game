@@ -17,6 +17,7 @@ namespace Items
         {
             _entity = entity;
             _itemSystem = itemSystem;
+            _itemSystem.ItemDestroyed += AddItemDescriptor;
             _itemDescriptors = itemDescriptors;
         }
 
@@ -31,7 +32,14 @@ namespace Items
         public void DropRandomItem(ItemRarity rarity)
         {
             var items = _itemDescriptors.Where(item => item.ItemRarity == rarity).ToList();
+            if (items.Count == 0)
+                return;
+            
             var itemDescriptor =  items[Random.Range(0, items.Count)];
+            
+            if(itemDescriptor.ItemId != ItemId.PowerPotion)
+                _itemDescriptors.Remove(itemDescriptor);
+            
             _itemSystem.DropItem(itemDescriptor, (Vector2)_entity.transform.position + Vector2.one);
         }
         
@@ -50,7 +58,12 @@ namespace Items
             };
         }
         
-        public void Update()
+        private void AddItemDescriptor(ItemDescriptor descriptor)
+        {
+            _itemDescriptors.Add(descriptor);
+        }
+        
+        public void Update() // TODO: remove
         {
             if (Input.GetKeyUp(KeyCode.G))
             {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Animation;
 using Core.Entities.Data;
 using Fighting;
@@ -51,8 +51,7 @@ namespace Core.Entities.Enemies
             if (!Brain.HealthSystem.IsDead)
             {
                 _inputFightingInputProvider.CalculateAttackInput(IsInAttackRange);
-                bool attackPerformed = _inputFightingInputProvider.ActiveAttackIndex != -1;
-                _inputMoveProvider.CalculateHorizontalInput(attackPerformed);
+                _inputMoveProvider.CalculateHorizontalInput(Brain.Attacker.IsAttacking);
             }
 
             Brain.Update();

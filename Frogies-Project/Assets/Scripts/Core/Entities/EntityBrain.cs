@@ -15,6 +15,7 @@ namespace Core.Entities
     public class EntityBrain
     {
         public HealthSystem HealthSystem { get; private set; }
+        public BasicAttacker Attacker => _attacker;
         public StatsController StatsController => _statsController;
 
         private readonly EnduranceSystem _enduranceSystem;

@@ -22,7 +22,7 @@ namespace StorySystem.Behaviour
             _textTween = tweenTMPAnimator.DOText(line.Line, .65f).OnComplete(() =>
             {
                 finishCallback?.Invoke();
-            }).Play();
+            }).Play().SetUpdate(true);
         }
 
         public void ForceStopActing()

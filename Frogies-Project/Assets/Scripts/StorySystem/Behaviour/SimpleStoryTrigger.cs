@@ -1,6 +1,5 @@
 using StorySystem.Data;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace StorySystem.Behaviour
 {

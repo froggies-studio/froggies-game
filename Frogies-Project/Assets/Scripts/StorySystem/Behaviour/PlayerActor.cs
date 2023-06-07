@@ -1,9 +1,7 @@
 using System;
 using Core;
 using StorySystem.Data;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace StorySystem.Behaviour
 {

@@ -1,3 +1,4 @@
+using System;
 using Core;
 using StatsSystem;
 using UnityEngine;
@@ -17,20 +18,24 @@ namespace Fighting
         private readonly ContactFilter2D _attackContactFilter;
         private readonly Collider2D[] _attackColliders;
         private readonly AttacksData _attacksData;
+        private readonly Transform _entityTransform;
 
         private float _attackRechargeTimer;
         private int _activeAttackIndex = -1;
 
-        public BasicAttacker(EnduranceSystem enduranceSystem, 
-            LayerMask attackLayerMask, 
+        public event Action<AttackInfo, KnockbackInfo> AttackPerformed;
+        
+        public BasicAttacker(EnduranceSystem enduranceSystem,
+            LayerMask attackLayerMask,
             Collider2D[] attackColliders,
-            AttacksData attacksData)
+            AttacksData attacksData, Transform entityTransform)
         {
             _enduranceSystem = enduranceSystem;
             _attackContactFilter = new ContactFilter2D();
             _attackContactFilter.SetLayerMask(attackLayerMask);
             _attackColliders = attackColliders;
             _attacksData = attacksData;
+            _entityTransform = entityTransform;
         }
 
         public AttackInfo UpdateAndGetActiveAttackInfo(StatsController statsController)
@@ -63,15 +68,24 @@ namespace Fighting
             _enduranceSystem.UseEndurance(_attacksData.Attacks[_activeAttackIndex].enduranceCost);
             var size = Physics2D.OverlapCollider(_attackColliders[_activeAttackIndex], _attackContactFilter,
                 _attackTargetsBuffer);
+            
             for (int i = 0; i < size; i++)
             {
                 var target = _attackTargetsBuffer[i].GetComponent<DamageReceiver>();
                 
                 if (target != null)
                 {
-                    target.ReceiveDamage(_attacksData.Attacks[_activeAttackIndex].damageAmount);
+                    KnockbackInfo knockbackInfo = new KnockbackInfo(_attacksData.Attacks[_activeAttackIndex].receiverKnockbackAmount);
+                    knockbackInfo.KnockbackDirection = (target.transform.position - _entityTransform.transform.position).normalized;
+                    
+                    DamageInfo damageInfo = new DamageInfo(_attacksData.Attacks[_activeAttackIndex].damageAmount, knockbackInfo);
+                    target.ReceiveDamage(damageInfo);
                 }
             }
+            
+            KnockbackInfo attackerKnockbackInfo = new KnockbackInfo(_attacksData.Attacks[_activeAttackIndex].attackerKnockbackAmount);
+            attackerKnockbackInfo.KnockbackDirection = (_entityTransform.transform.position - _attackColliders[_activeAttackIndex].transform.position);
+            AttackPerformed?.Invoke(_attacksData.Attacks[_activeAttackIndex], attackerKnockbackInfo);
         }
 
         public void SetActiveAttackIndex(int activeAttackIndex)

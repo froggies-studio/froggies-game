@@ -1,5 +1,4 @@
 using System;
-using StorySystem.Behaviour;
 using StorySystem.Data;
 
 namespace StorySystem

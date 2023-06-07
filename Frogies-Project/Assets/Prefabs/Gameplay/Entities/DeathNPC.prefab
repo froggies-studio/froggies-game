@@ -81,7 +81,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    playerSpawnPoint: {fileID: 3747304625260526174, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
     actorPrefab: {fileID: 787499581980646893}
     actorAnimator: {fileID: 7250613004726269332}
 --- !u!1 &4209702673058739570
@@ -328,7 +327,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.81280404, g: 0.9716981, b: 0.96084154, a: 0.23921569}
   m_FlipX: 0

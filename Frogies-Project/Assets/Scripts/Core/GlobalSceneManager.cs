@@ -42,6 +42,7 @@ namespace Core
         [SerializeField] private PotionSystem.PotionSystem potionSystem;
         [SerializeField] private Inventory inventory;
         [SerializeField] private DayTimer dayTimer;
+        [SerializeField] private Transform playerSpawner;
 
         [SerializeField] private PlayerData playerData;
         [SerializeField] private WaveData waveData;
@@ -144,7 +145,7 @@ namespace Core
         
         private void InitializeDayTimer()
         {
-            dayTimer.OnDayEnd += _actorSpawner.SpawnActor;
+            dayTimer.OnDayEnd += ()=> _actorSpawner.SpawnActor(PlayerTransform);
             _actorSpawner.onActorDialogFinished += potionSystem.OpenPotionMenu;
             _waveController.OnWaveCleared += dayTimer.ResetTimer;
             potionSystem.OnActive += dayTimer.ClearTimer;
@@ -202,6 +203,7 @@ namespace Core
             _waveController = new WaveController(waves, waveData.Spawners, waveData.Enemies, EnemySpawner);
             waveData.WaveBar.Setup(_waveController);
             potionSystem.OnOptionSelected += _waveController.OnPotionPicked;
+            potionSystem.OnOptionSelected += _ => PlayerTransform.position = playerSpawner.position;
         }
 
         private void InitializeStoryDirector()

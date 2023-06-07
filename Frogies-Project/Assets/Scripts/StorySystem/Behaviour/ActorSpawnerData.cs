@@ -7,7 +7,6 @@ namespace StorySystem.Behaviour
     [Serializable]
     public class ActorSpawnerData
     {
-        [field: SerializeField] public GameObject playerSpawnPoint;
         [field: SerializeField] public GameObject actorPrefab;
         [field: SerializeField] public AnimationStateManager actorAnimator;
     }

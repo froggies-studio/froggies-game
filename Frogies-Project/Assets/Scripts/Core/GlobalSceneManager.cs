@@ -52,7 +52,6 @@ namespace Core
         [SerializeField] private PlayerActor playerActor;
         [Space(10)] [SerializeField] private GameObject deathPanel;
         [Space(10)] [SerializeField] private GameObject winPanel;
-        [SerializeField] private BasicSceneLoader sceneLoader;
 
         private WaveController _waveController;
         public EnemySpawner EnemySpawner { get; private set; }
@@ -238,11 +237,6 @@ namespace Core
             _storyDirector.StoryStarted += () => IsPaused = true;
             _storyDirector.StoryFinished += () => IsPaused = false;
             storyTriggerManager.InitTriggers(playerActor, _storyDirector);
-        }
-
-        public void ReturnToMainMenu()
-        {
-            sceneLoader.LoadScene();
         }
 
         private void Update()

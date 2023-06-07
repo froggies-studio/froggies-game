@@ -74,15 +74,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 945907377381560485, guid: e3e773e47c46af9469b990b1d52b61ee, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 945907377381560485, guid: e3e773e47c46af9469b990b1d52b61ee, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 945907377381560485, guid: e3e773e47c46af9469b990b1d52b61ee, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 945907377381560485, guid: e3e773e47c46af9469b990b1d52b61ee, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -174,11 +174,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6704621461584491769, guid: e3e773e47c46af9469b990b1d52b61ee, type: 3}
       propertyPath: m_Name
-      value: WinScreen Variant
+      value: WinScreen
       objectReference: {fileID: 0}
     - target: {fileID: 6704621461584491769, guid: e3e773e47c46af9469b990b1d52b61ee, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7254382496627343561, guid: e3e773e47c46af9469b990b1d52b61ee, type: 3}
       propertyPath: m_Name

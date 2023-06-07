@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5275773703363401492}
   - component: {fileID: 3047133426348963247}
-  - component: {fileID: 7173442068634595154}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -81,17 +80,4 @@ MonoBehaviour:
   playerActor: {fileID: 0}
   deathPanel: {fileID: 0}
   winPanel: {fileID: 0}
-  sceneLoader: {fileID: 7173442068634595154}
---- !u!114 &7173442068634595154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3658324198315273888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94aaccf18cfd4e9bb74aa816dfaca969, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextSceneName: MenuScene
+  sceneLoader: {fileID: 0}

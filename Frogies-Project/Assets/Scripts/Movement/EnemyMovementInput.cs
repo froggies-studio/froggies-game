@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Movement
 {
@@ -31,18 +31,20 @@ namespace Movement
             };
         }
 
-        public void CalculateHorizontalInput(bool inAttackRange)
+        public void CalculateHorizontalInput(bool attackPerformed)
         {
             Input = new MovementInput
             {
                 JumpDown = _framesWithoutMovement > _maxFramesWithoutMovement,
                 JumpUp = _framesWithoutMovement > _maxFramesWithoutMovement,
-                X = inAttackRange
-                    ? 0
-                    : Mathf.Clamp(_playerTransform.position.x - _enemyTransform.position.x, -1f, 1f)
+                X = attackPerformed 
+                    ? 0 
+                    : Mathf.Clamp(_playerTransform.position.x - _enemyTransform.position.x,
+                        Random.Range(-1f, 0f),
+                        Random.Range(0f, 1f))
             };
             
-            if (inAttackRange)
+            if (attackPerformed)
             {
                 _framesWithoutMovement = -1 * _noMovementAfterAttack;
                 _previousPosition = _enemyTransform.position;

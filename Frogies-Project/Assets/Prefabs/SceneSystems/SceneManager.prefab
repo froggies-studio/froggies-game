@@ -48,8 +48,10 @@ MonoBehaviour:
   itemsStorage: {fileID: 11400000, guid: 16e9c021093ef77458f8c6a71e341636, type: 2}
   prefabsStorage: {fileID: 11400000, guid: db57d2d6b398a3147a0c50647aee09df, type: 2}
   itemRarityDescriptor: {fileID: 11400000, guid: b1feae3760c9f4544a36d6295e50d385, type: 2}
+  waveStorage: {fileID: 11400000, guid: adff7781b2e8f134e9abb62ff14deb43, type: 2}
   potionSystem: {fileID: 0}
   inventory: {fileID: 0}
+  dayTimer: {fileID: 0}
   playerData:
     <HealthBar>k__BackingField: {fileID: 0}
     <EnduranceControlBar>k__BackingField: {fileID: 0}
@@ -62,4 +64,18 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     <DamageReceiver>k__BackingField: {fileID: 0}
-  testEnemy: {fileID: 5634132030223560505, guid: c54eeb9a1343fa247b55840d8afd779a, type: 3}
+  waveData:
+    <Spawners>k__BackingField:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    <Enemies>k__BackingField:
+    - {fileID: 5634132030223560505, guid: c54eeb9a1343fa247b55840d8afd779a, type: 3}
+    - {fileID: 5634132030223560505, guid: 5d809c2ff7f0bc94da6dbde204ccdef9, type: 3}
+    - {fileID: 5634132030223560505, guid: 62948deff1c5ea743a155d2dfdc4c6ee, type: 3}
+    <WaveBar>k__BackingField: {fileID: 0}
+  storyTriggerManager: {fileID: 0}
+  playerActor: {fileID: 0}
+  deathPanel: {fileID: 0}

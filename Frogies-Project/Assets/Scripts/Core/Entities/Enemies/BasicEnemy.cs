@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Animation;
 using Core.Entities.Data;
 using Fighting;
@@ -64,9 +64,11 @@ namespace Core.Entities.Enemies
 
         private void InitializeBrain(EnemyData data)
         {
+            var transform = data.DirectionalMover.transform;
             _inputMoveProvider = new EnemyMovementInput(data.Player,
-                data.DirectionalMover.transform);
-            _inputFightingInputProvider = new EnemyInputFightingProvider();
+                transform);
+            _inputFightingInputProvider = new EnemyInputFightingProvider(data.MinAttackRange
+                , data.Player, transform);
 
             var animationController = new PlayerAnimationController(data.AnimationStateManager, data.SpriteFlipper);
 
@@ -75,6 +77,8 @@ namespace Core.Entities.Enemies
                 data.DirectionalMover, animationController, data.StatsStorage, data.AttackColliders);
 
             data.DamageReceiver.Initialize(Brain.HealthSystem.TakeDamage);
+            data.DamageReceiver.Initialize(data.DirectionalMover.Knockback);
+            
             Brain.HealthSystem.OnDead += TurnToDeadState;
         }
 

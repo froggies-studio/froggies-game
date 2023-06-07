@@ -1,8 +1,6 @@
 ﻿using System;
-using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace WaveSystem
 {
@@ -10,9 +8,12 @@ namespace WaveSystem
     {
         [SerializeField] private TMP_Text timeText;
         [SerializeField] private DayNightVisuals dayNightVisuals;
+        [SerializeField] private AudioSource forestSounds;
         [SerializeField] private bool isFixed;
         [SerializeField] private float dayDuration = 0.5f * 60;
-        
+        [SerializeField] private AudioClip daySounds;
+        [SerializeField] private AudioClip nightSounds;
+
         public Action OnDayEnd;
         public bool isDay;
         
@@ -28,6 +29,7 @@ namespace WaveSystem
             gameObject.SetActive(true);
             _time = dayDuration;
             isDay = true;
+            UpdateSounds();
         }
 
         public void UpdateTimer()
@@ -45,6 +47,7 @@ namespace WaveSystem
             {
                 ClearTimer();
                 dayNightVisuals.TransitionToNight();
+                UpdateSounds();
                 if (OnDayEnd != null) OnDayEnd.Invoke();
             }
         }
@@ -53,6 +56,12 @@ namespace WaveSystem
         {
             float dayProgress = 1 - time / dayDuration;
             dayNightVisuals.UpdateVisuals(dayProgress, isDay);
+        }
+
+        private void UpdateSounds()
+        {
+            forestSounds.clip = isDay ? daySounds : nightSounds;
+            forestSounds.Play();
         }
 
         public void ClearTimer()

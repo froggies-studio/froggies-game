@@ -17,6 +17,7 @@ using Items.Enum;
 using Items.Rarity;
 using Items.Scriptable;
 using Items.Storage;
+using JetBrains.Annotations;
 using Movement;
 using StorySystem;
 using StorySystem.Behaviour;
@@ -50,8 +51,8 @@ namespace Core
 
         [Header("Story")] [SerializeField] private StoryTriggerManager storyTriggerManager;
         [SerializeField] private PlayerActor playerActor;
-        [Space(10)] [SerializeField] private GameObject deathPanel;
-        [Space(10)] [SerializeField] private GameObject winPanel;
+        [Space(10)] [SerializeField] [CanBeNull] private GameObject deathPanel;
+        [Space(10)] [SerializeField] [CanBeNull] private GameObject winPanel;
 
         private WaveController _waveController;
         public EnemySpawner EnemySpawner { get; private set; }
@@ -109,7 +110,7 @@ namespace Core
             GlobalCamera = camera.GetComponent<PixelPerfectCamera>();
             InitializeInput();
 
-            deathPanel.SetActive(false);
+            if (deathPanel != null) deathPanel.SetActive(false);
 
             EnemySpawner = new EnemySpawner(this);
             
@@ -216,7 +217,7 @@ namespace Core
         private void PerformEndGameLogic()
         {
             StartCoroutine(DeathWithDelay());
-            winPanel.SetActive(true);
+            if (winPanel != null) winPanel.SetActive(true);
         }
 
         private IEnumerator DeathWithDelay()

@@ -14458,7 +14458,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4428330507813464575, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
       propertyPath: dayDuration
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4428330507813464575, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
       propertyPath: dayNightVisuals
@@ -14716,6 +14716,10 @@ PrefabInstance:
       propertyPath: m_enableAutoSizing
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2185727888614771785, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3747304625260526174, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
       propertyPath: m_Name
       value: Player
@@ -14726,15 +14730,19 @@ PrefabInstance:
       objectReference: {fileID: 8451310161750463620}
     - target: {fileID: 6338259889649380791, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7613341577719454282, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1.67
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7613341577719454282, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.31
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9103403339976232404, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

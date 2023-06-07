@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: npc1
   m_EditorClassIdentifier: 
   line:
-    line: Gj
+    line: 'Gj go next
+
+'
   nextNode: {fileID: 0}
   switchActor: 1

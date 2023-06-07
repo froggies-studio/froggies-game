@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   line:
     line: 'Very well... '
-  nextNode: {fileID: 11400000, guid: 87ca72ed37dada740854265f7cf20632, type: 2}
+  nextNode: {fileID: 11400000, guid: 06c1d261f23edb64db6671da62ae6b0d, type: 2}
   switchActor: 0

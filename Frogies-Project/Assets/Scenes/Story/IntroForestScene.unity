@@ -281,6 +281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 82098619}
   - component: {fileID: 82098618}
+  - component: {fileID: 82098620}
   m_Layer: 0
   m_Name: StoryTriggerManager
   m_TagString: Untagged
@@ -319,6 +320,19 @@ Transform:
   m_Father: {fileID: 5148183065664167205}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &82098620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82098617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a177c2ecab04adea9fec95c6675fc21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerActor: {fileID: 3601330050849250693}
 --- !u!4 &86007112 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4815235850804891603, guid: e3ef72d9f2a941b479a3bda87147db32, type: 3}
@@ -1749,6 +1763,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7529635343020985367, guid: 8dab7379f6c67d9448d4c24d1eace61b, type: 3}
   m_PrefabInstance: {fileID: 1588768858}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &830348552
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 830348553}
+  m_Layer: 0
+  m_Name: Pooler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &830348553
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830348552}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5148183065664167205}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &834689774
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23757,6 +23802,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5f8f079905bce04f945cd8ff4ba545a, type: 3}
+--- !u!4 &1877529103 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1064009231720106930, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
+  m_PrefabInstance: {fileID: 3862780948363677387}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1881662869
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24006,6 +24056,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8dab7379f6c67d9448d4c24d1eace61b, type: 3}
+--- !u!4 &1969552148 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6296152663953579603, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
+  m_PrefabInstance: {fileID: 3862780948363677387}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1981617448
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25091,6 +25146,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6059048765685999033}
     - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: _actorSpawner
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
       propertyPath: prefabsStorage
       value: 
       objectReference: {fileID: 11400000, guid: a897701b86b952a4ea1173fbbc8d5da9, type: 2}
@@ -25098,6 +25157,22 @@ PrefabInstance:
       propertyPath: storyTriggerManager
       value: 
       objectReference: {fileID: 82098618}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: particleEffectsPoller
+      value: 
+      objectReference: {fileID: 830348552}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: deathSpawnPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 1969552148}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: deathSpawnPoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 1877529103}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: _deathActorSpawnerDataComponent
+      value: 
+      objectReference: {fileID: 2719495180452194969, guid: 6c39c707c1099f34a8896cc292bc865f, type: 3}
     - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
       propertyPath: waveData.<WaveBar>k__BackingField
       value: 
@@ -25256,6 +25331,7 @@ Transform:
   - {fileID: 82098619}
   - {fileID: 358698931}
   - {fileID: 1829218836}
+  - {fileID: 830348553}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0552e28aca9e4a1ab02a1da0d56afb5d, type: 3}
+  m_Name: npc 11
+  m_EditorClassIdentifier: 
+  line:
+    line: IN THE LIGHT OF DAY, YOU ARE FREE TO EXPLORE THE DEPTHS OF THESE WOODS,
+      FOR THERE MAY LIE ANSWERS TO THE MYSTERIES THAT BESET US. AT THE APPROACH OF
+      NIGHTFALL, WE SHALL RECONVENE, YOU SHALL PARTAKE OF YOUR POTION AND THEN I
+      WILL SEND YOU TO THE CAMP TO FIGHT
+  nextNode: {fileID: 11400000, guid: c27c4a2dc8ba6ad43a455efd3191982e, type: 2}
+  switchActor: 0

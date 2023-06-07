@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0552e28aca9e4a1ab02a1da0d56afb5d, type: 3}
-  m_Name: npc 16
+  m_Name: npc choose potion
   m_EditorClassIdentifier: 
   line:
-    line: 'Very well... '
+    line: Choose your potion for today...
   nextNode: {fileID: 11400000, guid: 87ca72ed37dada740854265f7cf20632, type: 2}
   switchActor: 0

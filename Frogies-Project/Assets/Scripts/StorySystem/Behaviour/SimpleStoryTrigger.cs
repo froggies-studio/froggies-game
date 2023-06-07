@@ -7,9 +7,8 @@ namespace StorySystem.Behaviour
     public class SimpleStoryTrigger : MonoBehaviour
     {
         [SerializeField] private StoryActor actor;
-        [SerializeField] private StoryNode startNode;
         [SerializeField] private bool autoTrigger;
-
+        private StoryNode _startNode;
         private PlayerActor _playerActor;
         private StoryDirector _director;
         [SerializeField] private bool _isInitialized;
@@ -36,11 +35,12 @@ namespace StorySystem.Behaviour
             }
             
             _isTriggered = true;
-            _director.StartStory(startNode, actor, _playerActor, _playerActor);
+            _director.StartStory(_startNode, actor, _playerActor, _playerActor);
         }
 
-        public void SpawnActor(PlayerActor playerActor, StoryDirector storyDirector)
+        public void SpawnActor(PlayerActor playerActor, StoryDirector storyDirector, StoryNode startNode)
         {
+            _startNode = startNode;
             InitTrigger(storyDirector, playerActor);
         }
     }

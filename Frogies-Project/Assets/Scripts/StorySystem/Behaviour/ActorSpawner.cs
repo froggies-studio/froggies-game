@@ -18,11 +18,11 @@ namespace StorySystem.Behaviour
             _storyDirector = storyDirector;
             _spawnerDataComponent = spawnerDataComponent;
         }
-        public void SpawnActor(Transform spawnPoint)
+        public void SpawnActor(Vector3 spawnPoint)
         {
             currentActor = Instantiate(_spawnerDataComponent.Data.actorPrefab);
-            currentActor.transform.position = spawnPoint.position;
-            currentActor.GetComponent<SimpleStoryTrigger>().SpawnActor(_playerActor, _storyDirector);
+            currentActor.transform.position = spawnPoint;
+            currentActor.GetComponent<SimpleStoryTrigger>().SpawnActor(_playerActor, _storyDirector, _spawnerDataComponent.Data.startNodes[_spawnerDataComponent.Data._deathStartNodeNumber]);
         }
 
         public void HideActor()

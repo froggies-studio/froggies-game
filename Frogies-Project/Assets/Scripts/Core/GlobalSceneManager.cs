@@ -66,6 +66,7 @@ namespace Core
         public PlayerData PlayerData => playerData;
         public StoryDirector StoryDirector => _storyDirector;
         public DropGenerator DropGenerator => _dropGenerator;
+        public PotionSystem.PotionSystem PotionSystem => potionSystem;
 
         private ItemSystem _sceneItemStorage;
         private DropGenerator _dropGenerator;
@@ -145,7 +146,7 @@ namespace Core
         
         private void InitializeDayTimer()
         {
-            dayTimer.OnDayEnd += ()=> _actorSpawner.SpawnActor(PlayerTransform);
+            dayTimer.OnDayEnd += ()=> _actorSpawner.SpawnActor((PlayerTransform.position+new Vector3(1, 0)));
             _actorSpawner.onActorDialogFinished += potionSystem.OpenPotionMenu;
             _waveController.OnWaveCleared += dayTimer.ResetTimer;
             potionSystem.OnActive += dayTimer.ClearTimer;
@@ -238,6 +239,7 @@ namespace Core
             }
 
             _dropGenerator.Update();
+            _deathActorSpawnerDataComponent.Data.UpdateStartNodeNumber();
 
             foreach (var entity in Entities)
             {

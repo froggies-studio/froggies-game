@@ -49,7 +49,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actor: {fileID: 1456352607181326975}
-  startNode: {fileID: 11400000, guid: 03ca323efb78aee42ae0ccab313d0e46, type: 2}
   autoTrigger: 1
   _isInitialized: 0
   _isTriggered: 0
@@ -83,6 +82,10 @@ MonoBehaviour:
   data:
     actorPrefab: {fileID: 787499581980646893}
     actorAnimator: {fileID: 7250613004726269332}
+    startNodes:
+    - {fileID: 11400000, guid: 03ca323efb78aee42ae0ccab313d0e46, type: 2}
+    - {fileID: 11400000, guid: 563c6fb577de6b04eaadf5aeb47ea030, type: 2}
+    _deathStartNodeNumber: 0
 --- !u!1 &1247680414625282515
 GameObject:
   m_ObjectHideFlags: 0

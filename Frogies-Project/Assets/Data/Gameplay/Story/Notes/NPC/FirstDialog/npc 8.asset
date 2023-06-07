@@ -15,7 +15,6 @@ MonoBehaviour:
   line:
     line: 'I can ferry these souls, but it shall require time - five days, to be
       precise.  During this period, I need you to protect this place at night from
-      dark creatures, lest it becomes irreversibly tainted. But make no mistake,
-      I shall not grant you a new lease on life. '
+      dark creatures, lest it becomes irreversibly tainted. '
   nextNode: {fileID: 11400000, guid: 735f2c43a600a6642b122aff81dada05, type: 2}
   switchActor: 0

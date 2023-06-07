@@ -62,13 +62,5 @@ namespace Items
         {
             _itemDescriptors.Add(descriptor);
         }
-        
-        public void Update() // TODO: remove
-        {
-            if (Input.GetKeyUp(KeyCode.G))
-            {
-                DropRandomItem(GetDropRarity());
-            }
-        }
     }
 }

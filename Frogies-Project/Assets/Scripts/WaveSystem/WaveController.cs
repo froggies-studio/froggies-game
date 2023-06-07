@@ -11,6 +11,7 @@ namespace WaveSystem
         public event Action OnWaveCleared;
         public event Action OnWaveStarted;
         public event Action OnEnemyKilled;
+        public event Action OnLastWaveCleared;
 
         private Dictionary<GameObject, bool> _enemyDictionary;
         private List<GameObject> _spawners;
@@ -19,11 +20,12 @@ namespace WaveSystem
         private Wave _currentWave;
         private GameObject _currentWaveSpawner;
         private bool _isNight;
+        private bool _lastWave;
         private int _currentAmountOfEnemies;
         private EnemySpawner _enemySpawner;
 
-        public WaveController(Dictionary<Wave, Wave> availableWaves, 
-            List<GameObject> spawners, 
+        public WaveController(Dictionary<Wave, Wave> availableWaves,
+            List<GameObject> spawners,
             List<GameObject> enemies,
             EnemySpawner enemySpawner)
         {
@@ -34,11 +36,12 @@ namespace WaveSystem
             OnEnemyKilled += EnemyChecker;
         }
 
-        public void OnPotionPicked(int numberOfPotions)
+        public void OnPotionPicked(int numberOfPotions, bool lastPotion)
         {
             _isNight = true;
-            _currentWave = GetWave(numberOfPotions-1);
-            Debug.Assert(_currentWave!=null);
+            _currentWave = GetWave(numberOfPotions - 1);
+            _lastWave = lastPotion;
+            Debug.Assert(_currentWave != null);
             SpawnEnemies();
             if (OnWaveStarted != null) OnWaveStarted.Invoke();
         }
@@ -55,8 +58,8 @@ namespace WaveSystem
 
         private void SpawnEnemies()
         {
-             _currentWaveSpawner = _spawners[_currentWave.Difficulty];
-            
+            _currentWaveSpawner = _spawners[_currentWave.Difficulty];
+
             foreach (var enemyTypeCounter in _currentWave.EnemyTypeCounter)
             {
                 var currentEnemy = _enemies[(int)enemyTypeCounter.EnemyType];
@@ -68,25 +71,29 @@ namespace WaveSystem
                     enemy.Brain.HealthSystem.OnDead += EnemyDeath;
                 }
             }
+
             _currentAmountOfEnemies = _currentWave.MaxAmountOfEnemies;
         }
 
         public void EnemyDeath(object sender, EventArgs e)
         {
             _currentAmountOfEnemies -= 1;
-            if (OnEnemyKilled != null) OnEnemyKilled.Invoke();
-            
+            OnEnemyKilled?.Invoke();
         }
 
         public void EnemyChecker()
         {
-            if (_isNight)
+            if (_isNight && _currentAmountOfEnemies == 0)
             {
-                if (_currentAmountOfEnemies == 0)
+                _isNight = false;
+
+                if (_lastWave)
                 {
-                    _isNight = false;
-                    if (OnWaveCleared != null) OnWaveCleared.Invoke();
+                    OnLastWaveCleared?.Invoke();
+                    return;
                 }
+
+                OnWaveCleared?.Invoke();
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Animation;
 using Core.Entities.Data;
 using Fighting;
@@ -51,7 +51,7 @@ namespace Core.Entities.Enemies
             if (!Brain.HealthSystem.IsDead)
             {
                 _inputFightingInputProvider.CalculateAttackInput(IsInAttackRange);
-                _inputMoveProvider.CalculateHorizontalInput(IsInAttackRange);
+                _inputMoveProvider.CalculateHorizontalInput(Brain.Attacker.IsAttacking);
             }
 
             Brain.Update();
@@ -64,9 +64,11 @@ namespace Core.Entities.Enemies
 
         private void InitializeBrain(EnemyData data)
         {
+            var transform = data.DirectionalMover.transform;
             _inputMoveProvider = new EnemyMovementInput(data.Player,
-                data.DirectionalMover.transform);
-            _inputFightingInputProvider = new EnemyInputFightingProvider();
+                transform);
+            _inputFightingInputProvider = new EnemyInputFightingProvider(data.MinAttackRange
+                , data.Player, transform);
 
             var animationController = new PlayerAnimationController(data.AnimationStateManager, data.SpriteFlipper);
 

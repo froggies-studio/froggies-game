@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Animation;
 using Core.Entities.Data;
 using Core.ObjectPoolers;
@@ -110,7 +110,7 @@ namespace Core.Entities.Enemies
 
             foreach (var collider in _data.Colliders)
             {
-                var rigidbody2D = collider.gameObject.GetComponent<Rigidbody2D>(); // TODO: refactor
+                var rigidbody2D = collider.gameObject.GetComponent<Rigidbody2D>();
                 rigidbody2D.bodyType = RigidbodyType2D.Static;
                 collider.enabled = false;
             }

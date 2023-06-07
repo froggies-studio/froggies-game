@@ -163,8 +163,7 @@ namespace Core
             PlayerInputActions = new PlayerInputActions();
             PlayerInputActions.Enable();
             
-            //TODO disable on release
-            //PlayerInputActions.Debug.Disable();
+            PlayerInputActions.Debug.Disable();
             bool isMouseSchemeEnabled = true;
             PlayerInputActions.Debug.DisableMouseScheme.performed += context =>
             {
@@ -308,22 +307,9 @@ namespace Core
 
             dayTimer.UpdateTimer();
 
-            // TODO: remove
-            if (UnityEngine.Input.GetKeyUp(KeyCode.P)) // for testing purpose only
-            {
-                potionSystem.OpenPotionMenu();
-            }
-
             _waveController.EnemyChecker();
-            // TODO: remove
-            if (UnityEngine.Input.GetKeyDown(KeyCode.K)) // for testing purpose only
-            {
-                _waveController.OnPotionPicked(1, true);
-            }
 
-            _dropGenerator.Update();
             _deathActorSpawnerDataComponent.Data.UpdateStartNodeNumber();
-
             foreach (var entity in Entities)
             {
                 entity.Update();
@@ -343,7 +329,6 @@ namespace Core
 
         public void RestartLevel()
         {
-            //TODO: proper level restart
             int index = SceneManager.GetActiveScene().buildIndex;
             SceneManager.LoadScene(index);
         }

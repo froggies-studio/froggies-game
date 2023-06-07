@@ -15,13 +15,13 @@ namespace Core.Entities.Spawners
             _globalSceneManager = globalSceneManager;
         }
 
-        public BasicEntity Spawn(GameObject enemyPrefab, out GameObject enemyGameObject)
+        public BasicEntity Spawn(GameObject enemyPrefab, out GameObject enemyGameObject, int waveDifficulty)
         {
             enemyGameObject = Object.Instantiate(enemyPrefab);
             var enemyData = enemyGameObject.GetComponent<EnemyDataComponent>();
             enemyData.Data.Player = _globalSceneManager.PlayerData.DirectionalMover.transform;
             enemyData.Data.Renderer.sortingOrder = _enemiesCounter++;
-            var basicEnemy = new BasicEnemy(enemyData.Data);
+            var basicEnemy = new BasicEnemy(enemyData.Data, waveDifficulty);
             _globalSceneManager.Entities.Add(basicEnemy);
             return basicEnemy;
         }

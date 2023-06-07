@@ -68,10 +68,17 @@ MonoBehaviour:
   waveData:
     <Spawners>k__BackingField:
     - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
     <Enemies>k__BackingField:
     - {fileID: 5634132030223560505, guid: c54eeb9a1343fa247b55840d8afd779a, type: 3}
+    - {fileID: 5634132030223560505, guid: 5d809c2ff7f0bc94da6dbde204ccdef9, type: 3}
+    - {fileID: 5634132030223560505, guid: 62948deff1c5ea743a155d2dfdc4c6ee, type: 3}
     <WaveBar>k__BackingField: {fileID: 0}
   storyTriggerManager: {fileID: 0}
   playerActor: {fileID: 0}
   deathPanel: {fileID: 0}
-  particleEffectsPoller: {fileID: 0}
+  winPanel: {fileID: 0}
+  sceneLoader: {fileID: 0}

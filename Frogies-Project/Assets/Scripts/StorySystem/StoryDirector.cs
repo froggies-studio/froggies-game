@@ -1,3 +1,4 @@
+using System;
 using JetBrains.Annotations;
 using StorySystem.Behaviour;
 using StorySystem.Data;
@@ -16,6 +17,9 @@ namespace StorySystem
         private StoryActor _actor1;
         private StoryActor _actor2;
         private IActiveActor _activeActor;
+
+        public event Action StoryStarted;
+        public event Action StoryFinished;
         
         public void StartStory(StoryNode starter, StoryActor actor1, StoryActor actor2, IActiveActor activeActor)
         {
@@ -27,6 +31,9 @@ namespace StorySystem
             _isRunning = true;
             _activeActor.ChoiceCallback += OnChoiceCallback;
             _currentActor = actor1;
+            
+            StoryStarted?.Invoke();
+            
             Act(starter);
         }
 
@@ -34,11 +41,7 @@ namespace StorySystem
         {
             if (node == null)
             {
-                _isActing = false;
-                _isRunning = false;
-                _activeActor.ChoiceCallback -= OnChoiceCallback;
-                _actor1.Deactivate();
-                _actor2.Deactivate();
+                FinishStory();
                 return;
             }
             
@@ -60,6 +63,17 @@ namespace StorySystem
             }
             
             _activeNode = node;
+        }
+
+        private void FinishStory()
+        {
+            _isActing = false;
+            _isRunning = false;
+            _activeActor.ChoiceCallback -= OnChoiceCallback;
+            _actor1.Deactivate();
+            _actor2.Deactivate();
+            
+            StoryFinished?.Invoke();
         }
 
         private void OnChoiceCallback(int choiceNum)

@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actor: {fileID: 1456352607181326975}
-  startNode: {fileID: 11400000, guid: 41db801497d20cd4ba197eebb9d226c2, type: 2}
+  startNode: {fileID: 11400000, guid: 03ca323efb78aee42ae0ccab313d0e46, type: 2}
   autoTrigger: 1
   _isInitialized: 0
   _isTriggered: 0
@@ -185,7 +185,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b673115f4c298db4d92605c776fc0c8e, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -252,7 +252,7 @@ MonoBehaviour:
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_renderer: {fileID: 4986194735461891601}
   m_maskType: 0
 --- !u!1 &5413043988623040794

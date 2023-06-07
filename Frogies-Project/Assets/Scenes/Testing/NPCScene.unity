@@ -14712,6 +14712,10 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 0.21
       objectReference: {fileID: 0}
+    - target: {fileID: 2185727888614771785, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3747304625260526174, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
       propertyPath: m_Name
       value: Player

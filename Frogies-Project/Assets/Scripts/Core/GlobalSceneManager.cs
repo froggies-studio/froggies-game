@@ -8,6 +8,7 @@ using Core.Entities;
 using Core.Entities.Data;
 using Core.Entities.Player;
 using Core.Entities.Spawners;
+using Core.ObjectPoolers;
 using Fighting;
 using Items;
 using Items.Behaviour;
@@ -26,6 +27,7 @@ using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using WaveSystem;
 
 namespace Core
@@ -54,6 +56,7 @@ namespace Core
         [Space(10)] [SerializeField] [CanBeNull] private GameObject deathPanel;
         [Space(10)] [SerializeField] [CanBeNull] private GameObject winPanel;
 
+        [SerializeField] private GameObject particleEffectsPoller;
         private WaveController _waveController;
         public EnemySpawner EnemySpawner { get; private set; }
 
@@ -111,6 +114,25 @@ namespace Core
             InitializeInput();
 
             if (deathPanel != null) deathPanel.SetActive(false);
+                
+            ObjectPooler.Instance.AddPooler(new ObjectPooler.Pool()
+            {
+                Tag = ObjectPoolTags.HIT_BLOOD_PARTICLE_EFFECTS,
+                Prefab = prefabsStorage.HitBloodParticlesSystem.gameObject,
+                Size = 30,
+                Parent = particleEffectsPoller
+            });
+            
+            ObjectPooler.Instance.AddPooler(new ObjectPooler.Pool()
+            {
+                Tag = ObjectPoolTags.DECAL_BLOOD_PARTICLE_EFFECTS,
+                Prefab = prefabsStorage.HitDecalsParticlesSystem.gameObject,
+                Size = 30,
+                Parent = particleEffectsPoller
+            });
+
+            if (deathPanel != null) 
+                deathPanel.SetActive(false);
 
             EnemySpawner = new EnemySpawner(this);
             
@@ -183,12 +205,32 @@ namespace Core
             entityData.DamageReceiver.Initialize(entityData.DirectionalMover.Knockback);
 
             entityBrain.HealthSystem.OnDead += OnHealthSystemOnOnDead;
+            
+            if (entityData.HitVisualisation.IsEnabled)
+            {
+                var collider = entityData.DirectionalMover.GetComponent<BoxCollider2D>();
+                var bounds = new Bounds(collider.offset, collider.size);
+            
+                DamageVisuals damageVisuals = new DamageVisuals(
+                    entityData.DirectionalMover.transform,
+                    bounds, 
+                    new DamageVisuals.DamageVisualsData()
+                    {
+                        BloodColor = entityData.HitVisualisation.BloodColor
+                    }
+                );
+                
+                entityData.DamageReceiver.Initialize(damageVisuals.TriggerEffect);
+                entityBrain.HealthSystem.OnDead += (_, _) => damageVisuals.Return();
+            }
+            
             return player;
         }
 
         private void OnHealthSystemOnOnDead(object o, EventArgs eventArgs)
         {
-            deathPanel.SetActive(true);
+            if (deathPanel != null) 
+                deathPanel.SetActive(true);
         }
 
         private void InitializePotionSystem(List<ItemDescriptor> itemDescriptors, BasicEntity player)
@@ -217,7 +259,8 @@ namespace Core
         private void PerformEndGameLogic()
         {
             StartCoroutine(DeathWithDelay());
-            if (winPanel != null) winPanel.SetActive(true);
+            if (winPanel != null) 
+                winPanel.SetActive(true);
         }
 
         private IEnumerator DeathWithDelay()

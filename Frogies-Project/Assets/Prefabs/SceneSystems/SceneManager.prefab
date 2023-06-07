@@ -64,6 +64,7 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     <DamageReceiver>k__BackingField: {fileID: 0}
+    <HitVisualisation>k__BackingField: {fileID: 11400000, guid: b8d0f5f415f2b1047bbf7a8af73d1959, type: 2}
   waveData:
     <Spawners>k__BackingField:
     - {fileID: 0}

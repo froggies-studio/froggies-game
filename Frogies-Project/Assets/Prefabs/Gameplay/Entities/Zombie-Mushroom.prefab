@@ -328,6 +328,7 @@ MonoBehaviour:
     - {fileID: 1237643441137552330}
     <Renderer>k__BackingField: {fileID: 4049458250519836949}
     <MinAttackRange>k__BackingField: 0
+    <HitVisualisation>k__BackingField: {fileID: 11400000, guid: aec4a659f00de4245a96ea8919d95d3e, type: 2}
 --- !u!1 &9079118191180825649
 GameObject:
   m_ObjectHideFlags: 0

@@ -41,6 +41,12 @@ TagManager:
   - name: ParalaxBg
     uniqueID: 837515739
     locked: 0
+  - name: Props
+    uniqueID: 2113512667
+    locked: 0
+  - name: Effects
+    uniqueID: 3087184181
+    locked: 0
   - name: Enemies
     uniqueID: 690128339
     locked: 0

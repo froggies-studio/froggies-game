@@ -35,24 +35,40 @@ namespace Core.ObjectPoolers
             _poolDictionary.Add(pool.Tag, objectPool);
         }
 
+        public GameObject SpawnFromPool(string objectPoolTag)
+        {
+            return SpawnFromPool(objectPoolTag, Vector3.zero, Quaternion.identity);
+        }
+        
         public GameObject SpawnFromPool(string objectPoolTag, Vector3 position, Quaternion rotation)
         {
-            if (!_poolDictionary.ContainsKey(objectPoolTag))
+            if (!_poolDictionary.TryGetValue(objectPoolTag, out var objectPool))
             {
                 Debug.LogWarning($"Pool with tag {objectPoolTag} doesn't exist");
                 return null;
             }
 
-            var objectToSpawn = _poolDictionary[objectPoolTag].Dequeue();
+            //TODO: Add dynamic pool resizing
             
+            var objectToSpawn = objectPool.Dequeue();
             objectToSpawn.SetActive(true);
             objectToSpawn.transform.position = position;
             objectToSpawn.transform.rotation = rotation;
             
             objectToSpawn.GetComponent<IPooledObject>()?.OnObjectSpawn();
             
-            _poolDictionary[objectPoolTag].Enqueue(objectToSpawn);
             return objectToSpawn;
+        }
+        
+        public void Return(string objectPoolTag, GameObject gameObject)
+        {
+            if (!_poolDictionary.TryGetValue(objectPoolTag, out var objectPool))
+            {
+                Debug.LogWarning($"Pool with tag {objectPoolTag} doesn't exist");
+                return;
+            }
+            
+            objectPool.Enqueue(gameObject);
         }
 
         [Serializable]

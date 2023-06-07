@@ -216,7 +216,7 @@ namespace Core
             _waveController = new WaveController(waves, waveData.Spawners, waveData.Enemies, EnemySpawner);
             waveData.WaveBar.Setup(_waveController);
             potionSystem.OnOptionSelected += _waveController.OnPotionPicked;
-            potionSystem.OnOptionSelected += _ => PlayerTransform.position = playerSpawner.position;
+            potionSystem.OnOptionSelected += (_,_) => PlayerTransform.position = playerSpawner.position;
             _waveController.OnLastWaveCleared += PerformEndGameLogic;
         }
 

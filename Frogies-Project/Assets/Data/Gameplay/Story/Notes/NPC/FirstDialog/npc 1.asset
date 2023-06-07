@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: npc 1
   m_EditorClassIdentifier: 
   line:
-    line: 'Greetings, adventurer...  '
+    line: GREETINGS, ADVENTURER...
   nextNode: {fileID: 11400000, guid: d18446bc2c9ffc7419f9c093dde0aa37, type: 2}
   switchActor: 0

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: npc 11
   m_EditorClassIdentifier: 
   line:
-    line: 'In the light of day, you are free to explore the depths of these woods,
-      for there may lie answers to the mysteries that beset us. At the approach of
-      nightfall, we shall reconvene here, where you shall partake of your potion. '
+    line: IN THE LIGHT OF DAY, YOU ARE FREE TO EXPLORE THE DEPTHS OF THESE WOODS,
+      FOR THERE MAY LIE ANSWERS TO THE MYSTERIES THAT BESET US. AT THE APPROACH OF
+      NIGHTFALL, WE SHALL RECONVENE, YOU SHALL PARTAKE OF YOUR POTION AND THEN I
+      WILL SEND YOU TO THE CAMP TO FIGHT
   nextNode: {fileID: 11400000, guid: c27c4a2dc8ba6ad43a455efd3191982e, type: 2}
   switchActor: 0

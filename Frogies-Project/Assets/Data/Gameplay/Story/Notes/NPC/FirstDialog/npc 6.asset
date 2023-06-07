@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: npc 6
   m_EditorClassIdentifier: 
   line:
-    line: Believe me or not, it doesn't matter. The truth remains that dark magic
-      is behind it. The spell was made. You spared instant death, but your time is
-      running out, and in a matter of hours, you too shall meet your end.
+    line: BELIEVE ME OR NOT, IT DOESN'T MATTER. THE TRUTH REMAINS THAT DARK MAGIC
+      IS BEHIND IT. THE SPELL WAS MADE. YOU SPARED INSTANT DEATH, BUT YOUR TIME IS
+      RUNNING OUT, AND IN A MATTER OF HOURS, YOU TOO SHALL MEET YOUR END.
   nextNode: {fileID: 11400000, guid: 2e107b0ae92d4f94cac0b98089f64b38, type: 2}
   switchActor: 0

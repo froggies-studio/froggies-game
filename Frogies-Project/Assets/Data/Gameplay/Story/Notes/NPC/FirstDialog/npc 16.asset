@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: npc 16
   m_EditorClassIdentifier: 
   line:
-    line: 'Very well... '
+    line: 'VERY WELL... '
   nextNode: {fileID: 11400000, guid: 06c1d261f23edb64db6671da62ae6b0d, type: 2}
   switchActor: 0

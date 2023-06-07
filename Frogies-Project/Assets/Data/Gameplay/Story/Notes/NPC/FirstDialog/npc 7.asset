@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: npc 7
   m_EditorClassIdentifier: 
   line:
-    line: 'However, fate has granted you a temporary reprieve, I need you alive for
-      a bit. The souls of your fallen friends are trapped in this realm, unable to
-      find solace in the Underworld. I don''t like when nature orders are violated.  '
+    line: 'HOWEVER, FATE HAS GRANTED YOU A TEMPORARY REPRIEVE, I NEED YOU ALIVE FOR
+      A BIT. THE SOULS OF YOUR FALLEN FRIENDS ARE TRAPPED IN THIS REALM, UNABLE TO
+      FIND SOLACE IN THE UNDERWORLD. I DON''T LIKE WHEN NATURE ORDERS ARE VIOLATED. '
   nextNode: {fileID: 11400000, guid: 09c512f2a515ffb43bb444006cbbf163, type: 2}
   switchActor: 0

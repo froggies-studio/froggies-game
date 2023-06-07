@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: npc 14.1
   m_EditorClassIdentifier: 
   line:
-    line: 'Then you shall meet your demise and be trapped with your precious friends
-      forever in this realm. Farewell, fool. '
+    line: 'THEN YOU SHALL MEET YOUR DEMISE AND BE TRAPPED WITH YOUR PRECIOUS FRIENDS
+      FOREVER IN THIS REALM. FAREWELL, FOOL. '
   nextNode: {fileID: 11400000, guid: c653d503837e62c4181237eb9ec53ad3, type: 2}
   switchActor: 0

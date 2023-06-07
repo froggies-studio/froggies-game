@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: npc 8
   m_EditorClassIdentifier: 
   line:
-    line: 'I can ferry these souls, but it shall require time - five days, to be
-      precise.  During this period, I need you to protect this place at night from
-      dark creatures, lest it becomes irreversibly tainted. '
+    line: 'I CAN FERRY THESE SOULS, BUT IT SHALL REQUIRE TIME - FIVE DAYS, TO BE
+      PRECISE.  DURING THIS PERIOD, I NEED YOU TO PROTECT THIS PLACE AT NIGHT FROM
+      DARK CREATURES, LEST IT BECOMES IRREVERSIBLY TAINTED. '
   nextNode: {fileID: 11400000, guid: 735f2c43a600a6642b122aff81dada05, type: 2}
   switchActor: 0

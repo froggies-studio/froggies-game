@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: npc 10
   m_EditorClassIdentifier: 
   line:
-    line: "\rBut beware, for each potion exacts a toll upon your strength in different
-      ways. Choose wisely which to imbibe, for your decisions shall shape your journey."
+    line: BUT BEWARE, FOR EACH POTION EXACTS A TOLL UPON YOUR STRENGTH IN DIFFERENT
+      WAYS. CHOOSE WISELY WHICH TO IMBIBE, FOR YOUR DECISIONS SHALL SHAPE YOUR JOURNEY.
   nextNode: {fileID: 11400000, guid: c34cb071d5f2d2b4fbe4d448d3b8856a, type: 2}
   switchActor: 0

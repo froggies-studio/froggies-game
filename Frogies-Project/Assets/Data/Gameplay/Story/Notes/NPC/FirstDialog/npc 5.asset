@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: npc 5
   m_EditorClassIdentifier: 
   line:
-    line: 'Ahahahah... Kill me? Foolish mortal, you cannot threaten Death itself! '
+    line: 'KILL ME? FOOLISH MORTAL, YOU CANNOT THREATEN DEATH ITSELF '
   nextNode: {fileID: 11400000, guid: 9a9571be39a109d48a4dc6ca9d97cdb0, type: 2}
   switchActor: 0

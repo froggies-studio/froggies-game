@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: npc 12
   m_EditorClassIdentifier: 
   line:
-    line: Do we have an accord, adventurer?
+    line: DO WE HAVE AN ACCORD, ADVENTURER?
   nextNode: {fileID: 11400000, guid: 55b6658f352035f4983c5eca3d580c42, type: 2}
   switchActor: 0

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: npc 3
   m_EditorClassIdentifier: 
   line:
-    line: All of your friends are dead. And you will be too soon...
+    line: ALL YOUR FRIENDS ARE DEAD AND YOU WILL TOO SOON...
   nextNode: {fileID: 11400000, guid: ab182b3aacd933442b430a95ddeef713, type: 2}
   switchActor: 1

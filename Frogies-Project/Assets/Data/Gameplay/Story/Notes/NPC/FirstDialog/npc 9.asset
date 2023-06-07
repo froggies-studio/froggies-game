@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: npc 9
   m_EditorClassIdentifier: 
   line:
-    line: 'But make no mistake, I shall not grant you a new lease on life. The only
-      offer I can make is to extend your short life. You need to take daily potions.
-      Each elixir will grant you an additional day of existence. '
+    line: 'BUT MAKE NO MISTAKE, I SHALL NOT GRANT YOU A NEW LEASE ON LIFE. THE ONLY
+      OFFER I CAN MAKE IS TO EXTEND YOUR SHORT LIFE. YOU NEED TO TAKE DAILY POTIONS.
+      EACH ELIXIR WILL GRANT YOU AN ADDITIONAL DAY OF EXISTENCE. '
   nextNode: {fileID: 11400000, guid: 7fb17eeea70def3438939e0b87b74624, type: 2}
   switchActor: 0

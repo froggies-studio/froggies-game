@@ -6,6 +6,7 @@ using Core.InventorySystem;
 using Core.Entities;
 using Core.Entities.Data;
 using Core.Entities.Spawners;
+using Core.ObjectPoolers;
 using Fighting;
 using Items;
 using Items.Behaviour;
@@ -23,6 +24,7 @@ using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using WaveSystem;
 
 namespace Core
@@ -49,7 +51,9 @@ namespace Core
         [Header("Story")] [SerializeField] private StoryTriggerManager storyTriggerManager;
         [SerializeField] private PlayerActor playerActor;
         [Space(10)] [SerializeField] private GameObject deathPanel;
-
+        
+        [SerializeField] private GameObject particleEffectsPoller;
+        
         private WaveController _waveController;
         public EnemySpawner EnemySpawner { get; private set; }
 
@@ -104,7 +108,23 @@ namespace Core
             
             GlobalCamera = camera.GetComponent<PixelPerfectCamera>();
             InitializeInput();
-
+                
+            ObjectPooler.Instance.AddPooler(new ObjectPooler.Pool()
+            {
+                Tag = ObjectPoolTags.HIT_BLOOD_PARTICLE_EFFECTS,
+                Prefab = prefabsStorage.HitBloodParticlesSystem.gameObject,
+                Size = 30,
+                Parent = particleEffectsPoller
+            });
+            
+            ObjectPooler.Instance.AddPooler(new ObjectPooler.Pool()
+            {
+                Tag = ObjectPoolTags.DECAL_BLOOD_PARTICLE_EFFECTS,
+                Prefab = prefabsStorage.HitDecalsParticlesSystem.gameObject,
+                Size = 30,
+                Parent = particleEffectsPoller
+            });
+            
             deathPanel.SetActive(false);
 
             EnemySpawner = new EnemySpawner(this);
@@ -177,6 +197,25 @@ namespace Core
             entityData.DamageReceiver.Initialize(entityData.DirectionalMover.Knockback);
 
             entityBrain.HealthSystem.OnDead += (_, _) => deathPanel.SetActive(true);
+            
+            if (entityData.HitVisualisation.IsEnabled)
+            {
+                var collider = entityData.DirectionalMover.GetComponent<BoxCollider2D>();
+                var bounds = new Bounds(collider.offset, collider.size);
+            
+                DamageVisuals damageVisuals = new DamageVisuals(
+                    entityData.DirectionalMover.transform,
+                    bounds, 
+                    new DamageVisuals.DamageVisualsData()
+                    {
+                        BloodColor = entityData.HitVisualisation.BloodColor
+                    }
+                );
+                
+                entityData.DamageReceiver.Initialize(damageVisuals.TriggerEffect);
+                entityBrain.HealthSystem.OnDead += (_, _) => damageVisuals.Return();
+            }
+            
             return player;
         }
 

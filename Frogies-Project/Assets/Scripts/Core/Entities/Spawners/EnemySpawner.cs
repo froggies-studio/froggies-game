@@ -1,5 +1,6 @@
 ﻿using Core.Entities.Data;
 using Core.Entities.Enemies;
+using Fighting;
 using UnityEngine;
 
 namespace Core.Entities.Spawners

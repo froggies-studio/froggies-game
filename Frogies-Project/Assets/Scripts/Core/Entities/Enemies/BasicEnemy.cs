@@ -1,6 +1,7 @@
 ﻿using System;
 using Animation;
 using Core.Entities.Data;
+using Core.ObjectPoolers;
 using Fighting;
 using Movement;
 using UnityEngine;
@@ -73,6 +74,24 @@ namespace Core.Entities.Enemies
             data.DamageReceiver.Initialize(data.DirectionalMover.Knockback);
             
             Brain.HealthSystem.OnDead += TurnToDeadState;
+
+            if (data.HitVisualisation.IsEnabled)
+            {
+                var collider = data.DirectionalMover.GetComponent<BoxCollider2D>();
+                var bounds = new Bounds(collider.offset, collider.size);
+            
+                DamageVisuals damageVisuals = new DamageVisuals(
+                    data.DirectionalMover.transform,
+                    bounds, 
+                    new DamageVisuals.DamageVisualsData()
+                    {
+                        BloodColor = data.HitVisualisation.BloodColor
+                    }
+                );
+                
+                data.DamageReceiver.Initialize(damageVisuals.TriggerEffect);
+                Brain.HealthSystem.OnDead += (_, _) => damageVisuals.Return();
+            }
         }
 
         private void TurnToDeadState(object sender, EventArgs e)

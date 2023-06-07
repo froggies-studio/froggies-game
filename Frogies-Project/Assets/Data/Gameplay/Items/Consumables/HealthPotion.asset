@@ -22,7 +22,7 @@ MonoBehaviour:
     <StatModifiers>k__BackingField:
     - <Stat>k__BackingField:
         <Type>k__BackingField: 1
-        <Value>k__BackingField: 40
+        <Value>k__BackingField: 10
       <Type>k__BackingField: 0
       <Duration>k__BackingField: -1
     Name: 

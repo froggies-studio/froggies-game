@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   line:
     line: 'Also you can pick up unlimited count of healing potions and use each at
-      any time by clicking on "Use" button under the icon.
+      any time by clicking on the icon.
 
 
       Tap to continue...'

@@ -35,10 +35,10 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5223619643897469379
 MonoBehaviour:
@@ -73,8 +73,8 @@ MonoBehaviour:
   m_MinHeight: -1
   m_PreferredWidth: -1
   m_PreferredHeight: -1
-  m_FlexibleWidth: 1
-  m_FlexibleHeight: 1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
   m_LayoutPriority: 1
 --- !u!114 &1037818749314353806
 MonoBehaviour:
@@ -88,7 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AspectMode: 1
+  m_AspectMode: 2
   m_AspectRatio: 0.6666667
 --- !u!1001 &4346163993789792430
 PrefabInstance:
@@ -104,7 +104,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1657596943983891748, guid: a7c9be19603a2f74a91c33dd56412fc6, type: 3}
       propertyPath: m_fontSize
-      value: 25.4
+      value: 72
       objectReference: {fileID: 0}
     - target: {fileID: 2023625981779574856, guid: a7c9be19603a2f74a91c33dd56412fc6, type: 3}
       propertyPath: m_AnchorMax.x
@@ -140,7 +140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3136143481456650907, guid: a7c9be19603a2f74a91c33dd56412fc6, type: 3}
       propertyPath: m_fontSize
-      value: 18
+      value: 72
       objectReference: {fileID: 0}
     - target: {fileID: 3931530201534678491, guid: a7c9be19603a2f74a91c33dd56412fc6, type: 3}
       propertyPath: m_Pivot.x
@@ -284,7 +284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7964601497484606964, guid: a7c9be19603a2f74a91c33dd56412fc6, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 350
       objectReference: {fileID: 0}
     - target: {fileID: 7964601497484606964, guid: a7c9be19603a2f74a91c33dd56412fc6, type: 3}
       propertyPath: m_AnchoredPosition.y

@@ -37,13 +37,13 @@ namespace Core.Entities.Enemies
             }
         }
 
-        public BasicEnemy(EnemyData data, int wave)
+        public BasicEnemy(EnemyData data, int waveNumber)
         {
             _data = data;
             InitializeBrain(data);
             _contactFilter2D = new ContactFilter2D();
             _contactFilter2D.SetLayerMask(data.AttacksData.AttackLayerMask);
-            _waveDifficulty = wave;
+            _waveDifficulty = waveNumber+1;
         }
 
         public override void Update()

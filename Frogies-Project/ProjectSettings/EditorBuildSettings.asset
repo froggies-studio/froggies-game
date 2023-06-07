@@ -14,7 +14,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Story/CampScene.unity
     guid: 45ecc0c0916e9f14bb7fcbbc47065444
-  - enabled: 1
-    path: Assets/Scenes/MainScene.unity
-    guid: fa3268624354dce4cb335bac4c092d8a
   m_configObjects: {}

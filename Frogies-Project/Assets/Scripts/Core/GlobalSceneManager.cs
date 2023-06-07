@@ -263,7 +263,6 @@ namespace Core
             _waveController = new WaveController(waves, waveData.Spawners, waveData.Enemies, EnemySpawner);
             waveData.WaveBar.Setup(_waveController);
             potionSystem.OnOptionSelected += _waveController.OnPotionPicked;
-            potionSystem.OnOptionSelected += (_,_) => PlayerTransform.position = playerSpawner.position;
             _waveController.OnLastWaveCleared += PerformEndGameLogic;
         }
 
@@ -331,6 +330,11 @@ namespace Core
         {
             int index = SceneManager.GetActiveScene().buildIndex;
             SceneManager.LoadScene(index);
+        }
+
+        public void RespawnPlayer()
+        {
+            PlayerTransform.position = playerSpawner.position;
         }
     }
 }

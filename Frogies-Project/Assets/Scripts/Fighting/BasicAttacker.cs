@@ -1,5 +1,5 @@
-using System;
 using Core;
+using System;
 using StatsSystem;
 using UnityEngine;
 using StatsSystem.Endurance;

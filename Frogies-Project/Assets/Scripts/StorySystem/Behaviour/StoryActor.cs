@@ -1,4 +1,5 @@
 using System;
+using Animation;
 using DG.Tweening;
 using JetBrains.Annotations;
 using StorySystem.Data;
@@ -12,9 +13,10 @@ namespace StorySystem.Behaviour
     {
         [SerializeField] protected Transform textPanel;
         [SerializeField] protected TMP_Text text;
-        
+        [SerializeField] protected bool isDeath;
+
         [CanBeNull] private Tween _textTween;
-        
+
         public void Act(StoryLine line, Action finishCallback)
         {
             textPanel.gameObject.SetActive(true);
@@ -22,7 +24,7 @@ namespace StorySystem.Behaviour
             _textTween = tweenTMPAnimator.DOText(line.Line, .65f).OnComplete(() =>
             {
                 finishCallback?.Invoke();
-            }).Play();
+            }).Play().SetUpdate(true);
         }
 
         public void ForceStopActing()
@@ -32,6 +34,11 @@ namespace StorySystem.Behaviour
         
         public void Deactivate()
         {
+            // if (isDeath)
+            // {
+            //     var deathActor = GetComponent<ActorSpawner>();
+            //     deathActor.HideActor();
+            // }
             text.text = "";
             textPanel.gameObject.SetActive(false);
         }

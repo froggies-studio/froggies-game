@@ -1,39 +1,51 @@
 ﻿using System;
 using DG.Tweening;
+using Items.Core;
+using Items.Data;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
+using Object = System.Object;
 
 namespace Items.Behaviour
 {
     public class SceneItem : MonoBehaviour
     {
-        [SerializeField] private SpriteRenderer _spriteRenderer;
-        [SerializeField] private TMP_Text _text;
-        [SerializeField] private Button _button;
-        [SerializeField] private Canvas _canvas;
+        [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private TMP_Text text;
+        [SerializeField] private Button button;
+        [SerializeField] private Canvas canvas;
 
-        [SerializeField] private float _interactionDistance = 2;
+        [SerializeField] private float interactionDistance = 2;
+        [SerializeField] private float onSceneTime = 0.8f * 60;
+
+        private Item _item;
+        private float _droppingTime;
 
         public event Action<SceneItem> ItemClicked;
+        public event Action<SceneItem> ItemTimePassed;
+        public ItemDescriptor ItemDescriptor => _item.Descriptor;
+        
         public bool TextEnabled {
             set
             {
                 if (_textEnabled == value) return;
                 
                 _textEnabled = value;
-                _canvas.enabled = value;
+                canvas.enabled = value;
             }
         }
 
-        public float InteractionDistance => _interactionDistance;
+        public float InteractionDistance => interactionDistance;
 
         private bool _textEnabled = true;
 
         private Sequence _sequence;
         private void Awake()
         {
-            _button.onClick.AddListener(() => ItemClicked?.Invoke(this));
+            _droppingTime = Time.time;
+            button.onClick.AddListener(() => ItemClicked?.Invoke(this));
         }
 
         private void OnMouseDown()
@@ -44,14 +56,15 @@ namespace Items.Behaviour
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, _interactionDistance);
+            Gizmos.DrawWireSphere(transform.position, interactionDistance);
         }
 
-        public void SetItem(Sprite sprite, string itemName, Color textColor)
+        public void SetItem(Item item, Color textColor)
         {
-            _spriteRenderer.sprite = sprite;
-            _text.text = itemName;
-            _text.color = textColor;
+            _item = item;
+            spriteRenderer.sprite = _item.Descriptor.ItemSprite;
+            text.text = _item.Descriptor.ItemId.ToString();
+            text.color = textColor;
             TextEnabled = false;
         }
 
@@ -59,6 +72,12 @@ namespace Items.Behaviour
         {
             transform.position = position;
             TextEnabled = true;
+        }
+
+        private void Update()
+        {
+            if (_droppingTime + onSceneTime < Time.time)
+                ItemTimePassed?.Invoke(this);
         }
     }
 }

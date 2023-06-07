@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 410a29ca5e8949d3b92b2d0ea39d23fb, type: 3}
+  m_Name: npc 4
+  m_EditorClassIdentifier: 
+  line:
+    line: 
+  nextNodes:
+  - Line:
+      line: You're lying!! Tell me the truth or I will kill you!
+    Node: {fileID: 11400000, guid: dda172debc5e2254ea3286ee1a481632, type: 2}
+  - Line:
+      line: What?! What do you mean?!
+    Node: {fileID: 11400000, guid: 9a9571be39a109d48a4dc6ca9d97cdb0, type: 2}

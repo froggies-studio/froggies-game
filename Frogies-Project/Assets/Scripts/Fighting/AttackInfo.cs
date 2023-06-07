@@ -1,5 +1,6 @@
 using System;
 using Animation;
+using UnityEngine.Serialization;
 
 namespace Fighting
 {
@@ -8,6 +9,8 @@ namespace Fighting
     {
         public PlayerAnimationState animationState;
         public float damageAmount;
+        public int attackerKnockbackAmount;
+        public int receiverKnockbackAmount;
         public float rechargeTime;
         public float enduranceCost;
 

@@ -15,6 +15,7 @@ namespace Core.Entities
     public class EntityBrain
     {
         public HealthSystem HealthSystem { get; private set; }
+        public BasicAttacker Attacker => _attacker;
         public StatsController StatsController => _statsController;
 
         private readonly EnduranceSystem _enduranceSystem;
@@ -47,10 +48,12 @@ namespace Core.Entities
             _statsController = new StatsController(stats);
             HealthSystem = new HealthSystem(_statsController);
             _enduranceSystem = new EnduranceSystem(_statsController);
-            _attacker = new BasicAttacker(_enduranceSystem, attacksData.AttackLayerMask, attackColliders, attacksData);
+            _attacker = new BasicAttacker(_enduranceSystem, attacksData.AttackLayerMask, attackColliders, attacksData, mover.transform);
 
             animation.AnimationPerformed += OnAnimationPerformed;
             HealthSystem.OnDead += UpdateToDeadAnimation;
+            
+            _attacker.AttackPerformed += (_, knockbackInfo) => _mover.Knockback(knockbackInfo);
         }
 
         public void FixedUpdate()

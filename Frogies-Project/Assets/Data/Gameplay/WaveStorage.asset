@@ -18,3 +18,31 @@ MonoBehaviour:
     - EnemyType: 0
       Amount: 2
     <MaxAmountOfEnemies>k__BackingField: 0
+  - <Difficulty>k__BackingField: 1
+    <EnemyTypeCounter>k__BackingField:
+    - EnemyType: 0
+      Amount: 2
+    - EnemyType: 1
+      Amount: 1
+    <MaxAmountOfEnemies>k__BackingField: 0
+  - <Difficulty>k__BackingField: 2
+    <EnemyTypeCounter>k__BackingField:
+    - EnemyType: 1
+      Amount: 4
+    <MaxAmountOfEnemies>k__BackingField: 0
+  - <Difficulty>k__BackingField: 3
+    <EnemyTypeCounter>k__BackingField:
+    - EnemyType: 2
+      Amount: 1
+    - EnemyType: 1
+      Amount: 2
+    <MaxAmountOfEnemies>k__BackingField: 0
+  - <Difficulty>k__BackingField: 4
+    <EnemyTypeCounter>k__BackingField:
+    - EnemyType: 0
+      Amount: 1
+    - EnemyType: 1
+      Amount: 1
+    - EnemyType: 2
+      Amount: 2
+    <MaxAmountOfEnemies>k__BackingField: 0

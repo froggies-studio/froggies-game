@@ -429,11 +429,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82118737a2c6409aad8050892c41778b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: 1460270771022448964}
-  _text: {fileID: 5466005369254688886}
-  _button: {fileID: 3702711773039022354}
-  _canvas: {fileID: 7675187383066423219}
-  _interactionDistance: 2
+  spriteRenderer: {fileID: 1460270771022448964}
+  text: {fileID: 5466005369254688886}
+  button: {fileID: 3702711773039022354}
+  canvas: {fileID: 7675187383066423219}
+  interactionDistance: 2
+  onSceneTime: 40
 --- !u!50 &3153018693580755824
 Rigidbody2D:
   serializedVersion: 4

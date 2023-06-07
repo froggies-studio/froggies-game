@@ -1,8 +1,12 @@
 ﻿using System;
 using Animation;
 using Core.Entities.Data;
+using Core.ObjectPoolers;
 using Fighting;
+using Items;
+using Items.Enum;
 using Movement;
+using StatsSystem.Enum;
 using UnityEngine;
 
 namespace Core.Entities.Enemies
@@ -15,6 +19,7 @@ namespace Core.Entities.Enemies
 
         private readonly Collider2D[] _colliders = new Collider2D[10];
         private readonly ContactFilter2D _contactFilter2D;
+        private readonly int _waveDifficulty;
 
         private bool IsInAttackRange
         {
@@ -33,12 +38,13 @@ namespace Core.Entities.Enemies
             }
         }
 
-        public BasicEnemy(EnemyData data)
+        public BasicEnemy(EnemyData data, int waveNumber)
         {
             _data = data;
             InitializeBrain(data);
             _contactFilter2D = new ContactFilter2D();
             _contactFilter2D.SetLayerMask(data.AttacksData.AttackLayerMask);
+            _waveDifficulty = waveNumber+1;
         }
 
         public override void Update()
@@ -46,7 +52,7 @@ namespace Core.Entities.Enemies
             if (!Brain.HealthSystem.IsDead)
             {
                 _inputFightingInputProvider.CalculateAttackInput(IsInAttackRange);
-                _inputMoveProvider.CalculateHorizontalInput(IsInAttackRange);
+                _inputMoveProvider.CalculateHorizontalInput(Brain.Attacker.IsAttacking);
             }
 
             Brain.Update();
@@ -59,9 +65,11 @@ namespace Core.Entities.Enemies
 
         private void InitializeBrain(EnemyData data)
         {
+            var transform = data.DirectionalMover.transform;
             _inputMoveProvider = new EnemyMovementInput(data.Player,
-                data.DirectionalMover.transform);
-            _inputFightingInputProvider = new EnemyInputFightingProvider();
+                transform);
+            _inputFightingInputProvider = new EnemyInputFightingProvider(data.MinAttackRange
+                , data.Player, transform);
 
             var animationController = new PlayerAnimationController(data.AnimationStateManager, data.SpriteFlipper);
 
@@ -70,7 +78,27 @@ namespace Core.Entities.Enemies
                 data.DirectionalMover, animationController, data.StatsStorage, data.AttackColliders);
 
             data.DamageReceiver.Initialize(Brain.HealthSystem.TakeDamage);
+            data.DamageReceiver.Initialize(data.DirectionalMover.Knockback);
+            
             Brain.HealthSystem.OnDead += TurnToDeadState;
+
+            if (data.HitVisualisation.IsEnabled)
+            {
+                var collider = data.DirectionalMover.GetComponent<BoxCollider2D>();
+                var bounds = new Bounds(collider.offset, collider.size);
+            
+                DamageVisuals damageVisuals = new DamageVisuals(
+                    data.DirectionalMover.transform,
+                    bounds, 
+                    new DamageVisuals.DamageVisualsData()
+                    {
+                        BloodColor = data.HitVisualisation.BloodColor
+                    }
+                );
+                
+                data.DamageReceiver.Initialize(damageVisuals.TriggerEffect);
+                Brain.HealthSystem.OnDead += (_, _) => damageVisuals.Return();
+            }
         }
 
         private void TurnToDeadState(object sender, EventArgs e)
@@ -82,12 +110,13 @@ namespace Core.Entities.Enemies
 
             foreach (var collider in _data.Colliders)
             {
-                var rigidbody2D = collider.gameObject.GetComponent<Rigidbody2D>(); // TODO: refactor
+                var rigidbody2D = collider.gameObject.GetComponent<Rigidbody2D>();
                 rigidbody2D.bodyType = RigidbodyType2D.Static;
                 collider.enabled = false;
             }
 
             _data.DamageReceiver.enabled = false;
+            GlobalSceneManager.Instance.DropGenerator.DropRandomItemWithChance((ItemRarity)_waveDifficulty, 1.0f/(_waveDifficulty+2));
         }
     }
 }

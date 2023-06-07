@@ -30836,6 +30836,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3564026850829729314, guid: 4da9b9761848a1848868ed8a0c18f051, type: 3}
   m_PrefabInstance: {fileID: 390367580}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1648117136
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1648117137}
+  m_Layer: 0
+  m_Name: ParticleEffects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1648117137
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648117136}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5148183065664167205}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1651585046
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32290,6 +32321,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WinScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 343716085219706054, guid: daa45b3725afa5747bc131f69d67583c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6119846503668261018, guid: daa45b3725afa5747bc131f69d67583c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -33164,10 +33199,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: c99f6b369ddd6634dadc2ee606543e2a, type: 3}
     - target: {fileID: 4428330507813464575, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
-      propertyPath: dayDuration
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4428330507813464575, guid: f29b528c5e6aa284cb8c657163960ae3, type: 3}
       propertyPath: nightSounds
       value: 
       objectReference: {fileID: 8300000, guid: 6cf919713d32bca48ac4984f809f94df, type: 3}
@@ -33547,6 +33578,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 809800264}
     - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
+      propertyPath: particleEffectsPoller
+      value: 
+      objectReference: {fileID: 1648117136}
+    - target: {fileID: 3047133426348963247, guid: bab5477dd90a7674fa1dede9603dad3b, type: 3}
       propertyPath: deathSpawnPoints.Array.data[0]
       value: 
       objectReference: {fileID: 3862780948363677389}
@@ -33741,6 +33776,7 @@ Transform:
   - {fileID: 1935371566}
   - {fileID: 778958234}
   - {fileID: 1936951520}
+  - {fileID: 1648117137}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -33752,9 +33788,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1875727268704891308, guid: abe01b41537af5840ba84635d2685942, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2186120857050546673, guid: abe01b41537af5840ba84635d2685942, type: 3}
       propertyPath: m_Name
       value: ForestEnviroment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098336894658355804, guid: abe01b41537af5840ba84635d2685942, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098336894658355804, guid: abe01b41537af5840ba84635d2685942, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[4]
+      value: 2113512667
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098336894658355804, guid: abe01b41537af5840ba84635d2685942, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[5]
+      value: -1207783115
       objectReference: {fileID: 0}
     - target: {fileID: 8276773030081875791, guid: abe01b41537af5840ba84635d2685942, type: 3}
       propertyPath: m_RootOrder

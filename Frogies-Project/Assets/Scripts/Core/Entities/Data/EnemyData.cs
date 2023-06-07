@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Animation;
 using Fighting;
@@ -23,5 +23,6 @@ namespace Core.Entities.Data
         [field: SerializeField] public List<Collider2D> Colliders { get; private set; }
         [field: SerializeField] public Renderer Renderer { get; private set; }
         [field: SerializeField] public float MinAttackRange { get; private set; }
+        [field: SerializeField] public HitVisualisationData HitVisualisation { get; private set; }
     }
 }

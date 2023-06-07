@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62fe7df170c04eee96cdc1e630e19311, type: 3}
   m_Name: GoblinMovementData
   m_EditorClassIdentifier: 
-  acceleration: 20
   moveClamp: 6
   deAcceleration: 40
   fallClamp: -25
-  jumpVelocity: 12
+  amountOfEnduranceToJump: 5
+  amountOfEnduranceToRollOver: 10
+  rollOverMovingVelocity: 2
+  rollOverStayingVelocity: 100
+  dashDuration: 0.2

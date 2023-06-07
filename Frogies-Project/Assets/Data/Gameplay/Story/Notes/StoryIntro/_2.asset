@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: _2
   m_EditorClassIdentifier: 
   line:
-    line: Among them, you, a renowned knight, the embodiment of valour, set out on
-      a seemingly mundane task. You venture into the thick woods, leaving his comrades
-      behind, in search of nothing more than a few sticks to stoke the campfire's
+    line: 'Among them, you, a renowned knight, the embodiment of valour, set out
+      on a seemingly mundane task. You venture into the thick woods, leaving his
+      comrades behind, in search of nothing more than a few sticks to stoke the campfire''s
       flickering flames.
+
+
+      Tap to continue...'
   nextNode: {fileID: 11400000, guid: b6e63cfbb5099924eb3c82c3c7fef4cc, type: 2}
   switchActor: 0

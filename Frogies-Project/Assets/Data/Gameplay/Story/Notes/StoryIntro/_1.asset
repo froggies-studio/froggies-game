@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: _1
   m_EditorClassIdentifier: 
   line:
-    line: In a kingdom shrouded in mystery and protected by valiant knights, a tale
+    line: 'In a kingdom shrouded in mystery and protected by valiant knights, a tale
       unfolds. Our story begins within the heart of a vast forest, where a camp of
       noble warriors stands as a bastion of safety. These brave knights have sworn
       an oath to shield their realm from the lurking darkness that envelops the land.
+
+
+      Tap
+      to continue...'
   nextNode: {fileID: 11400000, guid: 04d1229e9a4ee5b4c9f98e9c8efd3db6, type: 2}
   switchActor: 0

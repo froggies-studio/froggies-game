@@ -44,7 +44,7 @@ namespace Animation
 
                 var parallaxPosition = GlobalSceneManager.Instance.GlobalCamera.RoundToPixel(new Vector2(
                     bgPos.x + delta.x * parallaxFactor,
-                    bgPos.y + delta.y * parallaxFactor));
+                    bgPos.y + delta.y * parallaxFactor * yFactor));
                 parallaxBg[i].position = new Vector3(parallaxPosition.x, parallaxPosition.y, _startPositions[i].z);
             }
 

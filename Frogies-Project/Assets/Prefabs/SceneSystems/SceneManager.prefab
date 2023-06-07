@@ -79,3 +79,5 @@ MonoBehaviour:
   storyTriggerManager: {fileID: 0}
   playerActor: {fileID: 0}
   deathPanel: {fileID: 0}
+  winPanel: {fileID: 0}
+  sceneLoader: {fileID: 0}

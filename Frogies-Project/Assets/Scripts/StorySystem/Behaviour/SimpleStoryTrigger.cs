@@ -1,6 +1,8 @@
 using Animation;
+using JetBrains.Annotations;
 using StorySystem.Data;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace StorySystem.Behaviour
 {
@@ -8,11 +10,12 @@ namespace StorySystem.Behaviour
     {
         [SerializeField] private StoryActor actor;
         [SerializeField] private bool autoTrigger;
-        private StoryNode _startNode;
+        [SerializeField] [CanBeNull] private StoryNode startNode;
+        
         private PlayerActor _playerActor;
         private StoryDirector _director;
-        [SerializeField] private bool _isInitialized;
-        [SerializeField] private bool _isTriggered;
+        private bool _isInitialized;
+        private bool _isTriggered;
 
         public void InitTrigger(StoryDirector director, PlayerActor playerActor)
         {
@@ -35,12 +38,12 @@ namespace StorySystem.Behaviour
             }
             
             _isTriggered = true;
-            _director.StartStory(_startNode, actor, _playerActor, _playerActor);
+            _director.StartStory(startNode, actor, _playerActor, _playerActor);
         }
 
         public void SpawnActor(PlayerActor playerActor, StoryDirector storyDirector, StoryNode startNode)
         {
-            _startNode = startNode;
+            this.startNode = startNode;
             InitTrigger(storyDirector, playerActor);
         }
     }

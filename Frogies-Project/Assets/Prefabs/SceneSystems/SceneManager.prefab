@@ -52,6 +52,7 @@ MonoBehaviour:
   potionSystem: {fileID: 0}
   inventory: {fileID: 0}
   dayTimer: {fileID: 0}
+  playerSpawner: {fileID: 0}
   playerData:
     <HealthBar>k__BackingField: {fileID: 0}
     <EnduranceControlBar>k__BackingField: {fileID: 0}
@@ -76,8 +77,15 @@ MonoBehaviour:
     - {fileID: 5634132030223560505, guid: 5d809c2ff7f0bc94da6dbde204ccdef9, type: 3}
     - {fileID: 5634132030223560505, guid: 62948deff1c5ea743a155d2dfdc4c6ee, type: 3}
     <WaveBar>k__BackingField: {fileID: 0}
+  deathSpawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  deathSpawnPointsLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
   storyTriggerManager: {fileID: 0}
   playerActor: {fileID: 0}
+  _actorSpawner: {fileID: 0}
+  _deathActorSpawnerDataComponent: {fileID: 0}
   deathPanel: {fileID: 0}
   winPanel: {fileID: 0}
-  sceneLoader: {fileID: 0}

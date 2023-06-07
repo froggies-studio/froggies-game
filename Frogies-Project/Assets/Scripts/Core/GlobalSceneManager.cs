@@ -50,9 +50,12 @@ namespace Core
         [SerializeField] private PlayerData playerData;
         [SerializeField] private WaveData waveData;
 
+        [SerializeField] private Transform[] deathSpawnPoints;
+        [SerializeField] private LayerMask deathSpawnPointsLayerMask;
+        
         [Header("Story")] [SerializeField] private StoryTriggerManager storyTriggerManager;
         [SerializeField] private PlayerActor playerActor;
-        [SerializeField] private ActorSpawner _actorSpawner;
+        [SerializeField] [CanBeNull] private ActorSpawner _actorSpawner;
         [SerializeField] private ActorSpawnerDataComponent _deathActorSpawnerDataComponent;
         [Space(10)] [SerializeField] [CanBeNull] private GameObject deathPanel;
         [Space(10)] [SerializeField] [CanBeNull] private GameObject winPanel;
@@ -152,8 +155,11 @@ namespace Core
 
         private void InitializeDayTimer()
         {
-            dayTimer.OnDayEnd += ()=> _actorSpawner.SpawnActor((PlayerTransform.position+new Vector3(1, 0)));
-            _actorSpawner.onActorDialogFinished += potionSystem.OpenPotionMenu;
+            if (_actorSpawner != null)
+            {
+                dayTimer.OnDayEnd += ()=> _actorSpawner.SpawnActor((PlayerTransform.position+new Vector3(1, 0)));
+                _actorSpawner.onActorDialogFinished += potionSystem.OpenPotionMenu;
+            }
             _waveController.OnWaveCleared += dayTimer.ResetTimer;
             potionSystem.OnActive += dayTimer.ClearTimer;
         }
@@ -240,10 +246,15 @@ namespace Core
         {
             playerActor.Init();
             _storyDirector = new StoryDirector();
-            _actorSpawner.Init(_storyDirector, _deathActorSpawnerDataComponent);
             _storyDirector.StoryStarted += () => IsPaused = true;
             _storyDirector.StoryFinished += () => IsPaused = false;
-            _storyDirector.StoryFinished += _actorSpawner.HideActor;
+            
+            if (_actorSpawner != null)
+            {
+                _actorSpawner.Init(_storyDirector, _deathActorSpawnerDataComponent);
+                _storyDirector.StoryFinished += _actorSpawner.HideActor;
+            }
+
             storyTriggerManager.InitTriggers(playerActor, _storyDirector);
         }
 

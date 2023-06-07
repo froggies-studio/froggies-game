@@ -25,15 +25,17 @@ namespace Movement
             };
         }
 
-        public void CalculateHorizontalInput(bool inAttackRange)
+        public void CalculateHorizontalInput(bool attackPerformed)
         {
             Input = new MovementInput
             {
                 JumpDown = false,
                 JumpUp = false,
-                X = inAttackRange 
+                X = attackPerformed 
                     ? 0 
-                    : Mathf.Clamp(_playerTransform.position.x - _enemyTransform.position.x, -1f, 1f)
+                    : Mathf.Clamp(_playerTransform.position.x - _enemyTransform.position.x,
+                        Random.Range(-1f, 0f),
+                        Random.Range(0f, 1f))
             };
         }
     }

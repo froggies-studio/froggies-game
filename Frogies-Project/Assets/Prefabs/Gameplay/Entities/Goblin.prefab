@@ -327,6 +327,7 @@ MonoBehaviour:
     <Colliders>k__BackingField:
     - {fileID: 1237643441137552330}
     <Renderer>k__BackingField: {fileID: 3436147264433644339}
+    <MinAttackRange>k__BackingField: 0.5
 --- !u!1 &7360140511703333957
 GameObject:
   m_ObjectHideFlags: 0

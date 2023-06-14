@@ -110,7 +110,7 @@ namespace Core
         public event Action OnPauseFinished;
 
         public HashSet<BasicEntity> Entities { get; private set; }
-        public Player Player { get; private set; }
+        public PlayerBasicEntity PlayerBasicEntity { get; private set; }
 
         private void Awake()
         {
@@ -145,7 +145,7 @@ namespace Core
             
             Entities = new HashSet<BasicEntity>();
             var player = InitializePlayer(playerData);
-            Player = (Player)player;
+            PlayerBasicEntity = (PlayerBasicEntity)player;
             Entities.Add(player);
 
             var descriptors = itemsStorage.ItemScriptables.Select(scriptable => scriptable.ItemDescriptor).ToList();
@@ -208,7 +208,7 @@ namespace Core
                 playerAnimation, statsStorage, entityData.AttackColliders);
             entityData.HealthBar.Setup(entityBrain.StatsController);
             entityData.EnduranceControlBar.Setup(entityBrain.StatsController);
-            var player = new Entities.Player.Player();
+            var player = new Entities.Player.PlayerBasicEntity();
             player.Initialize(entityBrain);
 
             entityData.DamageReceiver.Initialize(entityBrain.HealthSystem.TakeDamage);
@@ -277,8 +277,8 @@ namespace Core
         {
             yield return new WaitForSeconds(2f);
 
-            Player.Brain.HealthSystem.OnDead -= OnHealthSystemOnOnDead;
-            Player.Brain.HealthSystem.TakeDamage
+            PlayerBasicEntity.Brain.HealthSystem.OnDead -= OnHealthSystemOnOnDead;
+            PlayerBasicEntity.Brain.HealthSystem.TakeDamage
                 (new DamageInfo(float.MaxValue,
                     new KnockbackInfo(0)));
         }

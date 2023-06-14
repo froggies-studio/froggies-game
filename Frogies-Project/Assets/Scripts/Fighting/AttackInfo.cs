@@ -13,6 +13,7 @@ namespace Fighting
         public int receiverKnockbackAmount;
         public float rechargeTime;
         public float enduranceCost;
+        public float animationDuration;
 
         public bool Equals(AttackInfo other)
         {

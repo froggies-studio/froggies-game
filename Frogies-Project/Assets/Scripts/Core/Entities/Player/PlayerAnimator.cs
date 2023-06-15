@@ -94,8 +94,20 @@ namespace Core.Entities.Player
             if (_playerController.IsDead) return PlayerDeath;
 
             if (Time.time < _lockedTill) return _currentState;
-            
-            if (_playerController.Velocity.x != 0f)
+
+            if (!_playerController.IsGrounded)
+            {
+                if (_playerController.Velocity.y <= 0f)
+                {
+                    return PlayerFall;
+                }
+                else
+                {
+                    return PlayerJump;
+                }
+            }
+
+            if (_playerController.IsMoving)
             {
                 return PlayerRun;
             }
@@ -108,7 +120,5 @@ namespace Core.Entities.Player
                 return s;
             }
         }
-        
-        
     }
 }

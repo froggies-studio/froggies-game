@@ -271,6 +271,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasicGrid
       objectReference: {fileID: 0}
+    - target: {fileID: 8836473355527686657, guid: bf65fc6456d499a42b73766093ad2c69, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -343,7 +347,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 3
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -357,7 +361,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &1567123832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -381,7 +385,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1642868669}
   - component: {fileID: 1642868670}
-  m_Layer: 0
+  - component: {fileID: 1642868671}
+  m_Layer: 3
   m_Name: PlayerU
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -396,7 +401,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1642868668}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.74, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -416,7 +421,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7323a0a533bb4d95ae2d8ea5c2a9403c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAnimator: {fileID: 0}
+  directionalMover: {fileID: 1642868671}
+  statsStorage: {fileID: 11400000, guid: 2d38fb8f865369b44a30beb250ce2645, type: 2}
+  movementData: {fileID: 11400000, guid: da9fee57bf0761646bb6496791f4208d, type: 2}
+  isGrounded: 0
+--- !u!114 &1642868671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642868668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2991ff244094e9581bb569057267190, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  _detectorCount: 3
+  _detectionRayLength: 0.22
+  _rayBuffer: 0.1
+  debugGroundChecks: 1
+  _coyoteTimeThreshold: 0.1
+  _jumpBuffer: 0.1
+  _rollOverBuffer: 0.1
+  _jumpEndEarlyGravityMultiplier: 0.45
+  rigidbody: {fileID: 1567123831}
+  collider: {fileID: 1567123827}
+  isDashing: 0
 --- !u!1001 &1783755256
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -77,6 +77,8 @@ namespace Movement
     
         private IEnumerable<Vector2> EvaluateRayPositions(Vector2 start, Vector2 end)
         {
+            // start += new Vector2(transform.position.x, transform.position.y);
+            // end += new Vector2(transform.position.x, transform.position.y);
             for (var i = 0; i < _detectorCount; i++)
             {
                 var t = (float) i / (_detectorCount - 1);
@@ -130,10 +132,10 @@ namespace Movement
         public void CalculateJump(
             MovementInput input, MovementData data, EnduranceSystem enduranceSystem, StatsController statsController)
         {
-            if (!enduranceSystem.CheckEnduranceAbility(data.AmountOfEnduranceToJump))
-            {
-                return;
-            }
+            // if (!enduranceSystem.CheckEnduranceAbility(data.AmountOfEnduranceToJump))
+            // {
+            //     return;
+            // }
             float currentVerticalSpeed = rigidbody.velocity.y;
             
             if (currentVerticalSpeed < data.FallClamp) 
@@ -173,10 +175,10 @@ namespace Movement
             {
                 _lastRollOverPressed = Time.time;
             }
-            if (!enduranceSystem.CheckEnduranceAbility(data.AmountOfEnduranceToRollOver) || !HasBufferedRollOver)
-            {
-                return;
-            }
+            // if (!enduranceSystem.CheckEnduranceAbility(data.AmountOfEnduranceToRollOver) || !HasBufferedRollOver)
+            // {
+            //     return;
+            // }
 
             isDashing = true;
             if (input.RollOver)
